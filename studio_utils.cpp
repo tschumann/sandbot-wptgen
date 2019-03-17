@@ -43,15 +43,16 @@ void StudioModel::UploadTexture(mstudiotexture_t *ptexture, byte *data, byte *pa
 	byte	*pix1, *pix2, *pix3, *pix4;
 	byte	*tex, *out;
    unsigned int texnum;
+   int outwidth, outheight;
 
 	// convert texture to power of 2
-	for (int outwidth = 1; outwidth < ptexture->width; outwidth <<= 1)
+	for (outwidth = 1; outwidth < ptexture->width; outwidth <<= 1)
 		;
 
 	if (outwidth > 256)
 		outwidth = 256;
 
-	for (int outheight = 1; outheight < ptexture->height; outheight <<= 1)
+	for (outheight = 1; outheight < ptexture->height; outheight <<= 1)
 		;
 
 	if (outheight > 256)
@@ -317,9 +318,10 @@ void StudioModel::GetSequenceInfo( float *pflFrameRate, float *pflGroundSpeed )
 float StudioModel::SetController( int iController, float flValue )
 {
 	mstudiobonecontroller_t	*pbonecontroller = (mstudiobonecontroller_t *)((byte *)m_pstudiohdr + m_pstudiohdr->bonecontrollerindex);
+	int i;
 
 	// find first controller that matches the index
-	for (int i = 0; i < m_pstudiohdr->numbonecontrollers; i++, pbonecontroller++)
+	for (i = 0; i < m_pstudiohdr->numbonecontrollers; i++, pbonecontroller++)
 	{
 		if (pbonecontroller->index == iController)
 			break;
