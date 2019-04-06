@@ -73,7 +73,7 @@ void Error (char *error, ...)
 
 #ifndef __linux
       printf("\nPress <ENTER> to exit\n");
-      gets(input);
+      gets_s(input);
 #endif
    }
 

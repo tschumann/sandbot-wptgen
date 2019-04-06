@@ -27,7 +27,6 @@
 #include <stdio.h>
 #include <stack>
 
-using namespace std;
 
 #include "config.h"
 #include "bspfile.h"
@@ -82,7 +81,7 @@ vec3_t forward, back, left, right, up, down;
 vec3_t down_to_ground, up_off_floor;
 
 // stacks for the floodfill recursion...
-stack <float> S0, S1, S2;
+std::stack <float> S0, S1, S2;
 
 
 void WaypointAdd(const vec3_t &origin, int flags, bool ignore_loc)

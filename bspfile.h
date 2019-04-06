@@ -19,6 +19,8 @@
 #ifndef BSPFILE_H
 #define BSPFILE_H
 
+#pragma warning(default:4005)
+
 
 // upper design bounds
 

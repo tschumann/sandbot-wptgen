@@ -25,10 +25,6 @@
 #define __CMDUTIL__
 
 typedef int qboolean;
-#undef true
-#undef false
-#define true 1
-#define false 0
 
 typedef unsigned char byte;
 
