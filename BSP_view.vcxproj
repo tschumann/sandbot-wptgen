@@ -131,22 +131,16 @@
   <ItemGroup>
     <ClCompile Include="bspfile.cpp" />
     <ClCompile Include="BSP_tool.cpp" />
-    <ClCompile Include="camera.cpp" />
     <ClCompile Include="cmdlib.cpp" />
     <ClCompile Include="config.cpp" />
     <ClCompile Include="entity.cpp" />
-    <ClCompile Include="font.cpp" />
-    <ClCompile Include="glwin.cpp" />
     <ClCompile Include="graphics.cpp" />
     <ClCompile Include="mathlib.cpp" />
     <ClCompile Include="paklib.cpp" />
     <ClCompile Include="print.cpp" />
-    <ClCompile Include="render.cpp" />
     <ClCompile Include="scriplib.cpp" />
-    <ClCompile Include="studio_render.cpp" />
     <ClCompile Include="studio_utils.cpp" />
     <ClCompile Include="sys_time.cpp" />
-    <ClCompile Include="texture.cpp" />
     <ClCompile Include="trace.cpp" />
     <ClCompile Include="vis.cpp" />
     <ClCompile Include="wadlib.cpp" />
@@ -155,24 +149,19 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bspfile.h" />
-    <ClInclude Include="camera.h" />
     <ClInclude Include="cmdlib.h" />
     <ClInclude Include="config.h" />
     <ClInclude Include="entity.h" />
     <ClInclude Include="fastmath.h" />
-    <ClInclude Include="font.h" />
-    <ClInclude Include="glwin.h" />
     <ClInclude Include="graphics.h" />
     <ClInclude Include="mathlib.h" />
     <ClInclude Include="matrix.h" />
     <ClInclude Include="paklib.h" />
     <ClInclude Include="print.h" />
-    <ClInclude Include="render.h" />
     <ClInclude Include="scriplib.h" />
     <ClInclude Include="studio.h" />
     <ClInclude Include="studio_model.h" />
     <ClInclude Include="sys_time.h" />
-    <ClInclude Include="texture.h" />
     <ClInclude Include="trace.h" />
     <ClInclude Include="vis.h" />
     <ClInclude Include="wadlib.h" />
