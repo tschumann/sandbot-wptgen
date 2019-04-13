@@ -73,8 +73,6 @@ void LoadEntVars(void)
 
          entvars[num_entvars].brush_model_index = 0;
 
-         entvars[num_entvars].studio_model = NULL;
-
          value = ValueForKey(&entities[ent_index], "origin");
          if (value[0])
          {

@@ -24,32 +24,13 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
-#ifndef PAKLIB_H
-#include "paklib.h"
-#endif
-
-#ifndef WADLIB_H
-#include "wadlib.h"
-#endif
-
-#ifndef __STUDIO_MODEL__
-#include "studio_model.h"
-#endif
-
 #ifndef CONFIG_H
 #define CONFIG_H
 
-
-typedef struct modconfig_s
-{
-   char        dir[256];
-   pakconfig_t *pPak;
-   wadconfig_t *pWad;
-} modconfig_t;
-
-
 #define MAX_MODS 100
 #define MAX_MODELS 200
+
+#include <windows.h>
 
 class Config
 {
@@ -85,12 +66,9 @@ class Config
    int num_models;
    char model_classname[MAX_MODELS][64];
    char model_filename[MAX_MODELS][64];
-   StudioModel *studio_model[MAX_MODELS];
 
-   modconfig_t mods[MAX_MODS];
    int num_mods;
    int bsp_mod_index;
-   int valve_mod_index;
 
    char szPath[MAX_PATH];         // path where the running application resides
 
@@ -98,14 +76,8 @@ class Config
    Config(char *config_file);
    ~Config(void);
 
-   void AddPakFile(int mod_index, char *pakfilename);
-   void AddWadFile(int mod_index, char *wadfilename);
-   void AddHalfLifeDir(char *halflife_dir);
    bool ParseScriptFile(void);
 };
-
-
-FILE *OpenMODFile(char *filename);
 
 #endif
 

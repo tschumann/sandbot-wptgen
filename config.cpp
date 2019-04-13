@@ -33,8 +33,6 @@
 
 #include "scriplib.h"
 #include "config.h"
-#include "paklib.h"
-#include "wadlib.h"
 
 extern Config config;
 
@@ -80,19 +78,10 @@ Config::Config(char *config_file)
    {
       model_classname[index][0] = 0;
       model_filename[index][0] = 0;
-      studio_model[index] = NULL;
-   }
-
-   for (index = 0; index < MAX_MODS; index++)
-   {
-      mods[index].dir[0] = 0;
-      mods[index].pPak = NULL;
-      mods[index].pWad = NULL;
    }
 
    num_mods = 0;
    bsp_mod_index = -1;
-   valve_mod_index = -1;
 
    _getcwd(szPath, MAX_PATH);
 #ifdef WIN32
@@ -107,44 +96,11 @@ Config::Config(char *config_file)
    LoadScriptFile(config_filename);
 
    ParseScriptFile();
-
-   if (valve_mod_index == -1)
-      Error("Can't find Half-Life\\valve directory!\n");
 }
 
 
 Config::~Config(void)
 {
-   int index;
-   pakconfig_t *pPakConfig;
-   wadconfig_t *pWadConfig;
-
-   for (index = 0; index < num_models; index++)
-   {
-      if (studio_model[index])
-         delete studio_model[index];
-   }
-
-   for (index = 0; index < MAX_MODS; index++)
-   {
-      while (mods[index].pPak)  // free the PAK config linked list
-      {
-         pPakConfig = mods[index].pPak;
-         free(mods[index].pPak->pakinfo);       // free the pakinfo data
-         fclose(mods[index].pPak->pakhandle);   // close the file
-         mods[index].pPak = mods[index].pPak->next_config;
-         free(pPakConfig);          // free the pak config structure
-      }
-
-      while (mods[index].pWad)  // free the WAD config linked list
-      {
-         pWadConfig = mods[index].pWad;
-         free(mods[index].pWad->lumpinfo);      // free the lumpinfo data
-         fclose(mods[index].pWad->wadhandle);   // close the file
-         mods[index].pWad = mods[index].pWad->next_config;
-         free(pWadConfig);          // free the wad config structure
-      }
-   }
 }
 
 
@@ -226,153 +182,6 @@ HANDLE FindFile(HANDLE hFile, CHAR *file, CHAR *filename)
    
    return hFile;
 }
-
-
-void Config::AddPakFile(int mod_index, char *pakfilename)
-{
-   FILE        *pakhandle;
-   pakheader_t  pakheader;
-   pakconfig_t *pPakConfig;
-   int num_entries;
-   int size;
-
-   pakhandle = P_OpenPak(pakfilename);
-
-   if (!P_ReadPakHeader(pakhandle, &pakheader))
-   {
-      fclose(pakhandle);
-      return;
-   }
-
-   num_entries = pakheader.dir_length / sizeof(pakinfo_t);
-
-   size = num_entries * sizeof(pakinfo_t);
-
-   if (pakheader.dir_length != size)
-      return;  // dir_length NOT even multiple of pakinfo size
-
-   pPakConfig = (pakconfig_t *)malloc(sizeof(pakconfig_t));
-
-   pPakConfig->next_config = mods[mod_index].pPak;
-   mods[mod_index].pPak = pPakConfig;
-
-   pPakConfig->pakhandle = pakhandle;
-   pPakConfig->pakheader = pakheader;
-
-   pPakConfig->pakinfo = (pakinfo_t *)malloc(pakheader.dir_length);
-
-   pPakConfig->num_entries = num_entries;
-
-   P_ReadPakInfo(pakhandle, pakheader.dir_offset, num_entries, pPakConfig->pakinfo);
-}
-
-
-void Config::AddWadFile(int mod_index, char *wadfilename)
-{
-   FILE        *wadhandle;
-   wadinfo_t    wadinfo;
-   wadconfig_t *pWadConfig;
-   int size;
-
-   wadhandle = W_OpenWad(wadfilename);
-
-   if (!W_ReadWadHeader(wadhandle, &wadinfo))
-   {
-      fclose(wadhandle);
-      return;
-   }
-
-   pWadConfig = (wadconfig_t *)malloc(sizeof(wadconfig_t));
-
-   pWadConfig->next_config = mods[mod_index].pWad;
-   mods[mod_index].pWad = pWadConfig;
-
-   pWadConfig->wadhandle = wadhandle;
-   pWadConfig->wadinfo = wadinfo;
-
-   size = wadinfo.numlumps * sizeof(lumpinfo_t);
-   pWadConfig->lumpinfo = (lumpinfo_t *)malloc(size);
-
-   pWadConfig->num_lumps = wadinfo.numlumps;
-
-   W_ReadWadLumps(wadhandle, wadinfo.infotableofs, wadinfo.numlumps, pWadConfig->lumpinfo);
-}
-
-
-void Config::AddHalfLifeDir(char *halflife_dir)
-{
-#ifdef WIN32
-   HANDLE hDir;
-   HANDLE hFile;
-#endif
-   char dirspec[256];
-   char dirname[256];
-   char filespec[256];
-   char filename[256];
-   char pakfilename[256];
-
-   strcpy(dirspec, halflife_dir);
-#ifndef __linux__
-   strcat(dirspec, "\\*");
-#else
-   strcat(dirspec, "/*");  //??? Linux dir wildcard
-#endif
-
-   hDir = NULL;
-
-   while ((hDir = FindDirectory(hDir, dirname, dirspec)) != NULL)
-   {
-      if ((strcmp(dirname, ".") == 0) || (strcmp(dirname, "..") == 0))
-         continue;
-
-      strcpy(filename, halflife_dir);
-#ifndef __linux__
-      strcat(filename, "\\");
-      strcat(filename, dirname);
-      strcat(filename, "\\liblist.gam");
-#else
-      strcat(filename, "/");
-      strcat(filename, dirname);
-      strcat(filename, "/liblist.gam");
-#endif
-
-      // is this a MOD directory? (i.e. does "liblist.gam" exist?)...
-      if (FileTime(filename) != -1)
-      {
-         if (stricmp(dirname, "valve") == 0)
-            valve_mod_index = num_mods;
-
-         strcpy(mods[num_mods].dir, halflife_dir);
-#ifndef __linux__
-         strcat(mods[num_mods].dir, "\\");
-         strcat(mods[num_mods].dir, dirname);
-         strcat(mods[num_mods].dir, "\\");
-#else
-         strcat(mods[num_mods].dir, "/");
-         strcat(mods[num_mods].dir, dirname);
-         strcat(mods[num_mods].dir, "/");
-#endif
-
-         // search for PAK files...
-         hFile = NULL;
-         strcpy(filespec, mods[num_mods].dir);
-         strcat(filespec, "*.pak");
-
-         while ((hFile = FindFile(hFile, filename, filespec)) != NULL)
-         {
-            strcpy(pakfilename, mods[num_mods].dir);
-            strcat(pakfilename, filename);
-            AddPakFile(num_mods, pakfilename);
-         }
-
-         num_mods++;
-
-         if (num_mods == MAX_MODS)
-            Error("You have WAY too many MODs!");
-      }
-   }
-}
-
 
 bool Config::ParseScriptFile(void)
 {
@@ -507,16 +316,6 @@ bool Config::ParseScriptFile(void)
          GetToken(false);
          sscanf(token, "%s", spawnpoint);
       }
-      else if (strcmp(token, "$halflife_dir") == 0)
-      {
-         GetToken(false);
-
-         if (FileTime(token) == -1)
-            Error("Half-Life directory %s doen't exist\nPlease edit the .cfg file to match your installation\n", token);
-
-         strcpy(halflife_dir, token);
-         AddHalfLifeDir(token);
-      }
       else if (strcmp(token, "$models") == 0)
       {
          GetToken(true);
@@ -550,62 +349,4 @@ bool Config::ParseScriptFile(void)
       else
          Error("Unknown Config file option: %s\n", token);
    }
-}
-
-
-// open a file by searching MOD directories first, then PAK files...
-FILE *OpenMODFile(char *filename)
-{
-   FILE *fp;
-   char filepath[256];
-   int mod_index;
-
-   // is the MOD directory known from the BSP file?
-   if (config.bsp_mod_index >= 0)
-   {
-      strcpy(filepath, config.mods[config.bsp_mod_index].dir);
-      strcat(filepath, filename);
-
-      if (FileTime(filepath) != -1)  // does this wad file exist?
-      {
-         if ((fp = fopen(filepath, "rb")) == NULL)
-            Error("Error opening file: %s\n", filepath);
-
-         return fp;
-      }
-   }
-
-   // use the valve directory by default...
-
-   strcpy(filepath, config.mods[config.valve_mod_index].dir);
-   strcat(filepath, filename);
-
-   if (FileTime(filepath) != -1)  // does this wad file exist?
-   {
-      if ((fp = fopen(filepath, "rb")) == NULL)
-         Error("Error opening file: %s\n", filepath);
-
-      return fp;
-   }
-
-   // if the MOD directory is known and not found so far, return error
-   if (config.bsp_mod_index >= 0)
-      return NULL;
-
-   // search ALL of the MOD directories for this wad file...
-   for (mod_index = 0; mod_index < config.num_mods; mod_index++)
-   {
-      strcpy(filepath, config.mods[mod_index].dir);
-      strcat(filepath, filename);
-
-      if (FileTime(filepath) != -1)  // does this wad file exist?
-      {
-         if ((fp = fopen(filepath, "rb")) == NULL)
-            Error("Error opening file: %s\n", filepath);
-
-         return fp;
-      }
-   }
-
-   return NULL;  // file not found!
 }

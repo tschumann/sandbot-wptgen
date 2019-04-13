@@ -134,16 +134,11 @@
     <ClCompile Include="cmdlib.cpp" />
     <ClCompile Include="config.cpp" />
     <ClCompile Include="entity.cpp" />
-    <ClCompile Include="graphics.cpp" />
     <ClCompile Include="mathlib.cpp" />
-    <ClCompile Include="paklib.cpp" />
     <ClCompile Include="print.cpp" />
     <ClCompile Include="scriplib.cpp" />
-    <ClCompile Include="studio_utils.cpp" />
-    <ClCompile Include="sys_time.cpp" />
     <ClCompile Include="trace.cpp" />
     <ClCompile Include="vis.cpp" />
-    <ClCompile Include="wadlib.cpp" />
     <ClCompile Include="waypoint.cpp" />
     <ClCompile Include="world.cpp" />
   </ItemGroup>
@@ -153,18 +148,13 @@
     <ClInclude Include="config.h" />
     <ClInclude Include="entity.h" />
     <ClInclude Include="fastmath.h" />
-    <ClInclude Include="graphics.h" />
     <ClInclude Include="mathlib.h" />
     <ClInclude Include="matrix.h" />
-    <ClInclude Include="paklib.h" />
     <ClInclude Include="print.h" />
     <ClInclude Include="scriplib.h" />
     <ClInclude Include="studio.h" />
-    <ClInclude Include="studio_model.h" />
-    <ClInclude Include="sys_time.h" />
     <ClInclude Include="trace.h" />
     <ClInclude Include="vis.h" />
-    <ClInclude Include="wadlib.h" />
     <ClInclude Include="waypoint.h" />
     <ClInclude Include="world.h" />
   </ItemGroup>

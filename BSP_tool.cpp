@@ -114,6 +114,8 @@ void main (int argc, char **argv)
          strcpy(filename, argv[n]);
    }
 
+   printf("%s\n", filename);
+
    world.LoadBSP(filename);
 
    if (do_sizes)
