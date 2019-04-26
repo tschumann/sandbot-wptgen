@@ -135,10 +135,8 @@
     <ClCompile Include="config.cpp" />
     <ClCompile Include="entity.cpp" />
     <ClCompile Include="mathlib.cpp" />
-    <ClCompile Include="print.cpp" />
     <ClCompile Include="scriplib.cpp" />
     <ClCompile Include="trace.cpp" />
-    <ClCompile Include="vis.cpp" />
     <ClCompile Include="waypoint.cpp" />
     <ClCompile Include="world.cpp" />
   </ItemGroup>
@@ -150,11 +148,9 @@
     <ClInclude Include="fastmath.h" />
     <ClInclude Include="mathlib.h" />
     <ClInclude Include="matrix.h" />
-    <ClInclude Include="print.h" />
     <ClInclude Include="scriplib.h" />
     <ClInclude Include="studio.h" />
     <ClInclude Include="trace.h" />
-    <ClInclude Include="vis.h" />
     <ClInclude Include="waypoint.h" />
     <ClInclude Include="world.h" />
   </ItemGroup>

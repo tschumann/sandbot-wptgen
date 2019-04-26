@@ -36,9 +36,6 @@
     <ClCompile Include="trace.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="vis.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="world.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -46,9 +43,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="BSP_tool.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="print.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -83,16 +77,10 @@
     <ClInclude Include="trace.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="vis.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="world.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="waypoint.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="print.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
