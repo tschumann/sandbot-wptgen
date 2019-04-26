@@ -130,7 +130,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="bspfile.cpp" />
-    <ClCompile Include="BSP_tool.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="cmdlib.cpp" />
     <ClCompile Include="config.cpp" />
     <ClCompile Include="entity.cpp" />
@@ -149,7 +149,6 @@
     <ClInclude Include="mathlib.h" />
     <ClInclude Include="matrix.h" />
     <ClInclude Include="scriplib.h" />
-    <ClInclude Include="studio.h" />
     <ClInclude Include="trace.h" />
     <ClInclude Include="waypoint.h" />
     <ClInclude Include="world.h" />
