@@ -5,7 +5,7 @@ Fork of bsp_tools by Jeffrey 'botman' Broome.
 
 Usage
 =====
-bsp_view -wN mapname.bsp
+sandbot-wptgen -wN mapname.bsp
 
 License
 =======
