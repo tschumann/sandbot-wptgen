@@ -153,6 +153,7 @@
     <ClInclude Include="trace.h" />
     <ClInclude Include="waypoint.h" />
     <ClInclude Include="world.h" />
+    <ClInclude Include="wpt.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

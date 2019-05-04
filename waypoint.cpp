@@ -33,6 +33,7 @@
 #include "entity.h"
 #include "trace.h"
 #include "mathlib.h"
+#include "wpt.h"
 #include "waypoint.h"
 #include "world.h"
 
@@ -55,18 +56,12 @@ unsigned char *waypoint_loc;
 
 int location_count;
 
-WAYPOINT waypoints[MAX_WAYPOINTS];
+waypoint_t waypoints[MAX_WAYPOINTS];
 int num_waypoints;
 
 bool overflow;  // flag to indicate too many waypoints
 
-typedef struct path_s {
-   short int  waypoint_index;  // HPB bot uses short int for waypoint index in paths
-   path_s    *next;
-} path_t;
-
 path_t **paths;  // pointer to array of paths (one linked list per waypoint)
-
 
 vec3_t level_min, level_max;  // min and max coordinates of map
 
@@ -1019,7 +1014,11 @@ void CalculateWaypointPaths()
             return;
          }
 
-         p_new->waypoint_index = index2;
+		 // TODO: sort out the multiple index entries
+         p_new->index[0] = index2;
+		 p_new->index[1] = -1;
+		 p_new->index[2] = -1;
+		 p_new->index[3] = -1;
          p_new->next = p;
          p = p_new;
       }
@@ -1171,89 +1170,96 @@ void WaypointLevel(int map_grid_size)
 
 void WriteHPBWaypointFile(void)
 {
-   int index;
-   WAYPOINT_HDR header;
-   char filename[64];
-   path_t *p, *p_next;
+	int index;
+	WAYPOINT_HDR header;
+	char filename[64];
+	path_t *p, *p_next;
 
-   strcpy(header.filetype, "HPB_bot");
+	strcpy(header.filetype, WAYPOINT_HEADER);
 
-   header.waypoint_file_version = WAYPOINT_VERSION;
+	header.waypoint_file_version = WAYPOINT_VERSION;
 
-   header.waypoint_file_flags = 0;  // not currently used
+	header.waypoint_file_flags = 0;  // not currently used
 
-   header.number_of_waypoints = num_waypoints;
+	header.number_of_waypoints = num_waypoints;
 
-   ExtractFileBase (world.bspname, filename);
-   StripExtension(filename);
+	ExtractFileBase (world.bspname, filename);
+	StripExtension(filename);
 
-   memset(header.mapname, 0, sizeof(header.mapname));
-   strncpy(header.mapname, filename, 31);
-   header.mapname[31] = 0;
+	memset(header.mapname, 0, sizeof(header.mapname));
+	strncpy(header.mapname, filename, 31);
+	header.mapname[31] = 0;
 
-   DefaultExtension(filename, ".HPB_wpt");
+	DefaultExtension(filename, ".wpt");
 
-   printf("Creating waypoint file %s...\n", filename);
+	printf("Creating waypoint file %s...\n", filename);
 
-   FILE *bfp = fopen(filename, "wb");
+	FILE *bfp = fopen(filename, "wb");
 
-   // write the waypoint header to the file...
-   fwrite(&header, sizeof(header), 1, bfp);
+	// write the waypoint header to the file...
+	fwrite(&header, sizeof(header), 1, bfp);
 
-   // write the waypoint information...
-   for (index = 0; index < num_waypoints; index++)
-   {
-      fwrite(&waypoints[index], sizeof(WAYPOINT), 1, bfp);
-   }
+	// write the waypoint information...
+	for (index = 0; index < num_waypoints; index++)
+	{
+		fwrite(&waypoints[index], sizeof(waypoint_t), 1, bfp);
+	}
 
-   if (paths)
-   {
-      short int count;  // HPB bot uses short int for path count
+	if (paths)
+	{
+		short int count;  // HPB bot uses short int for path count
 
-      for (index = 0; index < num_waypoints; index++)
-      {
-         // count the number of paths for this waypoint...
-         count = 0;
-         p = paths[index];
-         while (p)
-         {
-            p = p->next;
-            count++;
-         }
+		for (index = 0; index < num_waypoints; index++)
+		{
+			// count the number of paths for this waypoint...
+			count = 0;
+			p = paths[index];
+			while (p)
+			{
+				p = p->next;
+				count++;
+			}
 
-         // write out the count, then write out the paths...
-         fwrite(&count, sizeof(count), 1, bfp);
+			// write out the count, then write out the paths...
+			fwrite(&count, sizeof(count), 1, bfp);
 
-         p = paths[index];
-         while (p)
-         {
-            fwrite(&p->waypoint_index, sizeof(p->waypoint_index), 1, bfp);
-            p = p->next;
-         }
-      }
+			p = paths[index];
+			while (p)
+			{
+				int i = 0;
 
-      for (index = 0; index < num_waypoints; index++)
-      {
-         p = paths[index];
-         while (p)
-         {
-            p_next = p->next;
-            free(p);
-            p = p_next;
-         }
-      }
+				while (i < MAX_PATH_INDEX)
+				{
+					if (p->index[i] != -1)  // save path node if it's used
+						fwrite(&p->index[i], sizeof(p->index[0]), 1, bfp);
 
-      free(paths);
-      paths = NULL;
-   }
-   else
-   {
-      short int count = 0;
+					i++;
+				}
+			}
+		}
 
-      // write empty paths...
-      for (index = 0; index < num_waypoints; index++)
-         fwrite(&count, sizeof(count), 1, bfp);
-   }
+		for (index = 0; index < num_waypoints; index++)
+		{
+			p = paths[index];
+			while (p)
+			{
+				p_next = p->next;
+				free(p);
+				p = p_next;
+			}
+		}
+
+		free(paths);
+		paths = NULL;
+	}
+	else
+	{
+		short int count = 0;
+
+		// write empty paths...
+		for (index = 0; index < num_waypoints; index++)
+			fwrite(&count, sizeof(count), 1, bfp);
+	}
 
    fclose(bfp);
 }
