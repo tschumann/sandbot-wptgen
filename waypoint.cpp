@@ -27,6 +27,8 @@
 #include <stdio.h>
 #include <stack>
 
+// hack - should probably work out how to properly typedef it
+#define Vector vec3_t
 
 #include "config.h"
 #include "bspfile.h"

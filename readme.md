@@ -1,7 +1,9 @@
 
 sandbot-wptgen
 --------------
-Fork of bsp_tools by Jeffrey 'botman' Broome.
+Sandbot waypoint generator.
+
+Based off bsp_tools by Jeffrey 'botman' Broome.
 
 Usage
 =====

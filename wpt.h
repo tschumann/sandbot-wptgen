@@ -76,7 +76,7 @@ const int MAX_WAYPOINTS = 2048;
 // define the structure for waypoints
 typedef struct {
    uint64_t flags; // button, lift, flag, health, ammo, etc.
-   vec3_t origin; // location
+   Vector origin; // location
 #if __GNUC__
    uint32_t iPack; // because Visual Studio and gcc do layout slightly differently
 #endif
