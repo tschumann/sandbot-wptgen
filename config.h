@@ -27,56 +27,20 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#define MAX_MODS 100
-#define MAX_MODELS 200
-
 #include <windows.h>
 
 class Config
 {
-   public:
+public:
+	char bspname[64];
+	char spawnpoint[64];
 
-   int width;  // display width
-   int height;  // display height
-   int bits_per_pixel;
-   int refresh_rate;
-   bool enable_fullscreen;
+	char szPath[MAX_PATH];         // path where the running application resides
 
-   int x_pos, y_pos;  // X & Y position of upper left corner
+	Config(char *config_file);
+	~Config(void);
 
-   bool enable_lighting;
-   float brightness;
-   float gamma_adjust;
-
-   int movement_speed;
-   float mouse_sensitivity;
-
-   bool enable_inverted_mouse;
-   bool enable_noclip;
-
-   bool render_special_textures;
-   int  special_texture_transparency;
-
-   int show_edges;
-
-   char halflife_dir[64];
-   char bspname[64];
-   char spawnpoint[64];
-
-   int num_models;
-   char model_classname[MAX_MODELS][64];
-   char model_filename[MAX_MODELS][64];
-
-   int num_mods;
-   int bsp_mod_index;
-
-   char szPath[MAX_PATH];         // path where the running application resides
-
-
-   Config(char *config_file);
-   ~Config(void);
-
-   bool ParseScriptFile(void);
+	bool ParseScriptFile(void);
 };
 
 #endif

@@ -44,44 +44,8 @@ Config::Config(char *config_file)
 
    // set up configuration defaults...
 
-   width = 640;
-   height = 480;
-   bits_per_pixel = 16;
-   refresh_rate = 60;
-   enable_fullscreen = FALSE;
-
-   x_pos = -1;  // default is to center the display
-   y_pos = -1;
-
-   enable_lighting = TRUE;
-   brightness = 0.75;
-   gamma_adjust = 1.0;
-
-   movement_speed = 1;
-   mouse_sensitivity = 0.15f;
-
-   enable_inverted_mouse = FALSE;
-   enable_noclip = FALSE;
-
-   render_special_textures = FALSE;
-   special_texture_transparency = 80;  // about 30% translucent
-
-   show_edges = 0;
-
-   halflife_dir[0] = 0;
    bspname[0] = 0;
    spawnpoint[0] = 0;
-
-   num_models = 0;
-
-   for (index = 0; index < MAX_MODELS; index++)
-   {
-      model_classname[index][0] = 0;
-      model_filename[index][0] = 0;
-   }
-
-   num_mods = 0;
-   bsp_mod_index = -1;
 
    _getcwd(szPath, MAX_PATH);
 #ifdef WIN32
@@ -103,86 +67,6 @@ Config::~Config(void)
 {
 }
 
-
-HANDLE FindDirectory(HANDLE hFile, CHAR *dirname, CHAR *filename)
-{
-   WIN32_FIND_DATA pFindFileData;
-
-   dirname[0] = 0;
-
-   if (hFile == NULL)
-   {
-      hFile = FindFirstFile(filename, &pFindFileData);
-
-      if (hFile == INVALID_HANDLE_VALUE)
-         hFile = NULL;
-
-      while (!(pFindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
-      {
-         if (FindNextFile(hFile, &pFindFileData) == 0)
-         {
-            FindClose(hFile);
-            hFile = NULL;
-            return hFile;
-         }
-      }
-
-      strcpy(dirname, pFindFileData.cFileName);
-
-      return hFile;
-   }
-   else
-   {
-      if (FindNextFile(hFile, &pFindFileData) == 0)
-      {
-         FindClose(hFile);
-         hFile = NULL;
-         return hFile;
-      }
-
-      while (!(pFindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
-      {
-         if (FindNextFile(hFile, &pFindFileData) == 0)
-         {
-            FindClose(hFile);
-            hFile = NULL;
-            return hFile;
-         }
-      }
-
-      strcpy(dirname, pFindFileData.cFileName);
-
-      return hFile;
-   }
-}
-
-
-HANDLE FindFile(HANDLE hFile, CHAR *file, CHAR *filename)
-{
-   WIN32_FIND_DATA pFindFileData;
-
-   if (hFile == NULL)
-   {
-      hFile = FindFirstFile(filename, &pFindFileData);
-
-      if (hFile == INVALID_HANDLE_VALUE)
-         hFile = NULL;
-   }
-   else
-   {
-      if (FindNextFile(hFile, &pFindFileData) == 0)
-      {
-         FindClose(hFile);
-         hFile = NULL;
-      }
-   }
-
-   if (hFile != NULL)
-      strcpy(file, pFindFileData.cFileName);
-   
-   return hFile;
-}
-
 bool Config::ParseScriptFile(void)
 {
    while (1)
@@ -198,109 +82,7 @@ bool Config::ParseScriptFile(void)
             GetToken (false);
       } while (1);
 
-      if (strcmp(token, "$width") == 0)
-      {
-         GetToken(false);
-         sscanf(token, "%d", &width);
-      }
-      else if (strcmp(token, "$height") == 0)
-      {
-         GetToken(false);
-         sscanf(token, "%d", &height);
-      }
-      else if (strcmp(token, "$bpp") == 0)
-      {
-         GetToken(false);
-         sscanf(token, "%d", &bits_per_pixel);
-      }
-      else if (strcmp(token, "$hertz") == 0)
-      {
-         GetToken(false);
-         sscanf(token, "%d", &refresh_rate);
-      }
-      else if (strcmp(token, "$enable_fullscreen") == 0)
-      {
-         GetToken(false);
-         sscanf(token, "%d", &enable_fullscreen);
-      }
-      else if (strcmp(token, "$x_pos") == 0)
-      {
-         GetToken(false);
-         sscanf(token, "%d", &x_pos);
-      }
-      else if (strcmp(token, "$y_pos") == 0)
-      {
-         GetToken(false);
-         sscanf(token, "%d", &y_pos);
-      }
-      else if (strcmp(token, "$enable_lighting") == 0)
-      {
-         GetToken(false);
-         sscanf(token, "%d", &enable_lighting);
-      }
-      else if (strcmp(token, "$brightness") == 0)
-      {
-         GetToken(false);
-         sscanf(token, "%f", &brightness);
-         if ((brightness < 0.0) || (brightness > 1.0))
-            brightness = 0.75;
-      }
-      else if (strcmp(token, "$gamma_adjust") == 0)
-      {
-         GetToken(false);
-         sscanf(token, "%f", &gamma_adjust);
-         if ((gamma_adjust < 0.5) || (gamma_adjust > 2.0))
-            gamma_adjust = 1.0;
-      }
-      else if (strcmp(token, "$movement_speed") == 0)
-      {
-         GetToken(false);
-         sscanf(token, "%d", &movement_speed);
-         if (movement_speed < 1)
-            movement_speed = 1;
-         if (movement_speed > 5)
-            movement_speed = 5;
-      }
-      else if (strcmp(token, "$mouse_sensitivity") == 0)
-      {
-         GetToken(false);
-         sscanf(token, "%f", &mouse_sensitivity);
-         if (mouse_sensitivity < 0.0)
-            mouse_sensitivity = 0.15f;
-
-         if (mouse_sensitivity > 1.0)
-            mouse_sensitivity = 1.0;
-      }
-      else if (strcmp(token, "$enable_inverted_mouse") == 0)
-      {
-         GetToken(false);
-         sscanf(token, "%d", &enable_inverted_mouse);
-      }
-      else if (strcmp(token, "$enable_noclip") == 0)
-      {
-         GetToken(false);
-         sscanf(token, "%d", &enable_noclip);
-      }
-      else if (strcmp(token, "$render_special_textures") == 0)
-      {
-         GetToken(false);
-         sscanf(token, "%d", &render_special_textures);
-      }
-      else if (strcmp(token, "$special_texture_transparency") == 0)
-      {
-         GetToken(false);
-         sscanf(token, "%d", &special_texture_transparency);
-         if ((special_texture_transparency < 0) || (special_texture_transparency > 255))
-            special_texture_transparency = 80;  // about 30% translucent
-      }
-      else if (strcmp(token, "$show_edges") == 0)
-      {
-         GetToken(false);
-         sscanf(token, "%d", &show_edges);
-         if ((show_edges < 0) || (show_edges > 2))
-            show_edges = 0;
-      }
-      else if (strcmp(token, "$bspfile") == 0)
+      if (strcmp(token, "$bspfile") == 0)
       {
          if (bspname[0])
             Error("Duplicate $bspfile entry found in .cfg file!\n");
@@ -315,36 +97,6 @@ bool Config::ParseScriptFile(void)
 
          GetToken(false);
          sscanf(token, "%s", spawnpoint);
-      }
-      else if (strcmp(token, "$models") == 0)
-      {
-         GetToken(true);
-
-         if (strcmp(token, "{") != 0)
-            Error("{ not found after $models tag in .cfg file!\n");
-
-         while (1)
-         {
-            GetToken(true);  // get the entity name
-
-            if (endofscript)
-               Error("matching } not found after $models { in .cfg file!\n");
-
-            if (strcmp(token, "}") == 0)
-               break;
-
-            strcpy(model_classname[num_models], token);
-
-            GetToken(false);  // get the model filename
-
-            if (strcmp(token, "}") == 0)
-               Error("closing } found where model filename expected in .cfg file!\n");
-
-            strcpy(model_filename[num_models], token);
-
-            if (num_models < MAX_MODELS-1)
-               num_models++;
-         }
       }
       else
          Error("Unknown Config file option: %s\n", token);
