@@ -27,7 +27,11 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
+#ifdef _WIN32
 #include <windows.h>
+#else
+#define MAX_PATH 256
+#endif _WIN32
 
 class Config
 {

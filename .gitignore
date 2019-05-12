@@ -5,3 +5,5 @@ Release/
 *.vcxproj.user
 
 *.bsp
+
+*.o

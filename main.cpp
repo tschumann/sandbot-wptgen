@@ -33,14 +33,10 @@
 #include "bspfile.h"
 #include "waypoint.h"
 
-
-bool isWindowsApp = FALSE;
-
 Config config("BSP_tool.cfg");
 World world;
 
-
-void main (int argc, char **argv)
+int main (int argc, char **argv)
 {
    char filename[256];
    int grid_size;
@@ -53,7 +49,7 @@ void main (int argc, char **argv)
       printf("\n");
       printf("where: -wN = run autowaypoint on BSP file\n");
       printf("             (where N is the grid size: 64, 72, 80, 100, 120, 150, 200)\n");
-      return;
+      return 1;
    }
 
    for (int n = 1; n < argc; n++)
@@ -74,5 +70,7 @@ void main (int argc, char **argv)
 
    if (do_autowaypoint)
       WaypointLevel(grid_size);  // auto waypoint the BSP world
+
+   return 0;
 }
 

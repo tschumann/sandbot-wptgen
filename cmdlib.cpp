@@ -27,8 +27,6 @@
 #include <unistd.h>
 #endif
 
-extern bool isWindowsApp;
-
 
 #define PATHSEPARATOR(c) ((c) == '\\' || (c) == '/')
 
@@ -58,24 +56,15 @@ void Error (char *error, ...)
    va_start (argptr, error);
    vsprintf (msg, error, argptr);
    va_end (argptr);
-
-   if (isWindowsApp)
-   {
-      ShowCursor(TRUE);
-      MessageBox(NULL, msg, "Error", MB_OK);
-   }
-   else
-   {
       char input[1];
 
-      printf("\n************ ERROR ************\n");
-      printf("%s\n", msg);
+   printf("\n************ ERROR ************\n");
+   printf("%s\n", msg);
 
 #ifndef __linux
-      printf("\nPress <ENTER> to exit\n");
-      gets_s(input);
+   printf("\nPress <ENTER> to exit\n");
+   gets_s(input);
 #endif
-   }
 
    exit (1);
 }

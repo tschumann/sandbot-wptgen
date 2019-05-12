@@ -45,7 +45,5 @@ class World
    void LoadBSP(char *bspfile);
 };
 
-BOOL CenterWindow(HWND hWnd);
-
 #endif
 
