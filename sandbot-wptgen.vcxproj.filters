@@ -59,9 +59,6 @@
     <ClInclude Include="entity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="fastmath.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="mathlib.h">
       <Filter>Header Files</Filter>
     </ClInclude>

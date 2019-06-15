@@ -38,8 +38,6 @@
 #ifndef __matrix_h__
 #define __matrix_h__
 
-#include "fastmath.h"
-
 class matrix_t {
 public:
     matrix_t() { load_identity(); }
@@ -84,8 +82,8 @@ matrix_t::load_identity()
 inline void 
 matrix_t::xrot(float angle)
 {
-    float c = fast_cos(angle);
-    float s = fast_sin(angle);
+    float c = cos(angle);
+    float s = sin(angle);
 
     m[5] = c;   
     m[6] = s;

@@ -146,7 +146,6 @@
     <ClInclude Include="cmdlib.h" />
     <ClInclude Include="config.h" />
     <ClInclude Include="entity.h" />
-    <ClInclude Include="fastmath.h" />
     <ClInclude Include="mathlib.h" />
     <ClInclude Include="matrix.h" />
     <ClInclude Include="scriplib.h" />
