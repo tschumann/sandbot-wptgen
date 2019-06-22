@@ -1,6 +1,6 @@
 CPP = gcc
 BASEFLAGS = -Dstricmp=strcasecmp -Dstrcmpi=strcasecmp
-CPPFLAGS = ${BASEFLAGS} -O0 -g -w
+CPPFLAGS = ${BASEFLAGS} -O0 -g
 
 ALL:	sandbot-wptgen
 
