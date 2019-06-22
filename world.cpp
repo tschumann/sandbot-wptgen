@@ -182,8 +182,6 @@ void World::LoadBSP(char *bspfile)
          bsp_found = TRUE;
       }
    }
-   else
-      strcpy(bspname, config.bspname);  // use filename from config file
 
    if (!bsp_found)
       Error("Can't load map: %s\n", bspname);

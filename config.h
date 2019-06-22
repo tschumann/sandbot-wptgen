@@ -36,7 +36,6 @@
 class Config
 {
 public:
-	char bspname[64];
 	char spawnpoint[64];
 
 	char szPath[MAX_PATH];         // path where the running application resides

@@ -43,8 +43,6 @@ Config::Config(char *config_file)
    char config_filename[MAX_PATH];
 
    // set up configuration defaults...
-
-   bspname[0] = 0;
    spawnpoint[0] = 0;
 
    _getcwd(szPath, MAX_PATH);
@@ -82,15 +80,7 @@ bool Config::ParseScriptFile(void)
             GetToken (false);
       } while (1);
 
-      if (strcmp(token, "$bspfile") == 0)
-      {
-         if (bspname[0])
-            Error("Duplicate $bspfile entry found in .cfg file!\n");
-
-         GetToken(false);
-         strcpy(bspname, token);
-      }
-      else if (strcmp(token, "$spawnpoint") == 0)
+      if (strcmp(token, "$spawnpoint") == 0)
       {
          if (spawnpoint[0])
             Error("multiple $spawnpoint found in .cfg file!\n");
