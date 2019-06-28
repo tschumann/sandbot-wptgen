@@ -24,12 +24,8 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
-#ifdef WIN32
-#include "windows.h"
-#include "direct.h"
-#else
-#include "stdio.h"
-#endif
+#include <stdio.h>
+#include <unistd.h>
 
 #include "scriplib.h"
 #include "config.h"
@@ -45,7 +41,7 @@ Config::Config(char *config_file)
    // set up configuration defaults...
    spawnpoint[0] = 0;
 
-   _getcwd(szPath, MAX_PATH);
+   getcwd(szPath, MAX_PATH);
 #ifdef WIN32
    strcat(szPath, "\\");
 #else

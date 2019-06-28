@@ -1,4 +1,4 @@
-CPP = gcc
+CPP = g++
 BASEFLAGS = -Dstricmp=strcasecmp -Dstrcmpi=strcasecmp
 CPPFLAGS = ${BASEFLAGS} -O0 -g
 

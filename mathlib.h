@@ -17,13 +17,13 @@
 
 #ifdef __cplusplus
 extern "C" {
-#endif
+#endif // __cplusplus
 
 #ifdef DOUBLEVEC_T
 typedef double vec_t;
 #else
 typedef float vec_t;
-#endif
+#endif // DOUBLEVEC_T
 typedef vec_t vec3_t[3];	// x,y,z
 typedef vec_t vec4_t[4];	// x,y,z,w
 
@@ -91,6 +91,6 @@ void QuaternionSlerp( const vec4_t p, vec4_t q, float t, vec4_t qt );
 
 #ifdef __cplusplus
 }
-#endif
+#endif // __cplusplus
 
-#endif
+#endif // __MATHLIB__
