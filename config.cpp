@@ -25,7 +25,11 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include <stdio.h>
+#ifdef WIN32
+#include <direct.h>
+#else
 #include <unistd.h>
+#endif // WIN32
 
 #include "scriplib.h"
 #include "config.h"
@@ -41,10 +45,11 @@ Config::Config(char *config_file)
    // set up configuration defaults...
    spawnpoint[0] = 0;
 
-   getcwd(szPath, MAX_PATH);
 #ifdef WIN32
+   _getcwd(szPath, MAX_PATH);
    strcat(szPath, "\\");
 #else
+   getcwd(szPath, MAX_PATH);
    strcat(szPath, "/");
 #endif
 
