@@ -98,7 +98,7 @@ void WaypointAdd(const vec3_t &origin, int flags, bool ignore_loc)
    {
       waypoint_loc[offset] |= (1<<(z_index & 7));
 
-      if (num_waypoints < 1024)
+      if (num_waypoints < MAX_WAYPOINTS)
       {
          waypoints[num_waypoints].flags = flags;
 
