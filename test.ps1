@@ -22,21 +22,11 @@ function convert_file
 	& "$($executable_path)\sandbot-wptgen.exe" -w128 $args[0]
 }
 
-function get_file_hash
-{
-	# TODO: eventually replace this with Get-FileHash which only newer versions of PowerShell support
-	$fullPath = Resolve-Path $args[0]
-    $md5 = new-object -TypeName System.Security.Cryptography.MD5CryptoServiceProvider
-    $file = [System.IO.File]::Open($fullPath,[System.IO.Filemode]::Open, [System.IO.FileAccess]::Read)
-    [System.BitConverter]::ToString($md5.ComputeHash($file))
-    $file.Dispose()
-}
-
 # $args[0] file to check
 # $args[1] expected hash
 function check_hash
 {
-	$hash = get_file_hash $args[0]
+	$hash = (Get-FileHash $args[0]).Hash
 
 	if ($hash -eq $args[1])
 	{
@@ -68,8 +58,8 @@ function test_waypointing
 	Write-Host "================"
 }
 
-test_waypointing bsp/bounce.bsp bounce.wpt "92-5A-B0-26-7D-50-DB-C2-AA-7E-04-C2-81-99-99-F6"
-test_waypointing bsp/frenzy.bsp frenzy.wpt "62-4E-F5-63-71-C5-0B-57-40-E5-67-88-2D-86-5C-37"
+test_waypointing bsp/bounce.bsp bounce.wpt "114A7C91EF50A618CBF62EBCEA21B77921DA1CBEEAB7ACD5CBA9A7345C5B7748"
+test_waypointing bsp/frenzy.bsp frenzy.wpt "790139C453A27727819801FDB545F3D0A455DF98EC5830277EE634888EFCF5D4"
 
 if ($global:has_failed)
 {
