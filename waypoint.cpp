@@ -1201,6 +1201,8 @@ void WriteHPBWaypointFile(void)
 	// write the waypoint header to the file...
 	fwrite(&header, sizeof(header), 1, bfp);
 
+
+	printf("Writing waypoints...\n");
 	// write the waypoint information...
 	for (index = 0; index < num_waypoints; index++)
 	{
@@ -1209,8 +1211,10 @@ void WriteHPBWaypointFile(void)
 
 	if (paths)
 	{
+		printf("Writing paths...\n");
 		short int count;  // HPB bot uses short int for path count
 
+		printf("Writing paths for waypoints...\n");
 		for (index = 0; index < num_waypoints; index++)
 		{
 			// count the number of paths for this waypoint...
@@ -1237,9 +1241,12 @@ void WriteHPBWaypointFile(void)
 
 					i++;
 				}
+
+				p = p->next;
 			}
 		}
 
+		printf("Freeing paths for waypoints...\n");
 		for (index = 0; index < num_waypoints; index++)
 		{
 			p = paths[index];

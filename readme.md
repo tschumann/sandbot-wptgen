@@ -9,6 +9,8 @@ Usage
 =====
 sandbot-wptgen -wN mapname.bsp
 
+A larger value of N will result in faster waypoint generation.
+
 License
 =======
 GPL V2, because that's what the original project is.
