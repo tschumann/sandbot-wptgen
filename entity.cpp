@@ -24,8 +24,6 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
-#include <math.h>
-
 #include "cmdlib.h"
 #include "bspfile.h"
 #include "entity.h"
@@ -33,8 +31,6 @@
 
 vec3_t spawn_point;
 float spawn_point_yaw;
-
-epair_t *pEpair = NULL;
 
 int num_entvars = 0;
 entvars_t entvars[MAX_MAP_ENTITIES];

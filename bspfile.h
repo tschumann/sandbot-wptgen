@@ -298,7 +298,6 @@ void SwapBSPFile (qboolean todisk);
 int CopyLump (int lump, void **dest, int size);
 void LoadBSPFile (char *filename);
 void WriteBSPFile (char *filename);
-void PrintBSPFileSizes (void);
 
 
 //===============

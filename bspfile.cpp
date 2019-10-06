@@ -525,42 +525,6 @@ int GlobUsage( char *szItem, int itemstorage, int maxstorage )
    return itemstorage;
 }
 
-/*
-=============
-PrintBSPFileSizes
-
-Dumps info about current file
-=============
-*/
-void PrintBSPFileSizes (void)
-{
-   int numtextures = texdatasize ? ((dmiptexlump_t*)dtexdata)->nummiptex : 0;
-   int totalmemory = 0;
-
-   printf("\n");
-   printf("Object names  Objects/Maxobjs  Memory / Maxmem  Fullness\n" );
-   printf("------------  ---------------  ---------------  --------\n" );
-
-   totalmemory += ArrayUsage( "models", nummodels, MAX_MAP_MODELS, sizeof(dmodel_t) );
-   totalmemory += ArrayUsage( "planes", numplanes, MAX_MAP_PLANES, sizeof(dplane_t) );
-   totalmemory += ArrayUsage( "vertexes", numvertexes, MAX_MAP_VERTS, sizeof(dvertex_t) );
-   totalmemory += ArrayUsage( "nodes", numnodes, MAX_MAP_NODES, sizeof(dnode_t) );
-   totalmemory += ArrayUsage( "texinfos", numtexinfo, MAX_MAP_TEXINFO, sizeof(texinfo_t) );
-   totalmemory += ArrayUsage( "faces", numfaces, MAX_MAP_FACES, sizeof(dface_t) );
-   totalmemory += ArrayUsage( "clipnodes", numclipnodes, MAX_MAP_CLIPNODES, sizeof(dclipnode_t) );
-   totalmemory += ArrayUsage( "leaves", numleafs, MAX_MAP_LEAFS, sizeof(dleaf_t) );
-   totalmemory += ArrayUsage( "marksurfaces", nummarksurfaces, MAX_MAP_MARKSURFACES, sizeof(unsigned short) );
-   totalmemory += ArrayUsage( "surfedges", numsurfedges, MAX_MAP_SURFEDGES, sizeof(int) );
-   totalmemory += ArrayUsage( "edges", numedges, MAX_MAP_EDGES, sizeof(dedge_t) );
-
-   totalmemory += GlobUsage( "texdata", texdatasize, MAX_MAP_MIPTEX );
-   totalmemory += GlobUsage( "lightdata", lightdatasize, MAX_MAP_LIGHTING );
-   totalmemory += GlobUsage( "visdata", visdatasize, MAX_MAP_VISIBILITY );
-   totalmemory += GlobUsage( "entdata", entdatasize, MAX_MAP_ENTSTRING );
-
-   printf( "=== Total BSP file data space used: %d bytes ===\n", totalmemory );
-}
-
 
 /*
 =================

@@ -41,7 +41,6 @@ class World
    World(void);
    ~World(void);
 
-   void FreeWorld(void);
    void LoadBSP(char *bspfile);
 };
 

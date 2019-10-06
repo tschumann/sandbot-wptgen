@@ -34,8 +34,6 @@
 #include "scriplib.h"
 #include "config.h"
 
-extern Config config;
-
 
 Config::Config(char *config_file)
 {

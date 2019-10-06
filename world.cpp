@@ -37,119 +37,112 @@ World::World(void)
 {
 }
 
-
 World::~World(void)
-{
-   FreeWorld();
-}
-
-
-void World::FreeWorld(void)
 {
    FreeEntities();
 
    if (dmodels)
    {
       free(dmodels);
-      dmodels = NULL;
+      dmodels = nullptr;
       nummodels = 0;
    }
 
    if (dvisdata)
    {
       free(dvisdata);
-      dvisdata = NULL;
+      dvisdata = nullptr;
       visdatasize = 0;
    }
 
    if (dlightdata)
    {
       free(dlightdata);
-      dlightdata = NULL;
+      dlightdata = nullptr;
       lightdatasize = 0;
    }
 
    if (dtexdata)
    {
       free(dtexdata);
-      dtexdata = NULL;
+      dtexdata = nullptr;
       texdatasize = 0;
    }
 
    if (dentdata)
    {
       free(dentdata);
-      dentdata = NULL;
+      dentdata = nullptr;
       entdatasize = 0;
    }
 
    if (dleafs)
    {
       free(dleafs);
-      dleafs = NULL;
+      dleafs = nullptr;
       numleafs = 0;
    }
 
    if (dplanes)
    {
       free(dplanes);
-      dplanes = NULL;
+      dplanes = nullptr;
       numplanes = 0;
    }
 
    if (dvertexes)
    {
       free(dvertexes);
-      dvertexes = NULL;
+      dvertexes = nullptr;
       numvertexes = 0;
    }
 
    if (dnodes)
    {
       free(dnodes);
-      dnodes = NULL;
+      dnodes = nullptr;
       numnodes = 0;
    }
 
    if (texinfo)
    {
       free(texinfo);
-      texinfo = NULL;
+      texinfo = nullptr;
       numtexinfo = 0;
    }
 
    if (dfaces)
    {
       free(dfaces);
-      dfaces = NULL;
+      dfaces = nullptr;
       numfaces = 0;
    }
 
    if (dclipnodes)
    {
       free(dclipnodes);
-      dclipnodes = NULL;
+      dclipnodes = nullptr;
       numclipnodes = 0;
    }
 
    if (dedges)
    {
       free(dedges);
-      dedges = NULL;
+      dedges = nullptr;
       numedges = 0;
    }
 
    if (dmarksurfaces)
    {
       free(dmarksurfaces);
-      dmarksurfaces = NULL;
+      dmarksurfaces = nullptr;
       nummarksurfaces = 0;
    }
 
    if (dsurfedges)
    {
       free(dsurfedges);
-      dsurfedges = NULL;
+      dsurfedges = nullptr;
       numsurfedges = 0;
    }
 }
@@ -160,10 +153,10 @@ void World::LoadBSP(char *bspfile)
    bool bsp_found;
    int len;
 
-   bsp_found = FALSE;
+   bsp_found = false;
 
    // did we specify a filename on the command line?
-   if ((bspfile != NULL) && (*bspfile != 0))
+   if ((bspfile != nullptr) && (*bspfile != 0))
    {
       strcpy(bspname, bspfile);
 
@@ -179,7 +172,7 @@ void World::LoadBSP(char *bspfile)
          if (len > 0)
             pathname[len-1] = 0;
 
-         bsp_found = TRUE;
+         bsp_found = true;
       }
    }
 
