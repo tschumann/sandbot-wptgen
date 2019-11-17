@@ -44,13 +44,7 @@ typedef struct entvars_s
 extern int num_entvars;
 extern entvars_t entvars[];
 
-//bool GetEntityKeyValue(char *key, char *value);
 void LoadEntVars(void);
-//bool FindEntity(int *index);
-//bool FindEntityByClassname(int *index, const char *classname);
-//bool FindEntityByWildcard(int *index, const char *classname, int length);
-
-void InitSpawnPoint(void);
 
 #endif
 

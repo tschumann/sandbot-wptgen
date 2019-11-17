@@ -1032,9 +1032,6 @@ void CalculateWaypointPaths()
 }
 
 
-#define USE_RANDOM_SPAWN_POINT 0
-
-
 void WaypointLevel(int map_grid_size)
 {
    int table_size;
@@ -1114,31 +1111,23 @@ void WaypointLevel(int map_grid_size)
    // add waypoints for doors and lifts (make a separate function for lifts???)
    WaypointAddDoors("func_ladder", W_FL_DOOR);
 
-   if (USE_RANDOM_SPAWN_POINT)
-   {
-      InitSpawnPoint();  // start at a random spawn point
-   }
-   else
-   {
-      // start at the "first" spawn point...
-      int ent_index = -1;
-      char *value;
+	// start at the "first" spawn point...
+	int ent_index = -1;
+	char *value;
 
-      if ((ent_index = FindEntityByClassname(ent_index, config.spawnpoint)) != -1)
-      {
-         value = ValueForKey(&entities[ent_index], "origin");
-         if (value[0])
-         {
-            sscanf(value, "%f %f %f", &spawn_point[0],
-                   &spawn_point[1], &spawn_point[2]);
-         }
-      }
-      else
-      {
-         printf("Error!  Can't find a spawn point: %s\n", config.spawnpoint);
-         return;
-      }
-   }
+	if ((ent_index = FindEntityByClassname(ent_index, config.spawnpoint)) != -1)
+	{
+		value = ValueForKey(&entities[ent_index], "origin");
+		if (value[0])
+		{
+			sscanf(value, "%f %f %f", &spawn_point[0], &spawn_point[1], &spawn_point[2]);
+		}
+	}
+	else
+	{
+		printf("Error!  Can't find a spawn point: %s\n", config.spawnpoint);
+		return;
+	}
 
    location_count = 0;
 

@@ -72,9 +72,7 @@ void LoadEntVars(void)
          value = ValueForKey(&entities[ent_index], "origin");
          if (value[0])
          {
-            sscanf(value, "%f %f %f", &entvars[num_entvars].origin[0],
-                   &entvars[num_entvars].origin[1],
-                   &entvars[num_entvars].origin[2]);
+            sscanf(value, "%f %f %f", &entvars[num_entvars].origin[0], &entvars[num_entvars].origin[1], &entvars[num_entvars].origin[2]);
          }
 
          value = ValueForKey(&entities[ent_index], "angle");
@@ -120,8 +118,7 @@ void LoadEntVars(void)
             }
          }
 
-         if ((strcmp(entvars[num_entvars].classname, "func_button") == 0) ||
-             (strcmp(entvars[num_entvars].classname, "func_door") == 0))
+         if (!strcmp(entvars[num_entvars].classname, "func_button") || !strcmp(entvars[num_entvars].classname, "func_door"))
          {
             // always render func_button and func_door entities...
             entvars[num_entvars].renderamt = 255;
@@ -132,61 +129,4 @@ void LoadEntVars(void)
 
       ent_index++;
    }
-}
-
-
-void InitSpawnPoint(void)
-{
-   int ent_index;
-   int count = 0;
-   char *value;
-   int pick, loop;
-
-   spawn_point[0] = 0.0;
-   spawn_point[1] = 0.0;
-   spawn_point[2] = 0.0;
-   spawn_point_yaw = 0.0;
-
-   if (config.spawnpoint[0] == 0)
-      return;  // no spawn points configured, just return
-
-   ent_index = -1;
-   // find the number of spawn points...
-   while ((ent_index = FindEntityByClassname(ent_index, config.spawnpoint)) != -1)
-      count++;
-
-   if (count == 0)
-      return;
-
-   if (count > 1)  // is there more than one spawn point?
-      pick = rand() % count;
-   else
-      pick = 0;  // there can be only one!
-
-   loop = 0;
-   ent_index = -1;
-   while ((ent_index = FindEntityByClassname(ent_index, config.spawnpoint)) != -1)
-   {
-      if (loop == pick)  // is this the one we want?
-      {
-         value = ValueForKey(&entities[ent_index], "origin");
-         if (value[0])
-         {
-            sscanf(value, "%f %f %f", &spawn_point[0],
-                   &spawn_point[1], &spawn_point[2]);
-         }
-
-         value = ValueForKey(&entities[ent_index], "angle");
-         if (value[0])
-         {
-            sscanf(value, "%f", &spawn_point_yaw);
-         }
-
-         break;  // break out of loop
-      }
-
-      loop++;
-   }
-
-   return;
 }
