@@ -33,10 +33,10 @@
 
 bool CheckWaypoint(const vec3_t &coord, vec3_t new_coord);
 void RecursiveFloodFill(const vec3_t &coord);
-void WaypointAddEntities(char *item_name, int waypoint_flags);
-void WaypointAddWallMountedEntities(char *item_name, int waypoint_flags);
-void WaypointAddLadders(int waypoint_flags);
-void WaypointLevel(int grid_size);
+void WaypointAddEntities(const char *item_name, const int waypoint_flags);
+void WaypointAddWallMountedEntities(const char *item_name, const int waypoint_flags);
+void WaypointAddLadders(const int waypoint_flags);
+void WaypointLevel(const int map_grid_size);
 void WriteHPBWaypointFile(void);
 
 #endif

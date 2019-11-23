@@ -31,17 +31,15 @@
 #ifndef WORLD_H
 #define WORLD_H
 
-
 class World
 {
-   public:
+public:
+	char bspname[256];  // name of the currently loaded BSP file
 
-   char bspname[256];  // name of the currently loaded BSP file
+	World(void);
+	~World(void);
 
-   World(void);
-   ~World(void);
-
-   void LoadBSP(char *bspfile);
+	void LoadBSP(char *bspfile);
 };
 
 #endif

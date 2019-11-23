@@ -25,6 +25,7 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include <stdio.h>
+
 #ifdef WIN32
 #include <direct.h>
 #else
@@ -37,28 +38,26 @@
 
 Config::Config(char *config_file)
 {
-   int index;
-   char config_filename[MAX_PATH];
+	char config_filename[MAX_PATH];
 
-   // set up configuration defaults...
-   spawnpoint[0] = 0;
+	// set up configuration defaults...
+	spawnpoint[0] = 0;
 
 #ifdef WIN32
-   _getcwd(szPath, MAX_PATH);
-   strcat(szPath, "\\");
+	_getcwd(szPath, MAX_PATH);
+	strcat(szPath, "\\");
 #else
-   getcwd(szPath, MAX_PATH);
-   strcat(szPath, "/");
+	getcwd(szPath, MAX_PATH);
+	strcat(szPath, "/");
 #endif
 
-   strcpy(config_filename, szPath);
-   strcat(config_filename, config_file);
+	strcpy(config_filename, szPath);
+	strcat(config_filename, config_file);
 
-   LoadScriptFile(config_filename);
+	LoadScriptFile(config_filename);
 
-   ParseScriptFile();
+	ParseScriptFile();
 }
-
 
 Config::~Config(void)
 {
@@ -66,28 +65,42 @@ Config::~Config(void)
 
 bool Config::ParseScriptFile(void)
 {
-   while (1)
-   {
-      do
-      {
-         GetToken (true);  // look for a line starting with a '$'
-         if (endofscript)
-            return 0;  // indicate success
-         if (token[0] == '$')
-            break;
-         while (TokenAvailable())
-            GetToken (false);
-      } while (1);
+	while( true )
+	{
+		do
+		{
+			// look for a line starting with a '$'
+			GetToken( true );
 
-      if (strcmp(token, "$spawnpoint") == 0)
-      {
-         if (spawnpoint[0])
-            Error("multiple $spawnpoint found in .cfg file!\n");
+			if( endofscript )
+			{
+				// indicate success
+				return false;
+			}
+			if( token[0] == '$' )
+			{
+				break;
+			}
 
-         GetToken(false);
-         sscanf(token, "%s", spawnpoint);
-      }
-      else
-         Error("Unknown Config file option: %s\n", token);
-   }
+			while( TokenAvailable() )
+			{
+				GetToken( false );
+			}
+		} while( true );
+
+		if( !strcmp( token, "$spawnpoint" ) )
+		{
+			if( spawnpoint[0] )
+			{
+				Error( "Multiple $spawnpoint entries found in .cfg file!\n" );
+			}
+
+			GetToken( false );
+			sscanf( token, "%s", spawnpoint );
+		}
+		else
+		{
+			Error( "Unknown Config file option: %s\n", token );
+		}
+	}
 }

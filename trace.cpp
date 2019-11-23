@@ -64,9 +64,7 @@ dleaf_t *TracePointInLeaf(vec3_t point)
 // find the contents of a coordinate in 3D space...
 int PointContents(vec3_t coord)
 {
-   dleaf_t  *leaf;
-
-   leaf = TracePointInLeaf(coord);
+   dleaf_t  *leaf = TracePointInLeaf(coord);
 
    // return contents (CONTENTS_EMPTY, CONTENTS_SOLID, CONTENTS_WATER, etc.)
    return leaf->contents;
@@ -213,7 +211,7 @@ void TraceLine(vec3_t start, vec3_t end, trace_t *tr)
 #define DELTA 0.001f
 
 // find the face where the traceline hit...
-dface_t *TraceLineFindFace(vec3_t start, trace_t *tr)
+dface_t *TraceLineFindFace(const vec3_t start, trace_t *tr)
 {
    vec3_t v_intersect, v_normalized, v_temp;
    dface_t *return_face = NULL;

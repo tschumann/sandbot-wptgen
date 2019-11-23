@@ -221,8 +221,7 @@ void RecursiveFloodFill(const vec3_t &coord)
           (origin[1] < MIN_ORIGIN) || (origin[1] > MAX_ORIGIN) ||
           (origin[2] < MIN_ORIGIN) || (origin[2] > MAX_ORIGIN))
       {
-         printf("RecursiveFloodFill went outside the world at %7.2f %7.2f %7.2f\n",
-                origin[0], origin[1], origin[2]);
+         printf("RecursiveFloodFill went outside the world at %7.2f %7.2f %7.2f\n", origin[0], origin[1], origin[2]);
          exit(1);
       }
 
@@ -353,17 +352,16 @@ void RecursiveFloodFill(const vec3_t &coord)
 }
 
 
-void WaypointAddEntities(char *item_name, int waypoint_flags)
+void WaypointAddEntities(const char *item_name, const int waypoint_flags)
 {
-   int ent_index, len;
    char *value;
    vec3_t origin, start, end, up_a_little;
    trace_t tr;
 
    up_a_little[0] = 0;  up_a_little[1] = 0;  up_a_little[2] = 10.0f;
 
-   len = strlen(item_name);
-   ent_index = -1;
+   int len = strlen(item_name);
+   int ent_index = -1;
 
    while ((ent_index = FindEntityByWildcard(ent_index, item_name, len)) != -1)
    {
@@ -390,9 +388,8 @@ void WaypointAddEntities(char *item_name, int waypoint_flags)
 }
 
 
-void WaypointAddWallMountedEntities(char *item_name, int waypoint_flags)
+void WaypointAddWallMountedEntities(const char *item_name, const int waypoint_flags)
 {
-   int ent_index, len;
    char *value;
    int model_index;
    vec3_t origin;
@@ -412,8 +409,8 @@ void WaypointAddWallMountedEntities(char *item_name, int waypoint_flags)
    static vec3_t wall_out_left = { 0, 32, 0};
    static vec3_t wall_out_right = { 0, -32, 0};
 
-   len = strlen(item_name);
-   ent_index = -1;
+   int len = strlen(item_name);
+   int ent_index = -1;
 
    while ((ent_index = FindEntityByWildcard(ent_index, item_name, len)) != -1)
    {
@@ -479,9 +476,9 @@ void WaypointAddWallMountedEntities(char *item_name, int waypoint_flags)
 }
 
 
-void WaypointAddLadders(int waypoint_flags)
+void WaypointAddLadders(const int waypoint_flags)
 {
-   int ent_index, model_index;
+   int model_index;
    char *value;
    vec3_t ladder_origin;
    dmodel_t *model;
@@ -502,7 +499,7 @@ void WaypointAddLadders(int waypoint_flags)
    float dist;
 
    // loop through all the entities looking for "func_ladder"...
-   ent_index = -1;
+   int ent_index = -1;
    while ((ent_index = FindEntityByClassname(ent_index, "func_ladder")) != -1)
    {
       value = ValueForKey(&entities[ent_index], "model");
@@ -1032,11 +1029,8 @@ void CalculateWaypointPaths()
 }
 
 
-void WaypointLevel(int map_grid_size)
+void WaypointLevel(const int map_grid_size)
 {
-   int table_size;
-   dmodel_t *model;
-
    printf("Generating waypoints...\n");
 
    grid_size = map_grid_size;
@@ -1051,7 +1045,7 @@ void WaypointLevel(int map_grid_size)
 
    array_size = ((array_size + 7) / 8) * 8;  // make even multiple of 8
 
-   table_size = array_size * array_size * array_size / 8;  // 3 dimensional bit array
+   int table_size = array_size * array_size * array_size / 8;  // 3 dimensional bit array
 
    visited = (unsigned char *)malloc(table_size);  // 3 dimensional array of grid size
 
@@ -1090,7 +1084,7 @@ void WaypointLevel(int map_grid_size)
 
    // get the min and max coordinates of the level...
 
-   model = &dmodels[0];  // model 0 is the BSP world
+   dmodel_t* model = &dmodels[0];  // model 0 is the BSP world
 
    VectorCopy(model->mins, level_min);
    VectorCopy(model->maxs, level_max);

@@ -94,8 +94,8 @@ matrix_t::xrot(float angle)
 inline void 
 matrix_t::yrot(float angle)
 {
-    float c = fast_cos(angle);
-    float s = fast_sin(angle);
+    float c = cos(angle);
+    float s = sin(angle);
 
     m[0] = c;   
     m[2] = -s;
@@ -106,8 +106,8 @@ matrix_t::yrot(float angle)
 inline void
 matrix_t::zrot(float angle)
 {
-    float c = fast_cos(angle);
-    float s = fast_sin(angle);
+    float c = cos(angle);
+    float s = sin(angle);
 
     m[0] = c;   
     m[1] = s;
