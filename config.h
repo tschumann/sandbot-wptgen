@@ -38,13 +38,13 @@ class Config
 public:
 	char spawnpoint[64];
 
-	char szPath[MAX_PATH];         // path where the running application resides
-
 	Config(char *config_file);
-	~Config(void);
+	~Config();
 
-	bool ParseScriptFile(void);
+	bool ParseScriptFile();
+
+private:
+	char szPath[MAX_PATH]; // path where the running application resides
 };
 
 #endif
-

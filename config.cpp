@@ -59,11 +59,11 @@ Config::Config(char *config_file)
 	ParseScriptFile();
 }
 
-Config::~Config(void)
+Config::~Config()
 {
 }
 
-bool Config::ParseScriptFile(void)
+bool Config::ParseScriptFile()
 {
 	while( true )
 	{

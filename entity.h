@@ -44,7 +44,7 @@ typedef struct entvars_s
 extern int num_entvars;
 extern entvars_t entvars[];
 
-void LoadEntVars(void);
+void LoadEntVars();
 
 #endif
 

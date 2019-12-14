@@ -71,7 +71,7 @@ vec3_t level_min, level_max;  // min and max coordinates of map
 extern World world;
 
 extern Config config;
-extern vec3_t spawn_point;
+vec3_t spawn_point;
 
 
 vec3_t forward, back, left, right, up, down;

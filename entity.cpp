@@ -27,18 +27,11 @@
 #include "cmdlib.h"
 #include "bspfile.h"
 #include "entity.h"
-#include "config.h"
-
-vec3_t spawn_point;
-float spawn_point_yaw;
 
 int num_entvars = 0;
 entvars_t entvars[MAX_MAP_ENTITIES];
 
-extern Config config;
-
-
-void LoadEntVars(void)
+void LoadEntVars()
 {
    int ent_index = 0;
    char *value;

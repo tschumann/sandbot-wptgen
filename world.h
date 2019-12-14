@@ -36,11 +36,10 @@ class World
 public:
 	char bspname[256];  // name of the currently loaded BSP file
 
-	World(void);
-	~World(void);
+	World();
+	~World();
 
 	void LoadBSP(char *bspfile);
 };
 
 #endif
-

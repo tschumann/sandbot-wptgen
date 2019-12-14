@@ -32,12 +32,11 @@
 
 extern Config config;
 
-
-World::World(void)
+World::World()
 {
 }
 
-World::~World(void)
+World::~World()
 {
    FreeEntities();
 
@@ -183,4 +182,3 @@ void World::LoadBSP(char *bspfile)
 
    LoadEntVars();
 }
-
