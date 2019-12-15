@@ -33,11 +33,6 @@ typedef struct entvars_s
    vec3_t   origin;
    vec3_t   angles;
 
-   int      rendermode;
-   float    renderamt;
-   vec3_t   rendercolor;
-   int      renderfx;
-
    int      brush_model_index;
 } entvars_t;
 

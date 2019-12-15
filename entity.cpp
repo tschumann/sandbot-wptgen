@@ -53,13 +53,6 @@ void LoadEntVars()
          entvars[num_entvars].angles[1] = 0.0f;
          entvars[num_entvars].angles[2] = 0.0f;
 
-         entvars[num_entvars].rendermode = 0;
-         entvars[num_entvars].renderamt = 1.0f;
-         entvars[num_entvars].rendercolor[0] = 1.0f;
-         entvars[num_entvars].rendercolor[1] = 1.0f;
-         entvars[num_entvars].rendercolor[2] = 1.0f;
-         entvars[num_entvars].renderfx = 0;
-
          entvars[num_entvars].brush_model_index = 0;
 
          value = ValueForKey(&entities[ent_index], "origin");
@@ -73,26 +66,6 @@ void LoadEntVars()
          {
             // set the yaw angle...
             sscanf(value, "%f", &entvars[num_entvars].angles[1]);
-         }
-
-         value = ValueForKey(&entities[ent_index], "renderamt");
-         if (value[0])
-         {
-            int  n_renderamt;
-
-            sscanf(value, "%d", &n_renderamt);
-            entvars[num_entvars].renderamt = n_renderamt / 255.0f;
-         }
-
-         value = ValueForKey(&entities[ent_index], "rendercolor");
-         if (value[0])
-         {
-            int  n_color_r, n_color_b, n_color_g;
-
-            sscanf(value, "%d %d %d", &n_color_r, &n_color_g, &n_color_b);
-            entvars[num_entvars].rendercolor[0] = n_color_r / 255.0f;
-            entvars[num_entvars].rendercolor[1] = n_color_g / 255.0f;
-            entvars[num_entvars].rendercolor[2] = n_color_b / 255.0f;
          }
 
          value = ValueForKey(&entities[ent_index], "model");
@@ -109,12 +82,6 @@ void LoadEntVars()
                entvars[num_entvars].origin[1] = (model->mins[1] + model->maxs[1]) / 2.0f;
                entvars[num_entvars].origin[2] = (model->mins[2] + model->maxs[2]) / 2.0f;
             }
-         }
-
-         if (!strcmp(entvars[num_entvars].classname, "func_button") || !strcmp(entvars[num_entvars].classname, "func_door"))
-         {
-            // always render func_button and func_door entities...
-            entvars[num_entvars].renderamt = 255;
          }
 
          num_entvars++;
