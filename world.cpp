@@ -146,7 +146,7 @@ World::~World()
    }
 }
 
-void World::LoadBSP(char *bspfile)
+void World::LoadBSP(const char *bspfile)
 {
    char pathname[256];
    bool bsp_found;

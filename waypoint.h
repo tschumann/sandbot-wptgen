@@ -37,7 +37,7 @@ void WaypointAddEntities(const char *item_name, const int waypoint_flags);
 void WaypointAddWallMountedEntities(const char *item_name, const int waypoint_flags);
 void WaypointAddLadders(const int waypoint_flags);
 void WaypointLevel(const int map_grid_size);
-void WriteHPBWaypointFile(void);
+void WriteHPBWaypointFile();
 
 #endif
 

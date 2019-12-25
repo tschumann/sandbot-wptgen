@@ -29,17 +29,17 @@
 
 typedef struct
 {
-   bool     allsolid;   /* if true, plane is not valid */
-   bool     startsolid; /* if true, the initial point was in a solid area */
-   float    fraction;   /* time completed, 1.0 = didn't hit anything */
-   vec3_t   hitpos;     /* surface hit position (in solid) */
-   vec3_t   endpos;     /* final position (not in solid) */
-   int      contents;   /* contents of endpos */
+	bool     allsolid;   /* if true, plane is not valid */
+	bool     startsolid; /* if true, the initial point was in a solid area */
+	float    fraction;   /* time completed, 1.0 = didn't hit anything */
+	vec3_t   hitpos;     /* surface hit position (in solid) */
+	vec3_t   endpos;     /* final position (not in solid) */
+	int      contents;   /* contents of endpos */
 } trace_t;
 
-int PointContents(vec3_t coord);
-void TraceLine (vec3_t start, vec3_t end, trace_t *trace);
-dface_t *TraceLineFindFace(const vec3_t start, trace_t *tr);
+int PointContents(const vec3_t& coord);
+void TraceLine(const vec3_t& start, vec3_t& end, trace_t *trace);
+dface_t *TraceLineFindFace(const vec3_t& start, trace_t *tr);
 
 #endif
 

@@ -1153,7 +1153,7 @@ void WaypointLevel(const int map_grid_size)
 }
 
 
-void WriteHPBWaypointFile(void)
+void WriteHPBWaypointFile()
 {
 	int index;
 	WAYPOINT_HDR header;

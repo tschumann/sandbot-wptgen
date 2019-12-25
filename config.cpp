@@ -36,7 +36,7 @@
 #include "config.h"
 
 
-Config::Config(char *config_file)
+Config::Config(const char *config_file)
 {
 	char config_filename[MAX_PATH];
 

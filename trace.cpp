@@ -36,7 +36,7 @@
 dnode_t *gNode;
 
 // return the leaf node for a point in 3D space...
-dleaf_t *TracePointInLeaf(vec3_t point)
+dleaf_t *TracePointInLeaf(const vec3_t& point)
 {
    int      nodenum;
    vec_t    d;
@@ -62,7 +62,7 @@ dleaf_t *TracePointInLeaf(vec3_t point)
 }
 
 // find the contents of a coordinate in 3D space...
-int PointContents(vec3_t coord)
+int PointContents(const vec3_t& coord)
 {
    dleaf_t  *leaf = TracePointInLeaf(coord);
 
@@ -72,7 +72,7 @@ int PointContents(vec3_t coord)
 
 
 // trace a line from start to end, fill in trace_t structure with result...
-void TraceLine(vec3_t start, vec3_t end, trace_t *tr)
+void TraceLine(const vec3_t& start, vec3_t& end, trace_t *tr)
 {
    dleaf_t  *startleaf, *endleaf;
    int      numsteps, totalsteps;
@@ -139,7 +139,7 @@ void TraceLine(vec3_t start, vec3_t end, trace_t *tr)
 
    // find the starting and ending leafs...
    startleaf = TracePointInLeaf(start);
-   endleaf = TracePointInLeaf(end);
+   endleaf = TracePointInLeaf(const_cast<const vec3_t&>(end));
 
    // set endpos, fraction and contents to the default (trace completed)
    VectorCopy(end, tr->endpos);
@@ -211,7 +211,7 @@ void TraceLine(vec3_t start, vec3_t end, trace_t *tr)
 #define DELTA 0.001f
 
 // find the face where the traceline hit...
-dface_t *TraceLineFindFace(const vec3_t start, trace_t *tr)
+dface_t *TraceLineFindFace(const vec3_t& start, trace_t *tr)
 {
    vec3_t v_intersect, v_normalized, v_temp;
    dface_t *return_face = NULL;

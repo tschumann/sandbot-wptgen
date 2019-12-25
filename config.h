@@ -38,7 +38,7 @@ class Config
 public:
 	char spawnpoint[64];
 
-	Config(char *config_file);
+	Config(const char *config_file);
 	~Config();
 
 	bool ParseScriptFile();

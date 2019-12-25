@@ -39,7 +39,7 @@ public:
 	World();
 	~World();
 
-	void LoadBSP(char *bspfile);
+	void LoadBSP(const char *bspfile);
 };
 
 #endif
