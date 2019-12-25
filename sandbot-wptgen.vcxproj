@@ -255,7 +255,6 @@
     <ClInclude Include="config.h" />
     <ClInclude Include="entity.h" />
     <ClInclude Include="mathlib.h" />
-    <ClInclude Include="matrix.h" />
     <ClInclude Include="scriplib.h" />
     <ClInclude Include="trace.h" />
     <ClInclude Include="waypoint.h" />

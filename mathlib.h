@@ -69,7 +69,6 @@ void VectorInverse (vec3_t v);
 void ClearBounds (vec3_t mins, vec3_t maxs);
 void AddPointToBounds (vec3_t v, vec3_t mins, vec3_t maxs);
 
-void AngleMatrix (const vec3_t angles, float matrix[3][4] );
 void AngleIMatrix (const vec3_t angles, float matrix[3][4] );
 void R_ConcatTransforms (const float in1[3][4], const float in2[3][4], float out[3][4]);
 
