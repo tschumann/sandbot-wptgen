@@ -30,7 +30,6 @@
 #include "cmdlib.h"
 #include "config.h"
 #include "world.h"
-#include "bspfile.h"
 #include "waypoint.h"
 
 Config config("BSP_tool.cfg");
@@ -38,7 +37,7 @@ World world;
 
 int main (int argc, char **argv)
 {
-   char filename[256];
+   char filename[MAX_PATH];
    int grid_size;
    bool do_autowaypoint = FALSE;
 

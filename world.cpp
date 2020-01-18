@@ -26,14 +26,12 @@
 
 #include "cmdlib.h"
 #include "bspfile.h"
-#include "config.h"
 #include "entity.h"
 #include "world.h"
 
-extern Config config;
-
 World::World()
 {
+	memset( szMapName, 0, MAX_PATH );
 }
 
 World::~World()
@@ -148,7 +146,7 @@ World::~World()
 
 void World::LoadBSP(const char *bspfile)
 {
-   char pathname[256];
+   char pathname[MAX_PATH];
    bool bsp_found;
    int len;
 
@@ -157,14 +155,14 @@ void World::LoadBSP(const char *bspfile)
    // did we specify a filename on the command line?
    if ((bspfile != nullptr) && (*bspfile != 0))
    {
-      strcpy(bspname, bspfile);
+      strcpy(szMapName, bspfile);
 
-      if (FileTime(bspname) != -1)  // does the specified file exist?
+      if (FileTime(szMapName) != -1)  // does the specified file exist?
       {
-         LoadBSPFile(bspname);
+         LoadBSPFile(szMapName);
 
          // is this BSP file in a MOD directory?
-         ExtractFilePath (bspname, pathname);
+         ExtractFilePath (szMapName, pathname);
 
          len = strlen(pathname);  // remove trailing '/'
 
@@ -176,7 +174,7 @@ void World::LoadBSP(const char *bspfile)
    }
 
    if (!bsp_found)
-      Error("Can't load map: %s\n", bspname);
+      Error("Can't load map: %s\n", szMapName);
 
    ParseEntities();
 

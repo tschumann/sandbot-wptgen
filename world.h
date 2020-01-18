@@ -34,7 +34,7 @@
 class World
 {
 public:
-	char bspname[256];  // name of the currently loaded BSP file
+	char szMapName[MAX_PATH];  // name of the currently loaded BSP file
 
 	World();
 	~World();
@@ -42,4 +42,4 @@ public:
 	void LoadBSP(const char *bspfile);
 };
 
-#endif
+#endif // WORLD_H
