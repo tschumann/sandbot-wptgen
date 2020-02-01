@@ -41,7 +41,7 @@ public:
 	Config(const char *config_file);
 	~Config();
 
-	bool ParseScriptFile();
+	bool ParseScriptFile() const;
 
 private:
 	char szPath[MAX_PATH]; // path where the running application resides

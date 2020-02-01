@@ -63,7 +63,7 @@ Config::~Config()
 {
 }
 
-bool Config::ParseScriptFile()
+bool Config::ParseScriptFile() const
 {
 	while( true )
 	{
