@@ -36,6 +36,9 @@
 class Config
 {
 public:
+	const static int LOG_NONE = 0;
+	const static int LOG_INFO = 1;
+
 	char spawnpoint[64];
 
 	Config(const char *config_file);
@@ -45,6 +48,7 @@ public:
 
 private:
 	char szPath[MAX_PATH]; // path where the running application resides
+	int iLogLevel;
 };
 
 #endif

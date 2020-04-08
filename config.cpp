@@ -57,6 +57,8 @@ Config::Config(const char *config_file)
 	LoadScriptFile(config_filename);
 
 	ParseScriptFile();
+
+	iLogLevel = LOG_INFO;
 }
 
 Config::~Config()
