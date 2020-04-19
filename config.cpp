@@ -106,3 +106,37 @@ bool Config::ParseScriptFile() const
 		}
 	}
 }
+
+void Config::Trace( const char* szFormat, ... )
+{
+	extern Config config;
+
+	if( config.iLogLevel >= Config::LOG_TRACE )
+	{
+		va_list argptr;
+		static char szString[1024];
+
+		va_start( argptr, szFormat );
+		vsprintf( szString, szFormat, argptr );
+		va_end( argptr );
+
+		printf( "%s", szString);
+	}
+}
+
+void Config::Info( const char* szFormat, ... )
+{
+	extern Config config;
+
+	if( config.iLogLevel >= Config::LOG_INFO )
+	{
+		va_list argptr;
+		static char szString[1024];
+
+		va_start( argptr, szFormat );
+		vsprintf( szString, szFormat, argptr );
+		va_end( argptr );
+
+		printf( "%s", szString);
+	}
+}
