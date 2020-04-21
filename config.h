@@ -51,6 +51,8 @@ public:
 	static void Info( const char* fmt, ... );
 
 private:
+	const static int LOG_BUFFER_SIZE = 1024;
+
 	char szPath[MAX_PATH]; // path where the running application resides
 	int iLogLevel;
 };

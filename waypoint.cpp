@@ -115,7 +115,7 @@ void WaypointAdd(const vec3_t &origin, int flags, bool ignore_loc)
    }
 }
 
-
+// hopefully add a waypoint at the specified location
 bool CheckWaypoint(const vec3_t &coord, vec3_t new_coord)
 {
    vec3_t start, end;
@@ -187,6 +187,7 @@ bool CheckWaypoint(const vec3_t &coord, vec3_t new_coord)
          // raise up off of floor (or ledge) to center of player model...
          VectorAdd(tr.endpos, up_off_floor, end);
 
+		 Config::Trace( "Added a waypoint at (%f, %f, %f)\n", end[0], end[1], end[2] );
          WaypointAdd(end, 0, FALSE);
       }
    }
@@ -208,6 +209,8 @@ void RecursiveFloodFill(const vec3_t &coord)
    S0.push(coord[0]);  // push X, Y, and Z
    S1.push(coord[1]);
    S2.push(coord[2]);
+
+   Config::Info( "Starting RecursiveFloodFill from (%f, %f, %f)\n", coord[0], coord[1], coord[2] );
 
    while (!S0.empty())  // while there is something on the stack...
    {
@@ -1119,7 +1122,7 @@ void WaypointLevel(const int map_grid_size)
 	}
 	else
 	{
-		printf("Error!  Can't find a spawn point: %s\n", config.spawnpoint);
+		printf("Error! Can't find a spawn point: %s\n", config.spawnpoint);
 		return;
 	}
 
@@ -1133,7 +1136,7 @@ void WaypointLevel(const int map_grid_size)
    printf("%d locations were visited\n", location_count);
 
    if (overflow)
-      printf("WARNING: Waypointing incomplete!  Too many waypoints generated!\n");
+      printf("WARNING: Waypointing incomplete! Too many waypoints generated!\n");
 
    printf("%d waypoints were generated\n", num_waypoints);
 

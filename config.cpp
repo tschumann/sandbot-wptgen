@@ -57,8 +57,11 @@ Config::Config(const char *config_file)
 	LoadScriptFile(config_filename);
 
 	ParseScriptFile();
-
+#if _DEBUG
+	iLogLevel = LOG_TRACE;
+#else
 	iLogLevel = LOG_INFO;
+#endif
 }
 
 Config::~Config()
@@ -114,13 +117,13 @@ void Config::Trace( const char* szFormat, ... )
 	if( config.iLogLevel >= Config::LOG_TRACE )
 	{
 		va_list argptr;
-		static char szString[1024];
+		static char szString[LOG_BUFFER_SIZE];
 
 		va_start( argptr, szFormat );
 		vsprintf( szString, szFormat, argptr );
 		va_end( argptr );
 
-		printf( "%s", szString);
+		printf( "%s", szString );
 	}
 }
 
@@ -131,12 +134,12 @@ void Config::Info( const char* szFormat, ... )
 	if( config.iLogLevel >= Config::LOG_INFO )
 	{
 		va_list argptr;
-		static char szString[1024];
+		static char szString[LOG_BUFFER_SIZE];
 
 		va_start( argptr, szFormat );
 		vsprintf( szString, szFormat, argptr );
 		va_end( argptr );
 
-		printf( "%s", szString);
+		printf( "%s", szString );
 	}
 }
