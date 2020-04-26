@@ -941,6 +941,8 @@ void CalculateWaypointPaths()
    vec3_t start, end;
    trace_t tr;
 
+   Config::Info( "Running CalculateWaypointPaths\n" );
+
    size = sizeof(path_t *) * num_waypoints;
 
    paths = (path_t **)malloc(size);
@@ -1015,6 +1017,8 @@ void CalculateWaypointPaths()
             printf("Error allocating path node in linked list!\n");
             return;
          }
+
+		 Config::Trace( "Adding path between %d and %d\n", index, index2 );
 
 		 // TODO: sort out the multiple index entries
          p_new->index[0] = index2;
@@ -1203,33 +1207,39 @@ void WriteHPBWaypointFile()
 		printf("Writing paths for waypoints...\n");
 		for (index = 0; index < num_waypoints; index++)
 		{
+			int i = 0;
 			// count the number of paths for this waypoint...
 			count = 0;
 			p = paths[index];
-			while (p)
+
+			if (!p)
 			{
-				p = p->next;
-				count++;
+				continue;
+			}
+
+			while (i < MAX_PATH_INDEX)
+			{
+				if (p->index[i] != -1)
+				{
+					count++;
+				}
+
+				i++;
 			}
 
 			// write out the count, then write out the paths...
 			fwrite(&count, sizeof(count), 1, bfp);
 
-			p = paths[index];
-			while (p)
+			i = 0;
+
+			while (i < MAX_PATH_INDEX)
 			{
-				int i = 0;
+				if (p->index[i] != -1)  // save path node if it's used
+					fwrite(&p->index[i], sizeof(p->index[0]), 1, bfp);
 
-				while (i < MAX_PATH_INDEX)
-				{
-					if (p->index[i] != -1)  // save path node if it's used
-						fwrite(&p->index[i], sizeof(p->index[0]), 1, bfp);
-
-					i++;
-				}
-
-				p = p->next;
+				i++;
 			}
+			Config::Trace( "Wrote %d paths for waypoint %d\n", count, index );
 		}
 
 		printf("Freeing paths for waypoints...\n");
