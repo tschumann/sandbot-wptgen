@@ -1038,13 +1038,13 @@ void CalculateWaypointPaths()
 
 void WaypointLevel(const int map_grid_size)
 {
-   printf("Generating waypoints...\n");
+	Config::Info( "Generating waypoints...\n" );
 
    grid_size = map_grid_size;
 
    if (grid_size < 32)
    {
-      printf("Error!  Waypoint grid size MUST be 32 or greater!\n");
+	   Config::Info( "Error!  Waypoint grid size MUST be 32 or greater!\n" );
       return;
    }
 
@@ -1067,7 +1067,7 @@ void WaypointLevel(const int map_grid_size)
    memset(visited, 0, table_size);
    memset(waypoint_loc, 0, table_size);
 
-   printf("Using waypoint grid size of %d units\n", grid_size);
+   Config::Info( "Using waypoint grid size of %d units\n", grid_size );
 
    num_waypoints = 0;
 
@@ -1137,16 +1137,16 @@ void WaypointLevel(const int map_grid_size)
    if (location_count > 999)
       printf("\n");
 
-   printf("%d locations were visited\n", location_count);
+   Config::Info( "%d locations were visited\n", location_count );
 
    if (overflow)
-      printf("WARNING: Waypointing incomplete! Too many waypoints generated!\n");
+	   Config::Warn( "WARNING: Waypointing incomplete! Too many waypoints generated!\n" );
 
-   printf("%d waypoints were generated\n", num_waypoints);
+   Config::Info( "%d waypoints were generated\n", num_waypoints );
 
-   printf("Calculating waypoint paths...\n");
+   Config::Info( "Calculating waypoint paths...\n" );
 
-   paths = NULL;
+   paths = nullptr;
 
    CalculateWaypointPaths();
 
@@ -1156,7 +1156,7 @@ void WaypointLevel(const int map_grid_size)
    free(visited);
    free(waypoint_loc);
 
-   printf("Done!\n");
+   Config::Info( "Done!\n" );
 }
 
 
@@ -1171,7 +1171,7 @@ void WriteHPBWaypointFile()
 
 	header.waypoint_file_version = WAYPOINT_VERSION;
 
-	header.waypoint_file_flags = 0;  // not currently used
+	header.waypoint_file_flags = 0; // not currently used
 
 	header.number_of_waypoints = num_waypoints;
 
@@ -1184,7 +1184,7 @@ void WriteHPBWaypointFile()
 
 	DefaultExtension(filename, ".wpt");
 
-	printf("Creating waypoint file %s...\n", filename);
+	Config::Info( "Creating waypoint file %s...\n", filename );
 
 	FILE *bfp = fopen(filename, "wb");
 
@@ -1192,7 +1192,7 @@ void WriteHPBWaypointFile()
 	fwrite(&header, sizeof(header), 1, bfp);
 
 
-	printf("Writing waypoints...\n");
+	Config::Info( "Writing waypoints...\n" );
 	// write the waypoint information...
 	for (index = 0; index < num_waypoints; index++)
 	{
@@ -1201,10 +1201,10 @@ void WriteHPBWaypointFile()
 
 	if (paths)
 	{
-		printf("Writing paths...\n");
+		Config::Info( "Writing paths...\n" );
 		short int count;  // HPB bot uses short int for path count
 
-		printf("Writing paths for waypoints...\n");
+		Config::Info( "Writing paths for waypoints...\n" );
 		for (index = 0; index < num_waypoints; index++)
 		{
 			int i = 0;
@@ -1242,7 +1242,7 @@ void WriteHPBWaypointFile()
 			Config::Trace( "Wrote %d paths for waypoint %d\n", count, index );
 		}
 
-		printf("Freeing paths for waypoints...\n");
+		Config::Info( "Freeing paths for waypoints...\n" );
 		for (index = 0; index < num_waypoints; index++)
 		{
 			p = paths[index];
@@ -1255,7 +1255,7 @@ void WriteHPBWaypointFile()
 		}
 
 		free(paths);
-		paths = NULL;
+		paths = nullptr;
 	}
 	else
 	{
@@ -1266,6 +1266,6 @@ void WriteHPBWaypointFile()
 			fwrite(&count, sizeof(count), 1, bfp);
 	}
 
-   fclose(bfp);
+	fclose(bfp);
 }
 

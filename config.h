@@ -39,6 +39,7 @@ public:
 	const static int LOG_NONE = 0;
 	const static int LOG_TRACE = 1;
 	const static int LOG_INFO = 2;
+	const static int LOG_WARN = 2;
 
 	char spawnpoint[64];
 
@@ -49,6 +50,7 @@ public:
 
 	static void Trace( const char* fmt, ... );
 	static void Info( const char* fmt, ... );
+	static void Warn( const char* fmt, ... );
 
 private:
 	const static int LOG_BUFFER_SIZE = 1024;
