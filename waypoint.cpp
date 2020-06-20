@@ -967,7 +967,7 @@ void CalculateWaypointPaths()
 
       if (percent_complete > prev_percent)
       {
-         printf("\rPercent of paths calculated: %d%%", percent_complete);
+         printf("Percent of paths calculated: %d%%\n", percent_complete);
          fflush(stdout);
          prev_percent = percent_complete;
       }
@@ -1205,41 +1205,52 @@ void WriteHPBWaypointFile()
 		short int count;  // HPB bot uses short int for path count
 
 		Config::Info( "Writing paths for waypoints...\n" );
+		// save the waypoint paths...
+		int i;
+		short int num;
 		for (index = 0; index < num_waypoints; index++)
 		{
-			int i = 0;
-			// count the number of paths for this waypoint...
-			count = 0;
+			// count the number of paths from this node...
 			p = paths[index];
+			num = 0;
 
-			if (!p)
+			while (p != nullptr)
 			{
-				continue;
-			}
+				i = 0;
 
-			while (i < MAX_PATH_INDEX)
-			{
-				if (p->index[i] != -1)
+				while (i < MAX_PATH_INDEX)
 				{
-					count++;
+					if (p->index[i] != -1)
+						num++;  // count path node if it's used
+
+					i++;
 				}
 
-				i++;
+				p = p->next;  // go to next node in linked list
 			}
 
-			// write out the count, then write out the paths...
-			fwrite(&count, sizeof(count), 1, bfp);
+			// write the count
+			fwrite(&num, sizeof(num), 1, bfp);
 
-			i = 0;
+			// now write out each path index
+			p = paths[index];
 
-			while (i < MAX_PATH_INDEX)
+			while (p != nullptr)
 			{
-				if (p->index[i] != -1)  // save path node if it's used
-					fwrite(&p->index[i], sizeof(p->index[0]), 1, bfp);
+				i = 0;
 
-				i++;
+				while (i < MAX_PATH_INDEX)
+				{
+					if (p->index[i] != -1)  // save path node if it's used
+						fwrite(&p->index[i], sizeof(p->index[0]), 1, bfp);
+
+					i++;
+				}
+
+				// go to next node in linked list
+				p = p->next;
 			}
-			Config::Trace( "Wrote %d paths for waypoint %d\n", count, index );
+			Config::Trace( "Wrote paths for waypoint %d\n", index );
 		}
 
 		Config::Info( "Freeing paths for waypoints...\n" );

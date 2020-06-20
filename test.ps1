@@ -17,7 +17,7 @@ $global:has_failed = 0
 
 Write-Host "Using executable in $($executable_path)"
 
-function convert_file
+function generate_file
 {
 	& "$($executable_path)\sandbot-wptgen.exe" -w128 $args[0]
 }
@@ -46,7 +46,7 @@ function check_hash
 # $args[2] expected hash of .wpt file
 function test_waypointing
 {
-	($output = convert_file $args[0] $args[1]) > $null
+	($output = generate_file $args[0] $args[1]) > $null
 
 	Write-Host "Generating waypoint for $($args[0])"
 
@@ -58,8 +58,8 @@ function test_waypointing
 	Write-Host "================"
 }
 
-test_waypointing bsp/bounce.bsp bounce.wpt "7C2B7B4F00C883C4665BD8DCB130787C07B394C773A2C08CB4DBBC63EC7A7C46"
-test_waypointing bsp/frenzy.bsp frenzy.wpt "EB801F492441B6E3E4363C516DF05CD4E9FE1F9F617ED23338E73D542C0EA074"
+test_waypointing bsp/bounce.bsp bounce.wpt "114A7C91EF50A618CBF62EBCEA21B77921DA1CBEEAB7ACD5CBA9A7345C5B7748"
+test_waypointing bsp/frenzy.bsp frenzy.wpt "790139C453A27727819801FDB545F3D0A455DF98EC5830277EE634888EFCF5D4"
 
 if ($global:has_failed)
 {
