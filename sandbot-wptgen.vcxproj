@@ -233,7 +233,7 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <OutputFile>.\Debug\sandbot-wptgen.exe</OutputFile>
+      <OutputFile>$(SolutionDir)$(Platform)\$(Configuration)\sandbot-wptgen.exe</OutputFile>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
