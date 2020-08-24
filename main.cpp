@@ -29,47 +29,47 @@
 
 #include "cmdlib.h"
 #include "config.h"
-#include "world.h"
 #include "waypoint.h"
+#include "world.h"
 
 Config config("BSP_tool.cfg");
 World world;
 
-int main (int argc, char **argv)
+int main( int argc, char **argv )
 {
-   char filename[MAX_PATH];
-   int grid_size;
-   bool do_autowaypoint = FALSE;
+	char szFilename[MAX_PATH];
+	unsigned int iGridSize = World::DEFAULT_GRID_SIZE;
 
-   if (argc < 2)
-   {
-      printf("\n");
-      printf("usage: BSP_tool -wN bspfile\n");
-      printf("\n");
-      printf("where: -wN = run autowaypoint on BSP file\n");
-      printf("             (where N is the grid size: 64, 72, 80, 100, 120, 150, 200)\n");
-      return 1;
-   }
+	if( argc < 2 )
+	{
+		printf( "Usage: sandbot-wptgen.exe -wN file.bsp\n" );
+		printf( "N is the grid size (integer greater than 32)\n" );
+		return 1;
+	}
 
-   for (int n = 1; n < argc; n++)
-   {
-      if (strncmp(argv[n], "-w", 2) == 0)
-      {
-         do_autowaypoint = TRUE;
-         if (sscanf(&argv[n][2], "%d", &grid_size) < 1)
-            grid_size = 100;  // default to 100 units for grid size
-      }
-      else
-         strcpy(filename, argv[n]);
-   }
+	for( int n = 1; n < argc; n++ )
+	{
+		unsigned int iParameterPrefixLength = strlen("-w");
 
-   printf("%s\n", filename);
+		if( !strncmp(argv[n], "-w", iParameterPrefixLength) )
+		{
+			// if there isn't a valid grid size passed
+			if( sscanf( &argv[n][iParameterPrefixLength], "%u", &iGridSize ) < 1 )
+			{
+				iGridSize = World::DEFAULT_GRID_SIZE;
+			}
+		}
+		else
+		{
+			strcpy( szFilename, argv[n] );
+		}
+	}
 
-   world.LoadBSP(filename);
+	Config::Info( "Processing %s\n", szFilename );
 
-   if (do_autowaypoint)
-      WaypointLevel(grid_size);  // auto waypoint the BSP world
+	world.LoadBSP( szFilename );
 
-   return 0;
+	WaypointLevel( iGridSize );
+
+	return 0;
 }
-
