@@ -760,7 +760,7 @@ int FindEntityByWildcard(int index, const char *classname, int length)
    return -1;  // entity not found
 }
 
-char *ValueForKey (entity_t *ent, char *key)
+char *ValueForKey (entity_t *ent, const char *key)
 {
    epair_t  *ep;
 

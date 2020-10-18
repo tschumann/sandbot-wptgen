@@ -48,7 +48,7 @@ Error
 For abnormal program terminations
 =================
 */
-void Error (char *error, ...)
+void Error (const char *error, ...)
 {
    va_list argptr;
    char msg[256];

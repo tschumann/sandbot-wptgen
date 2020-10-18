@@ -1202,7 +1202,6 @@ void WriteHPBWaypointFile()
 	if (paths)
 	{
 		Config::Info( "Writing paths...\n" );
-		short int count;  // HPB bot uses short int for path count
 
 		Config::Info( "Writing paths for waypoints...\n" );
 		// save the waypoint paths...

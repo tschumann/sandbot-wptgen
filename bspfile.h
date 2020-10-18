@@ -328,7 +328,7 @@ void SetKeyValue (entity_t *ent, char *key, char *value);
 void RemoveKey(entity_t *ent, char *key);
 int FindEntityByClassname(int index, const char *classname);
 int FindEntityByWildcard(int index, const char *classname, int length);
-char *ValueForKey (entity_t *ent, char *key);
+char *ValueForKey (entity_t *ent, const char *key);
 // will return "" if not present
 
 vec_t FloatForKey (entity_t *ent, char *key);
