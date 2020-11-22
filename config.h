@@ -43,10 +43,7 @@ public:
 
 	char spawnpoint[64];
 
-	Config(const char *config_file);
-	~Config();
-
-	bool ParseScriptFile() const;
+	Config();
 
 	static void Trace( const char* fmt, ... );
 	static void Info( const char* fmt, ... );

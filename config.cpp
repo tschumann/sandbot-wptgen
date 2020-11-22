@@ -26,88 +26,18 @@
 
 #include <stdio.h>
 
-#ifdef WIN32
-#include <direct.h>
-#else
-#include <unistd.h>
-#endif // WIN32
-
-#include "scriplib.h"
 #include "config.h"
 
-
-Config::Config(const char *config_file)
+Config::Config()
 {
-	char config_filename[MAX_PATH];
+	// set up configuration defaults
+	spawnpoint[0] = '\0';
 
-	// set up configuration defaults...
-	spawnpoint[0] = 0;
-
-#ifdef WIN32
-	_getcwd(szPath, MAX_PATH);
-	strcat(szPath, "\\");
-#else
-	getcwd(szPath, MAX_PATH);
-	strcat(szPath, "/");
-#endif
-
-	strcpy(config_filename, szPath);
-	strcat(config_filename, config_file);
-
-	LoadScriptFile(config_filename);
-
-	ParseScriptFile();
 #if _DEBUG
 	iLogLevel = LOG_TRACE;
 #else
 	iLogLevel = LOG_INFO;
 #endif
-}
-
-Config::~Config()
-{
-}
-
-bool Config::ParseScriptFile() const
-{
-	while( true )
-	{
-		do
-		{
-			// look for a line starting with a '$'
-			GetToken( true );
-
-			if( endofscript )
-			{
-				// indicate success
-				return false;
-			}
-			if( token[0] == '$' )
-			{
-				break;
-			}
-
-			while( TokenAvailable() )
-			{
-				GetToken( false );
-			}
-		} while( true );
-
-		if( !strcmp( token, "$spawnpoint" ) )
-		{
-			if( spawnpoint[0] )
-			{
-				Error( "Multiple $spawnpoint entries found in .cfg file!\n" );
-			}
-
-			GetToken( false );
-			sscanf( token, "%s", spawnpoint );
-		}
-		else
-		{
-			Error( "Unknown Config file option: %s\n", token );
-		}
-	}
 }
 
 extern Config config;

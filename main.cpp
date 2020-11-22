@@ -32,31 +32,42 @@
 #include "waypoint.h"
 #include "world.h"
 
-Config config("BSP_tool.cfg");
+Config config;
 World world;
 
 int main( int argc, char **argv )
 {
 	char szFilename[MAX_PATH];
 	unsigned int iGridSize = World::DEFAULT_GRID_SIZE;
+	strncpy( config.spawnpoint, "info_player_deathmatch", 64 );
 
 	if( argc < 2 )
 	{
-		printf( "Usage: sandbot-wptgen.exe -wN file.bsp\n" );
+		printf( "Usage: sandbot-wptgen.exe -wN -sS file.bsp\n" );
 		printf( "N is the grid size (integer greater than 32)\n" );
+		printf( "S is the spawnpoint (e.g. info_player_deathmatch)\n" );
 		return 1;
 	}
 
 	for( int n = 1; n < argc; n++ )
 	{
-		unsigned int iParameterPrefixLength = strlen("-w");
+		const unsigned int iGridSizeParameterPrefixLength = strlen("-w");
+		const unsigned int iSpawnPointParameterPrefixLength = strlen("-s");
 
-		if( !strncmp(argv[n], "-w", iParameterPrefixLength) )
+		if( !strncmp(argv[n], "-w", iGridSizeParameterPrefixLength) )
 		{
 			// if there isn't a valid grid size passed
-			if( sscanf( &argv[n][iParameterPrefixLength], "%u", &iGridSize ) < 1 )
+			if( sscanf( &argv[n][iGridSizeParameterPrefixLength], "%u", &iGridSize ) < 1 )
 			{
 				iGridSize = World::DEFAULT_GRID_SIZE;
+			}
+		}
+		if( !strncmp(argv[n], "-s", iSpawnPointParameterPrefixLength) )
+		{
+			// if there isn't a spawnpoint passed
+			if( sscanf(&argv[n][iSpawnPointParameterPrefixLength], "%s", &config.spawnpoint) < 1 )
+			{
+				Config::Warn( "Error parsing spawnpoint" );
 			}
 		}
 		else
@@ -65,7 +76,7 @@ int main( int argc, char **argv )
 		}
 	}
 
-	Config::Info( "Processing %s\n", szFilename );
+	Config::Info( "Processing %s\n with grid size %u and spawnpoint %s", szFilename, iGridSize, config.spawnpoint );
 
 	world.LoadBSP( szFilename );
 
