@@ -1116,7 +1116,7 @@ void WaypointLevel(const int map_grid_size)
 	int ent_index = -1;
 	char *value;
 
-	if ((ent_index = FindEntityByClassname(ent_index, config.spawnpoint)) != -1)
+	if ((ent_index = FindEntityByClassname(ent_index, config.szSpawnpoint)) != -1)
 	{
 		value = ValueForKey(&entities[ent_index], "origin");
 		if (value[0])
@@ -1126,7 +1126,7 @@ void WaypointLevel(const int map_grid_size)
 	}
 	else
 	{
-		printf("Error! Can't find a spawn point: %s\n", config.spawnpoint);
+		printf("Error! Can't find a spawn point: %s\n", config.szSpawnpoint);
 		return;
 	}
 

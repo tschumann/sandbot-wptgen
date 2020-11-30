@@ -41,7 +41,11 @@ public:
 	const static int LOG_INFO = 2;
 	const static int LOG_WARN = 2;
 
-	char spawnpoint[64];
+	const static unsigned int DEFAULT_GRID_SIZE = 100;
+	const static unsigned int SPAWNPOINT_BUFFER_SIZE = 64;
+
+	unsigned int iGridSize = DEFAULT_GRID_SIZE;
+	char szSpawnpoint[SPAWNPOINT_BUFFER_SIZE];
 
 	Config();
 

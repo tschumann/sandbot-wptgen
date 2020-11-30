@@ -40,8 +40,6 @@ public:
 	~World();
 
 	void LoadBSP( const char *bspfile );
-
-	const static unsigned int DEFAULT_GRID_SIZE = 100;
 };
 
 #endif // WORLD_H

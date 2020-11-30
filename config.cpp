@@ -30,8 +30,7 @@
 
 Config::Config()
 {
-	// set up configuration defaults
-	spawnpoint[0] = '\0';
+	strncpy( szSpawnpoint, "info_player_deathmatch", SPAWNPOINT_BUFFER_SIZE);
 
 #if _DEBUG
 	iLogLevel = LOG_TRACE;

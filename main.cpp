@@ -38,8 +38,6 @@ World world;
 int main( int argc, char **argv )
 {
 	char szFilename[MAX_PATH];
-	unsigned int iGridSize = World::DEFAULT_GRID_SIZE;
-	strncpy( config.spawnpoint, "info_player_deathmatch", 64 );
 
 	if( argc < 2 )
 	{
@@ -57,17 +55,17 @@ int main( int argc, char **argv )
 		if( !strncmp(argv[n], "-w", iGridSizeParameterPrefixLength) )
 		{
 			// if there isn't a valid grid size passed
-			if( sscanf( &argv[n][iGridSizeParameterPrefixLength], "%u", &iGridSize ) < 1 )
+			if( sscanf( &argv[n][iGridSizeParameterPrefixLength], "%u", &config.iGridSize ) < 1 )
 			{
-				iGridSize = World::DEFAULT_GRID_SIZE;
+				config.iGridSize = Config::DEFAULT_GRID_SIZE;
 			}
 		}
 		if( !strncmp(argv[n], "-s", iSpawnPointParameterPrefixLength) )
 		{
 			// if there isn't a spawnpoint passed
-			if( sscanf(&argv[n][iSpawnPointParameterPrefixLength], "%s", &config.spawnpoint) < 1 )
+			if( sscanf( &argv[n][iSpawnPointParameterPrefixLength], "%s", &config.szSpawnpoint ) < 1 )
 			{
-				Config::Warn( "Error parsing spawnpoint" );
+				strncpy( config.szSpawnpoint, "info_player_deathmatch", Config::SPAWNPOINT_BUFFER_SIZE);
 			}
 		}
 		else
@@ -76,11 +74,11 @@ int main( int argc, char **argv )
 		}
 	}
 
-	Config::Info( "Processing %s\n with grid size %u and spawnpoint %s", szFilename, iGridSize, config.spawnpoint );
+	Config::Info( "Processing %s\n with grid size %u and spawnpoint %s", szFilename, config.iGridSize, config.szSpawnpoint );
 
 	world.LoadBSP( szFilename );
 
-	WaypointLevel( iGridSize );
+	WaypointLevel( config.iGridSize );
 
 	return 0;
 }
