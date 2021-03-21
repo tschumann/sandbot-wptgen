@@ -1,6 +1,8 @@
 .vs/
 Debug/
+Debug-Test/
 Release/
+Release-Test/
 
 *.vcxproj.user
 
