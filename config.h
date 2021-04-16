@@ -28,6 +28,7 @@
 #define CONFIG_H
 
 #ifdef _WIN32
+#include <sal.h>
 #include <windows.h>
 #else
 #define MAX_PATH 256
@@ -45,13 +46,13 @@ public:
 	const static unsigned int SPAWNPOINT_BUFFER_SIZE = 64;
 
 	unsigned int iGridSize = DEFAULT_GRID_SIZE;
-	char szSpawnpoint[SPAWNPOINT_BUFFER_SIZE];
+	char szSpawnpoint[SPAWNPOINT_BUFFER_SIZE] = "";
 
 	Config();
 
-	static void Trace( const char* fmt, ... );
-	static void Info( const char* fmt, ... );
-	static void Warn( const char* fmt, ... );
+	static void Trace( _In_ const char* fmt, ... );
+	static void Info( _In_ const char* fmt, ... );
+	static void Warn( _In_ const char* fmt, ... );
 
 private:
 	const static int LOG_BUFFER_SIZE = 1024;

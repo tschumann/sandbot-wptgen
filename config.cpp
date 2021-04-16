@@ -41,7 +41,7 @@ Config::Config()
 
 extern Config config;
 
-void Config::Trace( const char* szFormat, ... )
+void Config::Trace( _In_ const char* szFormat, ... )
 {
 	if( config.iLogLevel >= Config::LOG_TRACE )
 	{
@@ -56,7 +56,7 @@ void Config::Trace( const char* szFormat, ... )
 	}
 }
 
-void Config::Info( const char* szFormat, ... )
+void Config::Info( _In_ const char* szFormat, ... )
 {
 	if( config.iLogLevel >= Config::LOG_INFO )
 	{
@@ -71,7 +71,7 @@ void Config::Info( const char* szFormat, ... )
 	}
 }
 
-void Config::Warn( const char* szFormat, ... )
+void Config::Warn( _In_ const char* szFormat, ... )
 {
 	if( config.iLogLevel >= Config::LOG_WARN )
 	{
