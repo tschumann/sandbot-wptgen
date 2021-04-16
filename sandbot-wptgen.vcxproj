@@ -243,6 +243,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="bspfile.cpp" />
+    <ClCompile Include="config-test.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="cmdlib.cpp" />
     <ClCompile Include="config.cpp" />

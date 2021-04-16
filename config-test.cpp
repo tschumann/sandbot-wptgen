@@ -1,4 +1,4 @@
-#include "pch.h"
+#include "config.h"
 #include "CppUnitTest.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -11,6 +11,7 @@ namespace configtest
 		
 		TEST_METHOD(TestTrace)
 		{
+			Config::Trace( "blah" );
 		}
 	};
 }
