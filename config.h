@@ -27,8 +27,9 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
+#include "annotation.h"
+
 #ifdef _WIN32
-#include <sal.h>
 #include <windows.h>
 #else
 #define MAX_PATH 256

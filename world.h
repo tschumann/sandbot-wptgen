@@ -24,9 +24,11 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
-#ifndef __linux__
+#ifdef _WIN32
 #include <windows.h>
-#endif
+#else
+#define MAX_PATH 256
+#endif // _WIN32
 
 #ifndef WORLD_H
 #define WORLD_H
@@ -34,7 +36,8 @@
 class World
 {
 public:
-	char szMapName[MAX_PATH];  // name of the currently loaded BSP file
+	// name of the currently loaded BSP file
+	char szMapName[MAX_PATH];
 
 	World();
 	~World();
