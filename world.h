@@ -24,14 +24,16 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
+#ifndef WORLD_H
+#define WORLD_H
+
+#include "annotation.h"
+
 #ifdef _WIN32
 #include <windows.h>
 #else
 #define MAX_PATH 256
 #endif // _WIN32
-
-#ifndef WORLD_H
-#define WORLD_H
 
 class World
 {
@@ -42,7 +44,7 @@ public:
 	World();
 	~World();
 
-	void LoadBSP( const char *bspfile );
+	void LoadBSP( _In_ const char *bspfile );
 };
 
 #endif // WORLD_H

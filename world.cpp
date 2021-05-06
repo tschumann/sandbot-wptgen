@@ -144,11 +144,10 @@ World::~World()
    }
 }
 
-void World::LoadBSP(const char *bspfile)
+void World::LoadBSP( _In_ const char *bspfile )
 {
    char pathname[MAX_PATH];
    bool bsp_found;
-   int len;
 
    bsp_found = false;
 
@@ -164,7 +163,7 @@ void World::LoadBSP(const char *bspfile)
          // is this BSP file in a MOD directory?
          ExtractFilePath (szMapName, pathname);
 
-         len = strlen(pathname);  // remove trailing '/'
+         int len = strlen(pathname);  // remove trailing '/'
 
          if (len > 0)
             pathname[len-1] = 0;

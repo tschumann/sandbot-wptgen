@@ -27,6 +27,7 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "annotation.h"
 #include "cmdlib.h"
 #include "config.h"
 #include "waypoint.h"
@@ -35,7 +36,7 @@
 Config config;
 World world;
 
-int main( int argc, char **argv )
+int main( _In_ int argc, _In_ char **argv )
 {
 	char szFilename[MAX_PATH];
 
@@ -44,6 +45,7 @@ int main( int argc, char **argv )
 		printf( "Usage: sandbot-wptgen.exe -wN -sS file.bsp\n" );
 		printf( "N is the grid size (integer greater than 32)\n" );
 		printf( "S is the spawnpoint (e.g. info_player_deathmatch)\n" );
+
 		return 1;
 	}
 
