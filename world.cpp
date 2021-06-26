@@ -24,6 +24,9 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
+#include <cstdlib>
+#include <io.h>
+
 #include "cmdlib.h"
 #include "bspfile.h"
 #include "entity.h"
@@ -144,38 +147,34 @@ World::~World()
    }
 }
 
-void World::LoadBSP( _In_ const char *bspfile )
+bool World::LoadBSP( _In_ const char *pszFilename )
 {
-   char pathname[MAX_PATH];
-   bool bsp_found;
+	if( strlen( pszFilename ) > 0 )
+	{
+		// if the file exists
+		if( access( pszFilename, 0 ) != -1 )
+		{
+			char szPathName[MAX_PATH];
 
-   bsp_found = false;
+			strncpy( szMapName, pszFilename, MAX_PATH);
+			ExtractFilePath( szMapName, szPathName );
 
-   // did we specify a filename on the command line?
-   if ((bspfile != nullptr) && (*bspfile != 0))
-   {
-      strcpy(szMapName, bspfile);
+			int len = strlen(szPathName);  // remove trailing '/'
 
-      if (FileTime(szMapName) != -1)  // does the specified file exist?
-      {
-         LoadBSPFile(szMapName);
+			if( len > 0 )
+			{
+				szPathName[len - 1] = 0;
+			}
 
-         // is this BSP file in a MOD directory?
-         ExtractFilePath (szMapName, pathname);
+			LoadBSPFile( const_cast<char *> (pszFilename ) );
 
-         int len = strlen(pathname);  // remove trailing '/'
+			ParseEntities();
 
-         if (len > 0)
-            pathname[len-1] = 0;
+			LoadEntVars();
 
-         bsp_found = true;
-      }
-   }
+			return true;
+		}
+	}
 
-   if (!bsp_found)
-      Error("Can't load map: %s\n", szMapName);
-
-   ParseEntities();
-
-   LoadEntVars();
+	return false;
 }

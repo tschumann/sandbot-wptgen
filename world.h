@@ -38,13 +38,12 @@
 class World
 {
 public:
-	// name of the currently loaded BSP file
-	char szMapName[MAX_PATH];
-
 	World();
 	~World();
 
-	void LoadBSP( _In_ const char *bspfile );
+	bool LoadBSP( _In_ const char * pszFilename );
+
+	char szMapName[MAX_PATH];
 };
 
 #endif // WORLD_H

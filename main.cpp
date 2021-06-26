@@ -76,9 +76,16 @@ int main( _In_ int argc, _In_ char **argv )
 		}
 	}
 
-	Config::Info( "Processing %s\n with grid size %u and spawnpoint %s", szFilename, config.iGridSize, config.szSpawnpoint );
+	Config::Info( "Processing %s\n with grid size %u and spawnpoint %s\n", szFilename, config.iGridSize, config.szSpawnpoint );
 
-	world.LoadBSP( szFilename );
+	const bool bSuccess = world.LoadBSP( szFilename );
+
+	if( !bSuccess )
+	{
+		Config::Warn("Unable to open %s\n");
+
+		return 1;
+	}
 
 	WaypointLevel( config.iGridSize );
 

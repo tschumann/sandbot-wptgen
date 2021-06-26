@@ -1081,7 +1081,7 @@ void WaypointLevel(const int map_grid_size)
    down[0]    = 0;           down[1]    = 0;           down[2]    = -grid_size;
 
    // intialize vectors used to detect waypoints in mid-air...
-   down_to_ground[0] = 0;  down_to_ground[1] = 0;  down_to_ground[2] = -(grid_size + 10);
+   down_to_ground[0] = 0.0;  down_to_ground[1] = 0.0;  down_to_ground[2] = -(grid_size + 10.0);
 
    // player is 72 units, origin is half that
    up_off_floor[0] = 0;  up_off_floor[1] = 0;  up_off_floor[2] = 36.0f;
