@@ -25,7 +25,11 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include <cstdlib>
+#ifdef _WIN32
 #include <io.h>
+#else
+#include <unistd.h>
+#endif // _WIN32
 
 #include "cmdlib.h"
 #include "bspfile.h"
