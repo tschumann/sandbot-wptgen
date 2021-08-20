@@ -39,9 +39,9 @@ class Config
 {
 public:
 	const static int LOG_NONE = 0;
-	const static int LOG_TRACE = 1;
+	const static int LOG_WARN = 1;
 	const static int LOG_INFO = 2;
-	const static int LOG_WARN = 2;
+	const static int LOG_TRACE = 3;
 
 	const static unsigned int DEFAULT_GRID_SIZE = 100;
 	const static unsigned int SPAWNPOINT_BUFFER_SIZE = 64;
