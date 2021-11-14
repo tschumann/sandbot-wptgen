@@ -86,9 +86,9 @@ void WaypointAdd(const vec3_t &origin, int flags, bool ignore_loc)
    int x_index, y_index, z_index, offset;
 
    // convert origin to integer array indexes...
-   x_index = (int)(origin[0] + MAX_ORIGIN) / grid_size;
-   y_index = (int)(origin[1] + MAX_ORIGIN) / grid_size;
-   z_index = (int)(origin[2] + MAX_ORIGIN) / grid_size;
+   x_index = (int)(origin[0] + MAX_ORIGIN) / config.iGridSize;
+   y_index = (int)(origin[1] + MAX_ORIGIN) / config.iGridSize;
+   z_index = (int)(origin[2] + MAX_ORIGIN) / config.iGridSize;
 
    offset = x_index * array_size * array_size + y_index * array_size + z_index;
    offset = offset >> 3;
@@ -229,9 +229,9 @@ void RecursiveFloodFill(const vec3_t &coord)
       }
 
       // convert origin to integer array indexes...
-      x_index = (int)(origin[0] + MAX_ORIGIN) / grid_size;
-      y_index = (int)(origin[1] + MAX_ORIGIN) / grid_size;
-      z_index = (int)(origin[2] + MAX_ORIGIN) / grid_size;
+      x_index = (int)(origin[0] + MAX_ORIGIN) / config.iGridSize;
+      y_index = (int)(origin[1] + MAX_ORIGIN) / config.iGridSize;
+      z_index = (int)(origin[2] + MAX_ORIGIN) / config.iGridSize;
 
       offset = x_index * array_size * array_size + y_index * array_size + z_index;
       offset = offset >> 3;
@@ -958,7 +958,7 @@ void CalculateWaypointPaths()
    prev_percent = -1;
 
    // the max range is 1.5 times the hypotenuse of the grid size plus a little bit...
-   max_range = 1.5f * sqrt(grid_size * grid_size * 2) + 10.0f;
+   max_range = 1.5f * sqrt(config.iGridSize * config.iGridSize * 2) + 10.0f;
 
    // calculate the waypoint paths for all waypoints...
    for (index = 0; index < num_waypoints; index++)
@@ -1042,13 +1042,14 @@ void WaypointLevel(const int map_grid_size)
 
    grid_size = map_grid_size;
 
+   // TODO: move this check to main.cpp
    if (grid_size < 32)
    {
 	   Config::Info( "Error!  Waypoint grid size MUST be 32 or greater!\n" );
       return;
    }
 
-   array_size = (MAP_SIZE+(grid_size-1))/grid_size;
+   array_size = (MAP_SIZE+(config.iGridSize -1)) / config.iGridSize;
 
    array_size = ((array_size + 7) / 8) * 8;  // make even multiple of 8
 
@@ -1067,21 +1068,21 @@ void WaypointLevel(const int map_grid_size)
    memset(visited, 0, table_size);
    memset(waypoint_loc, 0, table_size);
 
-   Config::Info( "Using waypoint grid size of %d units\n", grid_size );
+   Config::Info( "Using waypoint grid size of %d units\n", config.iGridSize );
 
    num_waypoints = 0;
 
    overflow = FALSE;
 
-   forward[0] =  grid_size;  forward[1] = 0;           forward[2] = 0;
+   forward[0] =  config.iGridSize;  forward[1] = 0;           forward[2] = 0;
    back[0]    = -grid_size;  back[1]    = 0;           back[2]    = 0;
-   left[0]    = 0;           left[1]    =  grid_size;  left[2]    = 0;
+   left[0]    = 0;           left[1]    = config.iGridSize;  left[2]    = 0;
    right[0]   = 0;           right[1]   = -grid_size;  right[2]   = 0;
-   up[0]      = 0;           up[1]      = 0;           up[2]      =  grid_size;
+   up[0]      = 0;           up[1]      = 0;           up[2]      = config.iGridSize;
    down[0]    = 0;           down[1]    = 0;           down[2]    = -grid_size;
 
    // intialize vectors used to detect waypoints in mid-air...
-   down_to_ground[0] = 0.0;  down_to_ground[1] = 0.0;  down_to_ground[2] = -(grid_size + 10.0);
+   down_to_ground[0] = 0.0;  down_to_ground[1] = 0.0;  down_to_ground[2] = -(config.iGridSize + 10.0);
 
    // player is 72 units, origin is half that
    up_off_floor[0] = 0;  up_off_floor[1] = 0;  up_off_floor[2] = 36.0f;

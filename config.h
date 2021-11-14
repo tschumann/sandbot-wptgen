@@ -46,6 +46,7 @@ public:
 	const static unsigned int DEFAULT_GRID_SIZE = 100;
 	const static unsigned int SPAWNPOINT_BUFFER_SIZE = 64;
 
+	// TODO: this should be signed so that stuff in waypoint.cpp works better
 	unsigned int iGridSize = DEFAULT_GRID_SIZE;
 	char szSpawnpoint[SPAWNPOINT_BUFFER_SIZE] = "";
 

@@ -163,11 +163,11 @@ bool World::LoadBSP( _In_ const char *pszFilename )
 			strncpy( szMapName, pszFilename, MAX_PATH);
 			ExtractFilePath( szMapName, szPathName );
 
-			int len = strlen(szPathName);  // remove trailing '/'
+			size_t iPathLength = strlen(szPathName);  // remove trailing '/'
 
-			if( len > 0 )
+			if( iPathLength > 0 )
 			{
-				szPathName[len - 1] = 0;
+				szPathName[iPathLength - 1] = 0;
 			}
 
 			LoadBSPFile( const_cast<char *> (pszFilename ) );
