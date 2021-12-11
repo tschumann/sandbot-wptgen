@@ -51,8 +51,8 @@ int main( _In_ int argc, _In_ char **argv )
 
 	for( int n = 1; n < argc; n++ )
 	{
-		const unsigned int iGridSizeParameterPrefixLength = strlen("-w");
-		const unsigned int iSpawnPointParameterPrefixLength = strlen("-s");
+		const size_t iGridSizeParameterPrefixLength = strlen("-w");
+		const size_t iSpawnPointParameterPrefixLength = strlen("-s");
 
 		if( !strncmp(argv[n], "-w", iGridSizeParameterPrefixLength) )
 		{
@@ -72,7 +72,7 @@ int main( _In_ int argc, _In_ char **argv )
 		}
 		else
 		{
-			strcpy( szFilename, argv[n] );
+			strncpy( szFilename, argv[n], MAX_PATH );
 		}
 	}
 
