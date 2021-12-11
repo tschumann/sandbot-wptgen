@@ -57,7 +57,7 @@ int main( _In_ int argc, _In_ char **argv )
 		if( !strncmp(argv[n], "-w", iGridSizeParameterPrefixLength) )
 		{
 			// if there isn't a valid grid size passed
-			if( sscanf( &argv[n][iGridSizeParameterPrefixLength], "%u", &config.iGridSize ) < 1 )
+			if( sscanf( &argv[n][iGridSizeParameterPrefixLength], "%d", &config.iGridSize ) < 1 )
 			{
 				config.iGridSize = Config::DEFAULT_GRID_SIZE;
 			}
@@ -87,7 +87,7 @@ int main( _In_ int argc, _In_ char **argv )
 		return 1;
 	}
 
-	WaypointLevel( config.iGridSize );
+	WaypointLevel( config );
 
 	return 0;
 }

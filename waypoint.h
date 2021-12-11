@@ -36,7 +36,7 @@ void RecursiveFloodFill(const vec3_t &coord);
 void WaypointAddEntities(const char *item_name, const int waypoint_flags);
 void WaypointAddWallMountedEntities(const char *item_name, const int waypoint_flags);
 void WaypointAddLadders(const int waypoint_flags);
-void WaypointLevel(const int map_grid_size);
+void WaypointLevel( const Config &config );
 void WriteHPBWaypointFile();
 
 #endif

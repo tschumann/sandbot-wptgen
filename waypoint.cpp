@@ -44,9 +44,6 @@
 #define MIN_ORIGIN -4095
 #define MAP_SIZE ((MAX_ORIGIN - MIN_ORIGIN) + 1)
 
-// every X units is a position in the level that can be visited
-int grid_size;
-
 // the size of the 3 dimensional array allocated to store visited and waypoint locations
 int array_size;
 
@@ -1036,14 +1033,12 @@ void CalculateWaypointPaths()
 }
 
 
-void WaypointLevel(const int map_grid_size)
+void WaypointLevel( const Config &config )
 {
 	Config::Info( "Generating waypoints...\n" );
 
-   grid_size = map_grid_size;
-
    // TODO: move this check to main.cpp
-   if (grid_size < 32)
+   if (config.iGridSize < 32)
    {
 	   Config::Info( "Error!  Waypoint grid size MUST be 32 or greater!\n" );
       return;
@@ -1075,11 +1070,11 @@ void WaypointLevel(const int map_grid_size)
    overflow = FALSE;
 
    forward[0] =  config.iGridSize;  forward[1] = 0;           forward[2] = 0;
-   back[0]    = -grid_size;  back[1]    = 0;           back[2]    = 0;
+   back[0]    = -config.iGridSize;  back[1]    = 0;           back[2]    = 0;
    left[0]    = 0;           left[1]    = config.iGridSize;  left[2]    = 0;
-   right[0]   = 0;           right[1]   = -grid_size;  right[2]   = 0;
+   right[0]   = 0;           right[1]   = -config.iGridSize;  right[2]   = 0;
    up[0]      = 0;           up[1]      = 0;           up[2]      = config.iGridSize;
-   down[0]    = 0;           down[1]    = 0;           down[2]    = -grid_size;
+   down[0]    = 0;           down[1]    = 0;           down[2]    = -config.iGridSize;
 
    // intialize vectors used to detect waypoints in mid-air...
    down_to_ground[0] = 0.0;  down_to_ground[1] = 0.0;  down_to_ground[2] = -(config.iGridSize + 10.0);
