@@ -1037,13 +1037,6 @@ void WaypointLevel( const Config &config )
 {
 	Config::Info( "Generating waypoints...\n" );
 
-   // TODO: move this check to main.cpp
-   if (config.iGridSize < 32)
-   {
-	   Config::Info( "Error!  Waypoint grid size MUST be 32 or greater!\n" );
-      return;
-   }
-
    array_size = (MAP_SIZE+(config.iGridSize -1)) / config.iGridSize;
 
    array_size = ((array_size + 7) / 8) * 8;  // make even multiple of 8
@@ -1053,12 +1046,16 @@ void WaypointLevel( const Config &config )
    visited = (unsigned char *)malloc(table_size);  // 3 dimensional array of grid size
 
    if (visited == NULL)
-      Error("Error allocating memory for waypoint visited array!");
+   {
+	   Error("Error allocating memory for waypoint visited array!");
+   }
 
    waypoint_loc = (unsigned char *)malloc(table_size);  // 3 dimensional array of grid size
 
    if (waypoint_loc == NULL)
-      Error("Error allocating memory for waypoint location array!");
+   {
+	   Error("Error allocating memory for waypoint location array!");
+   }
 
    memset(visited, 0, table_size);
    memset(waypoint_loc, 0, table_size);

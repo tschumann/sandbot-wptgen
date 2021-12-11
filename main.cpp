@@ -61,6 +61,13 @@ int main( _In_ int argc, _In_ char **argv )
 			{
 				config.iGridSize = Config::DEFAULT_GRID_SIZE;
 			}
+
+			if( config.iGridSize < 32 )
+			{
+				Config::Warn( "Grid size must be > 32\n" );
+
+				return 1;
+			}
 		}
 		if( !strncmp(argv[n], "-s", iSpawnPointParameterPrefixLength) )
 		{
@@ -76,13 +83,13 @@ int main( _In_ int argc, _In_ char **argv )
 		}
 	}
 
-	Config::Info( "Processing %s\n with grid size %u and spawnpoint %s\n", szFilename, config.iGridSize, config.szSpawnpoint );
+	Config::Info( "Processing %s with grid size %u and spawnpoint %s\n", szFilename, config.iGridSize, config.szSpawnpoint );
 
 	const bool bSuccess = world.LoadBSP( szFilename );
 
 	if( !bSuccess )
 	{
-		Config::Warn("Unable to open %s\n");
+		Config::Warn( "Unable to open %s\n" );
 
 		return 1;
 	}
