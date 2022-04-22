@@ -19,7 +19,7 @@ Write-Host "Using executable in $($executable_path)"
 
 function generate_file_x86
 {
-	& "$($executable_path)\sandbot-wptgen.exe" -w128 $args[0]
+	& "..\$($executable_path)\sandbot-wptgen.exe" -w128 $args[0]
 }
 
 function generate_file_x64
