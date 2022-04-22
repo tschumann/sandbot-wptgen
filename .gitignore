@@ -1,10 +1,7 @@
 .vs/
 Debug/
-Debug-Test/
 Release/
-Release-Test/
 
 *.vcxproj.user
 
 *.o
-sandbot-wptgen

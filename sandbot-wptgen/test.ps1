@@ -60,15 +60,6 @@ function test_waypointing
 	# delete the .wpt file
 	Remove-Item $args[1]
 
-	($output = generate_file_x64 $args[0] $args[1]) > $null
-
-	Write-Host "Generating waypoint for $($args[0]) (x64)"
-
-	check_hash $args[1] $args[2]
-
-	# delete the .wpt file
-	Remove-Item $args[1]
-
 	Write-Host "================"
 }
 
