@@ -4,7 +4,7 @@ set -eu
 
 cd $(dirname "${BASH_SOURCE[0]}")
 
-bin_path="./sandbot-wptgen"
+bin_path="../sandbot-wptgen/sandbot-wptgen"
 failed=0
 
 # TODO: is this right? might be better to check for Linux as Git Bash on Windows gives MINGW64_NT-10.0-19043
