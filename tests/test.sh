@@ -4,13 +4,23 @@ set -eu
 
 cd $(dirname "${BASH_SOURCE[0]}")
 
-bin_path="../sandbot-wptgen/sandbot-wptgen"
 failed=0
 
 # TODO: is this right? might be better to check for Linux as Git Bash on Windows gives MINGW64_NT-10.0-19043
 if [[ $(uname) == *"NT-"* ]]; then
+	echo "Compiling on Windows"
+	# hack - call out to Powershell because devenv.exe doesn't parse arguments correctly when called from git bash
+	powershell ./build.ps1
+
 	echo "Running on Windows"
 	bin_path="../Debug/sandbot-wptgen"
+elif [[ $(uname) == "Linux" ]]; then
+	echo "Compiling on Linux"
+	make -c ../sandbot-wptgen clean
+	make -c ../sandbot-wptgen
+
+	echo "Running on Linux"
+	bin_path="../sandbot-wptgen/sandbot-wptgen"
 fi
 
 echo "Generating waypoint for bsp/bounce.bsp"

@@ -32,8 +32,7 @@ Tests
 
 ### Windows
 ```
-powershell tests/test.ps1 Debug
-powershell tests/test.ps1 Release
+powershell tests/test.ps1
 tests/test.sh
 ```
 

@@ -1,6 +1,3 @@
-
-$executable_path = $args[0]
-
 # get the location of this file
 $scriptpath = $MyInvocation.MyCommand.Path
 # get the directory path to this file
@@ -8,23 +5,18 @@ $wd = Split-Path $scriptpath
 # set the working directory as this file's directory
 Push-Location $wd
 
-if($executable_path -eq $null)
-{
-	$executable_path = 'Debug'
-}
-
 $global:has_failed = 0
 
-Write-Host "Using executable in $($executable_path)"
+& ".\build.ps1"
 
 function generate_file_x86
 {
-	& "..\$($executable_path)\sandbot-wptgen.exe" -w128 $args[0]
+	& "..\Release\sandbot-wptgen.exe" -w128 $args[0]
 }
 
 function generate_file_x64
 {
-	& "x64\$($executable_path)\sandbot-wptgen.exe" -w128 $args[0]
+	& "x64\Release\sandbot-wptgen.exe" -w128 $args[0]
 }
 
 # $args[0] file to check

@@ -6,36 +6,27 @@
 //
 // http://www.teamsandpit.com/
 //
-// Notes: config class tests
+// Notes: application entrypoint tests
 //
 //=============================================================================
 
 #include "pch.h"
 #include "CppUnitTest.h"
 
-#include "../sandbot-wptgen/config.h"
+#include "../sandbot-wptgen/main.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-namespace configtest
+namespace maintest
 {
-	TEST_CLASS(configtest)
+	TEST_CLASS(maintest)
 	{
 	public:
 
 		TEST_METHOD(TestTrace)
 		{
-			Config::Trace("blah");
-		}
-
-		TEST_METHOD(TestInfo)
-		{
-			Config::Info("blah");
-		}
-
-		TEST_METHOD(TestWarn)
-		{
-			Config::Warn("blah");
+			char* argv[1] = { "sandbot.exe" };
+			Assert::AreEqual( 1, main( 1, argv ) );
 		}
 	};
 }

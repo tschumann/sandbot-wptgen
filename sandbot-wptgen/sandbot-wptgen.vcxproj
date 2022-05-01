@@ -148,6 +148,7 @@
     <ClInclude Include="cmdlib.h" />
     <ClInclude Include="config.h" />
     <ClInclude Include="entity.h" />
+    <ClInclude Include="main.h" />
     <ClInclude Include="mathlib.h" />
     <ClInclude Include="scriplib.h" />
     <ClInclude Include="trace.h" />

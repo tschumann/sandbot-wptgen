@@ -18,7 +18,7 @@
 
 Config::Config()
 {
-	strncpy( szSpawnpoint, "info_player_deathmatch", SPAWNPOINT_BUFFER_SIZE);
+	strncpy( szSpawnpoint, "info_player_deathmatch", SPAWNPOINT_BUFFER_SIZE );
 
 #if _DEBUG
 	iLogLevel = LOG_TRACE;

@@ -15,9 +15,9 @@
 
 #include "cmdlib.h"
 #include "config.h"
+#include "main.h"
 #include "waypoint.h"
 #include "world.h"
-#include "xplatform.h"
 
 Config config;
 World world;
