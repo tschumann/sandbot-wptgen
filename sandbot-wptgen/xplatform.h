@@ -6,26 +6,28 @@
 //
 // http://www.teamsandpit.com/
 //
-// Notes: config class tests
+// Notes: platform-specific code
 //
 //=============================================================================
 
-#include "pch.h"
-#include "CppUnitTest.h"
+#ifndef __XPLATFORM_H__
+#define __XPLATFORM_H__
 
-#include "../sandbot-wptgen/config.h"
+#ifdef _WIN32
 
-using namespace Microsoft::VisualStudio::CppUnitTestFramework;
+// for access
+#include <io.h>
 
-namespace configtest
-{
-	TEST_CLASS(configtest)
-	{
-	public:
+#include <sal.h>
 
-		TEST_METHOD(TestTrace)
-		{
-			Config::Trace("blah");
-		}
-	};
-}
+#else
+
+// for access
+#include <unistd.h>
+
+// from sal.h
+#define _In_
+
+#endif // _WIN32
+
+#endif // __XPLATFORM_H__

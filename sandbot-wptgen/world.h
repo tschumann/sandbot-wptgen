@@ -27,13 +27,7 @@
 #ifndef WORLD_H
 #define WORLD_H
 
-#include "annotation.h"
-
-#ifdef _WIN32
-#include <windows.h>
-#else
-#define MAX_PATH 256
-#endif // _WIN32
+#include "xplatform.h"
 
 class World
 {
@@ -43,7 +37,7 @@ public:
 
 	bool LoadBSP( _In_ const char * pszFilename );
 
-	char szMapName[MAX_PATH];
+	char szMapName[FILENAME_MAX];
 };
 
 #endif // WORLD_H

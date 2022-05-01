@@ -154,6 +154,7 @@
     <ClInclude Include="waypoint.h" />
     <ClInclude Include="world.h" />
     <ClInclude Include="wpt.h" />
+    <ClInclude Include="xplatform.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

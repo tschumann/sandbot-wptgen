@@ -1,44 +1,30 @@
+//=============================================================================
 //
-// BSP_tool - botman's Half-Life BSP utilities
+// sandbot-wptgen - Sandbot waypoint generator
 //
-// (http://planethalflife.com/botman/)
+// Based on bsp_tool by Jeffrey "botman" Broome
 //
-// bsp_tool.cpp
+// http://www.teamsandpit.com/
 //
-// Copyright (C) 2001 - Jeffrey "botman" Broome
+// Notes: application entrypoint
 //
-//
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 2
-// of the License, or (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-//
-// See the GNU General Public License for more details at:
-// http://www.gnu.org/copyleft/gpl.html
-//
-// You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+//=============================================================================
 
 #include <stdio.h>
 #include <string.h>
 
-#include "annotation.h"
 #include "cmdlib.h"
 #include "config.h"
 #include "waypoint.h"
 #include "world.h"
+#include "xplatform.h"
 
 Config config;
 World world;
 
 int main( _In_ int argc, _In_ char **argv )
 {
-	char szFilename[MAX_PATH];
+	char szFilename[FILENAME_MAX];
 
 	if( argc < 2 )
 	{
@@ -79,7 +65,7 @@ int main( _In_ int argc, _In_ char **argv )
 		}
 		else
 		{
-			strncpy( szFilename, argv[n], MAX_PATH );
+			strncpy( szFilename, argv[n], FILENAME_MAX );
 		}
 	}
 

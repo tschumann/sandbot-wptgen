@@ -77,5 +77,8 @@
     <ClInclude Include="wpt.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="xplatform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

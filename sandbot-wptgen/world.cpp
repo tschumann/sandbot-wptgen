@@ -25,20 +25,15 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include <cstdlib>
-#ifdef _WIN32
-#include <io.h>
-#else
-#include <unistd.h>
-#endif // _WIN32
-
 #include "cmdlib.h"
 #include "bspfile.h"
 #include "entity.h"
 #include "world.h"
+#include "xplatform.h"
 
 World::World()
 {
-	memset( szMapName, 0, MAX_PATH );
+	memset( szMapName, 0, FILENAME_MAX );
 }
 
 World::~World()
@@ -158,9 +153,9 @@ bool World::LoadBSP( _In_ const char *pszFilename )
 		// if the file exists
 		if( access( pszFilename, 0 ) != -1 )
 		{
-			char szPathName[MAX_PATH];
+			char szPathName[FILENAME_MAX];
 
-			strncpy( szMapName, pszFilename, MAX_PATH);
+			strncpy( szMapName, pszFilename, FILENAME_MAX );
 			ExtractFilePath( szMapName, szPathName );
 
 			size_t iPathLength = strlen(szPathName);  // remove trailing '/'

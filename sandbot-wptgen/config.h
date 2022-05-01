@@ -1,39 +1,19 @@
+//=============================================================================
 //
-// BSP_tool - botman's Half-Life BSP utilities
+// sandbot-wptgen - Sandbot waypoint generator
 //
-// (http://planethalflife.com/botman/)
+// Based on bsp_tool by Jeffrey "botman" Broome
 //
-// config.h
+// http://www.teamsandpit.com/
 //
-// Copyright (C) 2001 - Jeffrey "botman" Broome
+// Notes: config class
 //
-//
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 2
-// of the License, or (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-//
-// See the GNU General Public License for more details at:
-// http://www.gnu.org/copyleft/gpl.html
-//
-// You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+//=============================================================================
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#ifndef __CONFIG_H__
+#define __CONFIG_H__
 
-#include "annotation.h"
-
-#ifdef _WIN32
-#include <windows.h>
-#else
-#define MAX_PATH 256
-#endif // _WIN32
+#include "xplatform.h"
 
 class Config
 {
@@ -59,8 +39,8 @@ public:
 private:
 	const static int LOG_BUFFER_SIZE = 1024;
 
-	char szPath[MAX_PATH]; // path where the running application resides
+	char szPath[FILENAME_MAX]; // path where the running application resides
 	int iLogLevel;
 };
 
-#endif
+#endif // __CONFIG_H__
