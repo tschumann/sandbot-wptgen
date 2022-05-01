@@ -16,8 +16,8 @@ if [[ $(uname) == *"NT-"* ]]; then
 	bin_path="../Debug/sandbot-wptgen"
 elif [[ $(uname) == "Linux" ]]; then
 	echo "Compiling on Linux"
-	make -c ../sandbot-wptgen clean
-	make -c ../sandbot-wptgen
+	make -C ../sandbot-wptgen clean
+	make -C ../sandbot-wptgen
 
 	echo "Running on Linux"
 	bin_path="../sandbot-wptgen/sandbot-wptgen"
