@@ -45,4 +45,4 @@ tests/test.sh
 License
 -------
 
-GPL V2, because that's what the original project is.
+The original project is GPLv2, so the original code is GPLv2. New code is not GPLv2 (check the comments at the top of the files).
