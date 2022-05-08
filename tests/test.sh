@@ -8,18 +8,21 @@ failed=0
 
 # TODO: is this right? might be better to check for Linux as Git Bash on Windows gives MINGW64_NT-10.0-19043
 if [[ $(uname) == *"NT-"* ]]; then
-	echo "Compiling and running unit tests on Windows"
+	echo "Compiling on Windows"
 	# hack - call out to Powershell because devenv.exe doesn't parse arguments correctly when called from git bash
 	powershell ./build.ps1
 
-	echo "Running functional test on Windows"
+	echo "Running unit tests on Windows"
+	powershell ./unit-test.ps1
+
+	echo "Running functional tests on Windows"
 	bin_path="../Debug/sandbot-wptgen"
 elif [[ $(uname) == "Linux" ]]; then
 	echo "Compiling on Linux"
 	make -C ../sandbot-wptgen clean
 	make -C ../sandbot-wptgen
 
-	echo "Running functional test on Linux"
+	echo "Running functional tests on Linux"
 	bin_path="../sandbot-wptgen/sandbot-wptgen"
 fi
 
