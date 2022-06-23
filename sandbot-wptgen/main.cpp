@@ -26,7 +26,7 @@ int main( _In_ int argc, _In_ char **argv )
 {
 	char szFilename[FILENAME_MAX];
 
-	if( argc < 2 )
+	if( __builtin_expect( argc < 2, false ) )
 	{
 		printf( "Usage: sandbot-wptgen.exe -wN -sS file.bsp\n" );
 		printf( "N is the grid size (integer greater than 32)\n" );

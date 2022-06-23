@@ -18,9 +18,15 @@
 // for access
 #include <io.h>
 
+// for _In_
 #include <sal.h>
 
-#else
+inline long __builtin_expect( long exp, long c )
+{
+	return exp;
+}
+
+#elif __GNUC__
 
 // for access
 #include <unistd.h>
@@ -28,6 +34,10 @@
 // from sal.h
 #define _In_
 
-#endif // _WIN32
+#else
+
+#error Unsupported platform
+
+#endif
 
 #endif // __XPLATFORM_H__
