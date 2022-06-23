@@ -31,12 +31,20 @@ Tests
 -----
 
 ### Windows
+
+Unit tests:
 ```
 powershell tests/test.ps1
+```
+
+All tests:
+```
 tests/test.sh
 ```
 
 ### Linux
+
+End to end tests:
 ```
 tests/test.sh
 ```
