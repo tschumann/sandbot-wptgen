@@ -32,12 +32,7 @@ Tests
 
 ### Windows
 
-Unit tests:
-```
-powershell tests/test.ps1
-```
-
-All tests:
+End to end and unit tests:
 ```
 tests/test.sh
 ```
