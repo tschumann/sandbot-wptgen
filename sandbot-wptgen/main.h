@@ -13,7 +13,10 @@
 #ifndef __MAIN_H__
 #define __MAIN_H__
 
+#include "config.h"
 #include "xplatform.h"
+
+extern Config config;
 
 int main( _In_ int argc, _In_ char** argv );
 

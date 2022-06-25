@@ -14,7 +14,6 @@
 #include <string.h>
 
 #include "cmdlib.h"
-#include "config.h"
 #include "main.h"
 #include "waypoint.h"
 #include "world.h"
@@ -55,7 +54,7 @@ int main( _In_ int argc, _In_ char **argv )
 				return 1;
 			}
 		}
-		if( !strncmp(argv[n], "-s", iSpawnPointParameterPrefixLength) )
+		else if( !strncmp(argv[n], "-s", iSpawnPointParameterPrefixLength) )
 		{
 			// if there isn't a spawnpoint passed
 			if( sscanf( &argv[n][iSpawnPointParameterPrefixLength], "%s", config.szSpawnpoint ) < 1 )
