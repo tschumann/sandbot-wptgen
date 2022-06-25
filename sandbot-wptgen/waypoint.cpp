@@ -763,13 +763,13 @@ void WaypointAddLadders(const int waypoint_flags)
 }
 
 
-void WaypointAddDoors(char *item_name, int waypoint_flags)
+void WaypointAddDoors(const char *item_name, int waypoint_flags)
 {
-   // do some clever stuff with func_door entities here!!!
+	// do some clever stuff with func_door entities here!!!
 
-   // REMEMBER! MANY func_door ENTITIES ARE ACTUALLY LIFTS, NOT DOORS!!!
+	// REMEMBER! MANY func_door ENTITIES ARE ACTUALLY LIFTS, NOT DOORS!!!
 
-   // FIXME!!!
+	// FIXME!!!
 }
 
 

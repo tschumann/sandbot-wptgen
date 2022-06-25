@@ -58,7 +58,7 @@ int main( _In_ int argc, _In_ char **argv )
 		if( !strncmp(argv[n], "-s", iSpawnPointParameterPrefixLength) )
 		{
 			// if there isn't a spawnpoint passed
-			if( sscanf( &argv[n][iSpawnPointParameterPrefixLength], "%s", &config.szSpawnpoint ) < 1 )
+			if( sscanf( &argv[n][iSpawnPointParameterPrefixLength], "%s", config.szSpawnpoint ) < 1 )
 			{
 				strncpy( config.szSpawnpoint, "info_player_deathmatch", Config::SPAWNPOINT_BUFFER_SIZE);
 			}
