@@ -13,9 +13,12 @@
 #include "pch.h"
 #include "CppUnitTest.h"
 
+#include "vector"
+
 #include "../sandbot-wptgen/main.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
+using std::vector;
 
 namespace maintest
 {
@@ -25,26 +28,26 @@ namespace maintest
 
 		TEST_METHOD(TestInsufficientArguments)
 		{
-			char* argv[1] = { "sandbot.exe" };
-			Assert::AreEqual( 1, main( 1, argv ) );
+			vector<char*> argv = { "sandbot.exe" };
+			Assert::AreEqual( EX_USAGE, main( (int)argv.size(), argv.data() ) );
 		}
 
 		TEST_METHOD(TestInvalidGridSize)
 		{
-			char* argv[4] = { "sandbot.exe", "-w-1", "-sinfo_play_deathmath", "file.bsp" };
-			Assert::AreEqual( 1, main( 4, argv ) );
+			vector<char*> argv = { "sandbot.exe", "-w-1", "-sinfo_play_deathmath", "file.bsp" };
+			Assert::AreEqual( EX_CONFIG, main( (int)argv.size(), argv.data() ) );
 		}
 
 		TEST_METHOD(TestNoSuchMap)
 		{
-			char* argv[4] = { "sandbot.exe", "-w32", "-sinfo_play_deathmath", "file.bsp" };
-			Assert::AreEqual( 1, main( 4, argv ) );
+			vector<char*> argv = { "sandbot.exe", "-w32", "-sinfo_play_deathmath", "file.bsp" };
+			Assert::AreEqual( EX_NOINPUT, main( (int)argv.size(), argv.data() ) );
 		}
 
 		TEST_METHOD(TestSetSpawnpointEntity)
 		{
-			char* argv[3] = { "sandbot.exe", "-w32", "-sinfo_player_null" };
-			Assert::AreEqual( 1, main( 3, argv ) );
+			vector<char*> argv = { "sandbot.exe", "-w32", "-sinfo_player_null" };
+			Assert::AreEqual( EX_NOINPUT, main( (int)argv.size(), argv.data() ) );
 			Assert::IsTrue( !strcmp("info_player_null", config.szSpawnpoint) );
 		}
 	};

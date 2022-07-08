@@ -31,7 +31,7 @@ int main( _In_ int argc, _In_ char **argv )
 		printf( "N is the grid size (integer greater than 32)\n" );
 		printf( "S is the spawnpoint (e.g. info_player_deathmatch)\n" );
 
-		return 1;
+		return EX_USAGE;
 	}
 
 	for( int n = 1; n < argc; n++ )
@@ -51,7 +51,7 @@ int main( _In_ int argc, _In_ char **argv )
 			{
 				Config::Warn( "Grid size must be > 32\n" );
 
-				return 1;
+				return EX_CONFIG;
 			}
 		}
 		else if( !strncmp(argv[n], "-s", iSpawnPointParameterPrefixLength) )
@@ -76,10 +76,10 @@ int main( _In_ int argc, _In_ char **argv )
 	{
 		Config::Warn( "Unable to open %s\n" );
 
-		return 1;
+		return EX_NOINPUT;
 	}
 
 	WaypointLevel( config );
 
-	return 0;
+	return EX_OK;
 }
