@@ -717,8 +717,8 @@ int FindEntityByClassname(int index, const char *classname)
 
       while (ep)
       {
-         if ((stricmp(ep->key, "classname") == 0) &&
-             (stricmp(ep->value, classname) == 0))
+         if ((strcasecmp(ep->key, "classname") == 0) &&
+             (strcasecmp(ep->value, classname) == 0))
          {
             return index;
          }
@@ -745,7 +745,7 @@ int FindEntityByWildcard(int index, const char *classname, int length)
 
       while (ep)
       {
-         if ((stricmp(ep->key, "classname") == 0) &&
+         if ((strcasecmp(ep->key, "classname") == 0) &&
              (strncmp(ep->value, classname, length) == 0))
          {
             return index;

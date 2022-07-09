@@ -1,6 +1,5 @@
 CPP = g++
-BASEFLAGS = -Dstricmp=strcasecmp -Dstrcmpi=strcasecmp
-CPPFLAGS = ${BASEFLAGS} -O0 -g
+CPPFLAGS = -O3 -g
 
 ALL:	sandbot-wptgen
 
@@ -12,7 +11,6 @@ sandbot-wptgen: ${WPTGEN_OBJ}
 
 clean:
 	-rm -f *.o
-	-rm -f *.so
 	-rm -f sandbot-wptgen
 
 %.o:    %.cpp
