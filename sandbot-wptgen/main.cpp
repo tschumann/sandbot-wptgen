@@ -74,7 +74,7 @@ int main( _In_ int argc, _In_ char **argv )
 
 	if( !bSuccess )
 	{
-		Config::Warn( "Unable to open %s\n" );
+		Config::Warn( "Unable to open %s\n", szFilename );
 
 		return EX_NOINPUT;
 	}

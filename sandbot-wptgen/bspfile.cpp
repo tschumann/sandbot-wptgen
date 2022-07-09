@@ -17,6 +17,7 @@
 #include "cmdlib.h"
 #include "bspfile.h"
 #include "scriplib.h"
+#include "xplatform.h"
 
 //=============================================================================
 
