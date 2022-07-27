@@ -40,9 +40,9 @@
 #include "world.h"
 
 
-#define MAX_ORIGIN 4095
-#define MIN_ORIGIN -4095
-#define MAP_SIZE ((MAX_ORIGIN - MIN_ORIGIN) + 1)
+const int MAX_ORIGIN = 4095;
+const int MIN_ORIGIN = -4095;
+constexpr int MAP_SIZE = ((MAX_ORIGIN - MIN_ORIGIN) + 1);
 
 // the size of the 3 dimensional array allocated to store visited and waypoint locations
 int array_size;

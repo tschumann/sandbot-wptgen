@@ -165,7 +165,7 @@ bool World::LoadBSP( _In_ const char *pszFilename )
 				szPathName[iPathLength - 1] = 0;
 			}
 
-			LoadBSPFile( const_cast<char *> (pszFilename ) );
+			LoadBSPFile( const_cast<char *>(pszFilename) );
 
 			ParseEntities();
 
