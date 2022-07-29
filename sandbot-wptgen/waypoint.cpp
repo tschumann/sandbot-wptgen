@@ -32,7 +32,6 @@
 
 #include "config.h"
 #include "bspfile.h"
-#include "entity.h"
 #include "trace.h"
 #include "mathlib.h"
 #include "wpt.h"

@@ -27,7 +27,6 @@
 #include <cstdlib>
 #include "cmdlib.h"
 #include "bspfile.h"
-#include "entity.h"
 #include "world.h"
 #include "xplatform.h"
 
@@ -168,8 +167,6 @@ bool World::LoadBSP( _In_ const char *pszFilename )
 			LoadBSPFile( const_cast<char *>(pszFilename) );
 
 			ParseEntities();
-
-			LoadEntVars();
 
 			return true;
 		}
