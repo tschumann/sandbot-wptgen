@@ -1,5 +1,5 @@
 CPP = g++
-CPPFLAGS = -O3 -g
+CPPFLAGS = -O3 -g -march=core2 -mfpmath=sse
 
 ALL:	sandbot-wptgen
 
