@@ -137,6 +137,7 @@
     <ClCompile Include="cmdlib.cpp" />
     <ClCompile Include="config.cpp" />
     <ClCompile Include="mathlib.cpp" />
+    <ClCompile Include="maths.cpp" />
     <ClCompile Include="scriplib.cpp" />
     <ClCompile Include="trace.cpp" />
     <ClCompile Include="waypoint.cpp" />
@@ -148,6 +149,7 @@
     <ClInclude Include="config.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="mathlib.h" />
+    <ClInclude Include="maths.h" />
     <ClInclude Include="scriplib.h" />
     <ClInclude Include="trace.h" />
     <ClInclude Include="waypoint.h" />

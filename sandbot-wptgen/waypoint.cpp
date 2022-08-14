@@ -653,7 +653,7 @@ void WaypointAddLadders(const int waypoint_flags)
          VectorNormalize(v_temp);
          VectorScale(v_temp, 10.0, v_temp);
          VectorAdd(ladder_points[1], v_temp, ladder_points[1]);
-         VectorInverse(v_temp);
+         Maths::VectorInvert(v_temp);
          VectorAdd(ladder_points[2], v_temp, ladder_points[2]);
 
          // loop though the ladder points tracing a line outward in both the
@@ -661,7 +661,7 @@ void WaypointAddLadders(const int waypoint_flags)
 
          VectorScale(plane->normal, 20.0, v_forward);
          VectorScale(plane->normal, 20.0, v_backward);
-         VectorInverse(v_backward);
+		 Maths::VectorInvert(v_backward);
 
          outward_found = FALSE;
 

@@ -64,6 +64,7 @@ inline long __builtin_expect( long exp, long c )
 
 // from sal.h
 #define _In_
+#define _Inout_
 
 #else
 

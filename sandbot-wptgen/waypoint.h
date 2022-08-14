@@ -28,6 +28,8 @@
 #include "mathlib.h"
 #endif
 
+#include "maths.h"
+
 #ifndef WAYPOINT_H
 #define WAYPOINT_H
 
@@ -40,4 +42,3 @@ void WaypointLevel( const Config &config );
 void WriteHPBWaypointFile();
 
 #endif
-
