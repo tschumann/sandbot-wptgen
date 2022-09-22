@@ -39,7 +39,6 @@ typedef struct
 
 int PointContents(const vec3_t& coord);
 void TraceLine(const vec3_t& start, vec3_t& end, trace_t *trace);
-dface_t *TraceLineFindFace(const vec3_t& start, trace_t *tr);
 
 #endif
 

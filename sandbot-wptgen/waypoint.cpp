@@ -33,7 +33,6 @@
 #include "config.h"
 #include "bspfile.h"
 #include "trace.h"
-#include "mathlib.h"
 #include "wpt.h"
 #include "waypoint.h"
 #include "world.h"
