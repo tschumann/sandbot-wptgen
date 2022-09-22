@@ -23,6 +23,16 @@ namespace configtest
 	{
 	public:
 
+		TEST_METHOD(TestVectorCopy)
+		{
+			float source[3] = { 1.0f, 1.0f, 1.0f };
+			float destination[3] = { 0.0f, 0.0f, 0.0f };
+			Maths::Vector_Copy( source, destination );
+			Assert::AreEqual( source[0], destination[0] );
+			Assert::AreEqual( source[1], destination[1] );
+			Assert::AreEqual( source[2], destination[2] );
+		}
+
 		TEST_METHOD(TestVectorInvertPositive)
 		{
 			float vector[3] = { 1.0f, 1.0f, 1.0f };

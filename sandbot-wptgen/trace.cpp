@@ -28,6 +28,7 @@
 
 #include "bspfile.h"
 #include "mathlib.h"
+#include "maths.h"
 #include "trace.h"
 
 dnode_t *gNode;
@@ -139,7 +140,7 @@ void TraceLine(const vec3_t& start, vec3_t& end, trace_t *tr)
    endleaf = TracePointInLeaf(const_cast<const vec3_t&>(end));
 
    // set endpos, fraction and contents to the default (trace completed)
-   VectorCopy(end, tr->endpos);
+   Maths::Vector_Copy(end, tr->endpos);
    tr->fraction = 1.0f;
    tr->contents = endleaf->contents;
 
@@ -168,7 +169,7 @@ void TraceLine(const vec3_t& start, vec3_t& end, trace_t *tr)
    // calculate the length of the step vector...
    VectorScale(move, (float)2/numsteps, step);
 
-   VectorCopy(start, position);
+   Maths::Vector_Copy(start, position);
 
    while (numsteps)
    {
@@ -181,16 +182,16 @@ void TraceLine(const vec3_t& start, vec3_t& end, trace_t *tr)
       {
          vec3_t hitpos;
 
-         VectorCopy(position, hitpos);
+		 Maths::Vector_Copy(position, hitpos);
 
          // store the hit position
-         VectorCopy(position, tr->hitpos);
+		 Maths::Vector_Copy(position, tr->hitpos);
 
          // back off one step before solid
          VectorSubtract(position, step, position);
 
          // store the end position and end position contents
-         VectorCopy(position, tr->endpos);
+		 Maths::Vector_Copy(position, tr->endpos);
          tr->contents = endleaf->contents;
 
          VectorSubtract(position, start, move);

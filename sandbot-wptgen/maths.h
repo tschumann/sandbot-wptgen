@@ -18,6 +18,7 @@
 class Maths
 {
 public:
+	static void Vector_Copy( const _In_ float source[3], _Out_ float destination[3] );
 	static void VectorInvert( _Inout_ float vector[3] );
 
 	template <class T> static T Max( _In_ T a, _In_ T b )
