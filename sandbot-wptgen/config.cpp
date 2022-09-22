@@ -21,9 +21,9 @@ Config::Config()
 	strncpy( szSpawnpoint, "info_player_deathmatch", SPAWNPOINT_BUFFER_SIZE );
 
 #if _DEBUG
-	iLogLevel = LOG_TRACE;
+	logLevel = LogLevel::LOG_TRACE;
 #else
-	iLogLevel = LOG_INFO;
+	logLevel = LogLevel::LOG_INFO;
 #endif
 }
 
@@ -31,7 +31,7 @@ extern Config config;
 
 void Config::Trace( _In_ const char* szFormat, ... )
 {
-	if( config.iLogLevel >= Config::LOG_TRACE )
+	if( config.logLevel >= LogLevel::LOG_TRACE )
 	{
 		va_list argptr;
 		static char szString[LOG_BUFFER_SIZE];
@@ -46,7 +46,7 @@ void Config::Trace( _In_ const char* szFormat, ... )
 
 void Config::Info( _In_ const char* szFormat, ... )
 {
-	if( config.iLogLevel >= Config::LOG_INFO )
+	if( config.logLevel >= LogLevel::LOG_INFO )
 	{
 		va_list argptr;
 		static char szString[LOG_BUFFER_SIZE];
@@ -61,7 +61,7 @@ void Config::Info( _In_ const char* szFormat, ... )
 
 void Config::Warn( _In_ const char* szFormat, ... )
 {
-	if( config.iLogLevel >= Config::LOG_WARN )
+	if( config.logLevel >= LogLevel::LOG_WARN )
 	{
 		va_list argptr;
 		static char szString[LOG_BUFFER_SIZE];

@@ -18,10 +18,13 @@
 class Config
 {
 public:
-	const static int LOG_NONE = 0;
-	const static int LOG_WARN = 1;
-	const static int LOG_INFO = 2;
-	const static int LOG_TRACE = 3;
+	enum LogLevel
+	{
+		LOG_NONE = 0,
+		LOG_WARN,
+		LOG_INFO,
+		LOG_TRACE
+	};
 
 	const static unsigned int DEFAULT_GRID_SIZE = 100;
 	const static unsigned int SPAWNPOINT_BUFFER_SIZE = 64;
@@ -39,7 +42,7 @@ public:
 private:
 	const static int LOG_BUFFER_SIZE = 1024;
 
-	int iLogLevel;
+	LogLevel logLevel;
 };
 
 #endif // __CONFIG_H__
