@@ -6,17 +6,31 @@ cd $(dirname "${BASH_SOURCE[0]}")
 
 failed=0
 
+configuration=Release
+platform=x86
+
+if [[ $# -ge 1 ]] && [[ -n "$1" ]]; then
+	platform=$1
+fi
+
 # TODO: is this right? might be better to check for Linux as Git Bash on Windows gives MINGW64_NT-10.0-19043
 if [[ $(uname) == *"NT-"* ]]; then
 	echo "Compiling on Windows"
 	# hack - call out to Powershell because devenv.exe doesn't parse arguments correctly when called from git bash
-	powershell ./build.ps1
+	powershell ./build.ps1 $configuration $platform
 
 	echo "Running unit tests on Windows"
-	powershell ./unit-test.ps1
+	powershell ./unit-test.ps1 $configuration $platform
 
 	echo "Running functional tests on Windows"
-	bin_path="../Debug/sandbot-wptgen"
+
+	if [[ $platform == "x86" ]]; then
+		echo "Using x86 build"
+		bin_path="../$configuration/sandbot-wptgen"
+	elif [[ $platform == "x64" ]]; then
+		echo "Using x64 build"
+		bin_path="../$platform/$configuration/sandbot-wptgen"
+	fi
 elif [[ $(uname) == "Linux" ]]; then
 	echo "Compiling on Linux"
 	make -C ../sandbot-wptgen clean

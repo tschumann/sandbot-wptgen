@@ -3,7 +3,7 @@ sandbot-wptgen
 
 Sandbot waypoint generator.
 
-Based off bsp_tools by Jeffrey 'botman' Broome.
+Based off [BSP_tool](http://hpb-bot.bots-united.com/bsp_tool.html) by Jeffrey 'botman' Broome.
 
 
 Building
@@ -16,6 +16,7 @@ sudo apt-get install make gcc gcc-multilib g++-multilib
 cd sandbot-wptgen/
 make
 ```
+
 
 Usage
 -----
@@ -35,6 +36,11 @@ Tests
 End to end and unit tests:
 ```
 tests/test.sh
+```
+You can specify whether to use the x86 or x64 build too:
+```
+tests/test.sh x86
+tests/test.sh x64
 ```
 
 ### Linux

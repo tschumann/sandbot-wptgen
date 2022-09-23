@@ -2,7 +2,7 @@
 //
 // sandbot-wptgen - Sandbot waypoint generator
 //
-// Based on bsp_tool by Jeffrey "botman" Broome
+// Based on BSP_tool by Jeffrey "botman" Broome
 //
 // http://www.teamsandpit.com/
 //
