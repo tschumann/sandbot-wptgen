@@ -18,8 +18,12 @@
 class Maths
 {
 public:
+	static float Dot_Product( const _In_ float first[3], const _In_ float second[3] );
+	static void Vector_Add( const _In_ float first[3], const _In_ float second[3], _Out_ float out[3] );
 	static void Vector_Copy( const _In_ float source[3], _Out_ float destination[3] );
 	static void VectorInvert( _Inout_ float vector[3] );
+	static void Vector_Scale( const _In_ float in[3], const _In_ float fScale, _Out_ float out[3] );
+	static void Vector_Subtract( const _In_ float first[3], const _In_ float second[3], _Out_ float out[3] );
 
 	template <class T> static T Max( _In_ T a, _In_ T b )
 	{

@@ -24,10 +24,7 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
-#include <math.h>
-
 #include "bspfile.h"
-#include "mathlib.h"
 #include "maths.h"
 #include "trace.h"
 
@@ -48,7 +45,7 @@ dleaf_t *TracePointInLeaf(const vec3_t& point)
    {
       node = &dnodes[nodenum];
       plane = &dplanes[node->planenum];
-      d = DotProduct(point, plane->normal) - plane->dist;
+      d = Maths::Dot_Product(point, plane->normal) - plane->dist;
       if (d > 0)
          nodenum = node->children[0];
       else
@@ -157,7 +154,7 @@ void TraceLine(const vec3_t& start, vec3_t& end, trace_t *tr)
       return;
 
    // get the length of each interation of the loop...
-   VectorSubtract(end, start, move);
+   Maths::Vector_Subtract(end, start, move);
    dist = (float)VectorLength(move);
 
    // determine the number of steps from start to end...
@@ -167,13 +164,13 @@ void TraceLine(const vec3_t& start, vec3_t& end, trace_t *tr)
       numsteps = totalsteps = 1;
 
    // calculate the length of the step vector...
-   VectorScale(move, (float)2/numsteps, step);
+   Maths::Vector_Scale(move, (float)2/numsteps, step);
 
    Maths::Vector_Copy(start, position);
 
    while (numsteps)
    {
-      VectorAdd(position, step, position);
+	   Maths::Vector_Add(position, step, position);
 
       endleaf = TracePointInLeaf(position);
 
@@ -188,13 +185,13 @@ void TraceLine(const vec3_t& start, vec3_t& end, trace_t *tr)
 		 Maths::Vector_Copy(position, tr->hitpos);
 
          // back off one step before solid
-         VectorSubtract(position, step, position);
+		 Maths::Vector_Subtract(position, step, position);
 
          // store the end position and end position contents
 		 Maths::Vector_Copy(position, tr->endpos);
          tr->contents = endleaf->contents;
 
-         VectorSubtract(position, start, move);
+		 Maths::Vector_Subtract(position, start, move);
          trace_dist = (float)VectorLength(move);
          tr->fraction = trace_dist / dist;
 

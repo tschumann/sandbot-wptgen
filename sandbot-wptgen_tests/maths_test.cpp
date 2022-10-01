@@ -23,6 +23,35 @@ namespace configtest
 	{
 	public:
 
+		TEST_METHOD(TestDotProduct)
+		{
+			float start[3] = { 2.0f, 4.0f, 6.0f };
+			float end[3] = { 1.0f, 1.0f, 1.0f };
+			float result = Maths::Dot_Product( start, end );
+			Assert::AreEqual( 12.0f, result );
+		}
+
+		TEST_METHOD(TestVectorAdd)
+		{
+			float start[3] = { 2.0f, 4.0f, 6.0f };
+			float end[3] = { 1.0f, 1.0f, 1.0f };
+			float output[3] = { 0.0f, 0.0f, 0.0f };
+			Maths::Vector_Add( start, end, output );
+			Assert::AreEqual( 3.0f, output[0] );
+			Assert::AreEqual( 5.0f, output[1] );
+			Assert::AreEqual( 7.0f, output[2] );
+		}
+
+		TEST_METHOD(TestVectorAddSelf)
+		{
+			float start[3] = { 2.0f, 4.0f, 6.0f };
+			float output[3] = { 0.0f, 0.0f, 0.0f };
+			Maths::Vector_Add( start, start, output );
+			Assert::AreEqual( 4.0f, output[0] );
+			Assert::AreEqual( 8.0f, output[1] );
+			Assert::AreEqual( 12.0f, output[2] );
+		}
+
 		TEST_METHOD(TestVectorCopy)
 		{
 			float source[3] = { 1.0f, 1.0f, 1.0f };
@@ -49,6 +78,57 @@ namespace configtest
 			Assert::AreEqual( 1.0f, vector[0] );
 			Assert::AreEqual( 1.0f, vector[1] );
 			Assert::AreEqual( 1.0f, vector[2] );
+		}
+
+		TEST_METHOD(TestVectorScale)
+		{
+			float input[3] = { 2.0f, 4.0f, 6.0f };
+			float output[3] = { 0.0f, 0.0f, 0.0f };
+			Maths::Vector_Scale( input, 2.0f, output );
+			Assert::AreEqual( 4.0f, output[0] );
+			Assert::AreEqual( 8.0f, output[1] );
+			Assert::AreEqual( 12.0f, output[2] );
+		}
+
+		TEST_METHOD(TestVectorUnit)
+		{
+			float input[3] = { 2.0f, 4.0f, 6.0f };
+			float output[3] = { 0.0f, 0.0f, 0.0f };
+			Maths::Vector_Scale( input, 1.0f, output );
+			Assert::AreEqual( 2.0f, output[0] );
+			Assert::AreEqual( 4.0f, output[1] );
+			Assert::AreEqual( 6.0f, output[2] );
+		}
+
+		TEST_METHOD(TestVectorZero)
+		{
+			float input[3] = { 2.0f, 4.0f, 6.0f };
+			float output[3] = { 0.0f, 0.0f, 0.0f };
+			Maths::Vector_Scale( input, 0.0f, output );
+			Assert::AreEqual( 0.0f, output[0] );
+			Assert::AreEqual( 0.0f, output[1] );
+			Assert::AreEqual( 0.0f, output[2] );
+		}
+
+		TEST_METHOD(TestVectorSubtract)
+		{
+			float start[3] = { 2.0f, 4.0f, 6.0f };
+			float end[3] = { 1.0f, 1.0f, 1.0f };
+			float output[3] = { 0.0f, 0.0f, 0.0f };
+			Maths::Vector_Subtract( start, end, output );
+			Assert::AreEqual( 1.0f, output[0] );
+			Assert::AreEqual( 3.0f, output[1] );
+			Assert::AreEqual( 5.0f, output[2] );
+		}
+
+		TEST_METHOD(TestVectorSubtractSelf)
+		{
+			float start[3] = { 2.0f, 4.0f, 6.0f };
+			float output[3] = { 0.0f, 0.0f, 0.0f };
+			Maths::Vector_Subtract( start, start, output );
+			Assert::AreEqual( 0.0f, output[0] );
+			Assert::AreEqual( 0.0f, output[1] );
+			Assert::AreEqual( 0.0f, output[2] );
 		}
 
 		TEST_METHOD(TestMaxMaximum)
