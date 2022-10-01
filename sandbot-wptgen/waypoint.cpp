@@ -37,11 +37,6 @@
 #include "waypoint.h"
 #include "world.h"
 
-
-const int MAX_ORIGIN = 4095;
-const int MIN_ORIGIN = -4095;
-constexpr int MAP_SIZE = ((MAX_ORIGIN - MIN_ORIGIN) + 1);
-
 // the size of the 3 dimensional array allocated to store visited and waypoint locations
 int array_size;
 
@@ -81,9 +76,9 @@ void WaypointAdd(const vec3_t &origin, int flags, bool ignore_loc)
    int x_index, y_index, z_index, offset;
 
    // convert origin to integer array indexes...
-   x_index = (int)(origin[0] + MAX_ORIGIN) / config.iGridSize;
-   y_index = (int)(origin[1] + MAX_ORIGIN) / config.iGridSize;
-   z_index = (int)(origin[2] + MAX_ORIGIN) / config.iGridSize;
+   x_index = (int)(origin[0] + World::MAX_ORIGIN) / config.iGridSize;
+   y_index = (int)(origin[1] + World::MAX_ORIGIN) / config.iGridSize;
+   z_index = (int)(origin[2] + World::MAX_ORIGIN) / config.iGridSize;
 
    offset = x_index * array_size * array_size + y_index * array_size + z_index;
    offset = offset >> 3;
@@ -215,18 +210,18 @@ void RecursiveFloodFill(const vec3_t &coord)
       origin[2] = S2.top();
 
       // check if this origin is outside the world boundries...
-      if ((origin[0] < MIN_ORIGIN) || (origin[0] > MAX_ORIGIN) ||
-          (origin[1] < MIN_ORIGIN) || (origin[1] > MAX_ORIGIN) ||
-          (origin[2] < MIN_ORIGIN) || (origin[2] > MAX_ORIGIN))
+      if ((origin[0] < World::MIN_ORIGIN) || (origin[0] > World::MAX_ORIGIN) ||
+          (origin[1] < World::MIN_ORIGIN) || (origin[1] > World::MAX_ORIGIN) ||
+          (origin[2] < World::MIN_ORIGIN) || (origin[2] > World::MAX_ORIGIN))
       {
          printf("RecursiveFloodFill went outside the world at %7.2f %7.2f %7.2f\n", origin[0], origin[1], origin[2]);
          exit(1);
       }
 
       // convert origin to integer array indexes...
-      x_index = (int)(origin[0] + MAX_ORIGIN) / config.iGridSize;
-      y_index = (int)(origin[1] + MAX_ORIGIN) / config.iGridSize;
-      z_index = (int)(origin[2] + MAX_ORIGIN) / config.iGridSize;
+      x_index = (int)(origin[0] + World::MAX_ORIGIN) / config.iGridSize;
+      y_index = (int)(origin[1] + World::MAX_ORIGIN) / config.iGridSize;
+      z_index = (int)(origin[2] + World::MAX_ORIGIN) / config.iGridSize;
 
       offset = x_index * array_size * array_size + y_index * array_size + z_index;
       offset = offset >> 3;
@@ -1035,7 +1030,7 @@ void WaypointLevel( const Config &config )
 {
 	Config::Info( "Generating waypoints...\n" );
 
-   array_size = (MAP_SIZE+(config.iGridSize -1)) / config.iGridSize;
+   array_size = (World::MAP_SIZE + (config.iGridSize -1)) / config.iGridSize;
 
    array_size = ((array_size + 7) / 8) * 8;  // make even multiple of 8
 
