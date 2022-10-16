@@ -38,8 +38,8 @@ public:
 
 	constexpr static int MAP_SIZE = (4095 - -4095) + 1;
 
-	World();
-	~World();
+	World() noexcept;
+	~World() noexcept;
 
 	bool LoadBSP( _In_ const char * pszFilename );
 

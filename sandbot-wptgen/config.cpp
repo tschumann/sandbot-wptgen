@@ -16,7 +16,7 @@
 
 #include "config.h"
 
-Config::Config()
+Config::Config() noexcept
 {
 	strncpy( szSpawnpoint, "info_player_deathmatch", SPAWNPOINT_BUFFER_SIZE );
 
@@ -29,7 +29,7 @@ Config::Config()
 
 extern Config config;
 
-void Config::Trace( _In_ const char* szFormat, ... )
+void Config::Trace( _In_ const char* szFormat, ... ) noexcept
 {
 	if( config.logLevel >= LogLevel::LOG_TRACE )
 	{
@@ -44,7 +44,7 @@ void Config::Trace( _In_ const char* szFormat, ... )
 	}
 }
 
-void Config::Info( _In_ const char* szFormat, ... )
+void Config::Info( _In_ const char* szFormat, ... ) noexcept
 {
 	if( config.logLevel >= LogLevel::LOG_INFO )
 	{
@@ -59,7 +59,7 @@ void Config::Info( _In_ const char* szFormat, ... )
 	}
 }
 
-void Config::Warn( _In_ const char* szFormat, ... )
+void Config::Warn( _In_ const char* szFormat, ... ) noexcept
 {
 	if( config.logLevel >= LogLevel::LOG_WARN )
 	{

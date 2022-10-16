@@ -33,11 +33,11 @@ public:
 	signed int iGridSize = DEFAULT_GRID_SIZE;
 	char szSpawnpoint[SPAWNPOINT_BUFFER_SIZE] = "";
 
-	Config();
+	Config() noexcept;
 
-	static void Trace( _In_ const char* fmt, ... );
-	static void Info( _In_ const char* fmt, ... );
-	static void Warn( _In_ const char* fmt, ... );
+	static void Trace( _In_ const char* fmt, ... ) noexcept;
+	static void Info( _In_ const char* fmt, ... ) noexcept;
+	static void Warn( _In_ const char* fmt, ... ) noexcept;
 
 private:
 	const static int LOG_BUFFER_SIZE = 1024;

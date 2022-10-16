@@ -30,12 +30,12 @@
 #include "world.h"
 #include "xplatform.h"
 
-World::World()
+World::World() noexcept
 {
 	memset( szMapName, 0, FILENAME_MAX );
 }
 
-World::~World()
+World::~World() noexcept
 {
    FreeEntities();
 
