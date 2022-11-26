@@ -29,7 +29,7 @@
 
 #include "xplatform.h"
 
-class World
+class World final
 {
 public:
 	// 4096/-4096 is the real boundary but subtract 1 so that > checks can be used

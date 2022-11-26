@@ -15,7 +15,7 @@
 
 #include "xplatform.h"
 
-class Config
+class Config final
 {
 public:
 	enum LogLevel

@@ -15,7 +15,7 @@
 
 #include "xplatform.h"
 
-class Maths
+class Maths final
 {
 public:
 	static float Dot_Product( const _In_ float first[3], const _In_ float second[3] ) noexcept;
