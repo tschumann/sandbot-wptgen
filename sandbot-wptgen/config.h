@@ -34,6 +34,8 @@ public:
 	char szSpawnpoint[SPAWNPOINT_BUFFER_SIZE] = "";
 
 	Config() noexcept;
+	Config( const Config& ) = delete;
+	Config& operator=( Config other ) = delete;
 
 	static void Trace( _In_ const char* fmt, ... ) noexcept;
 	static void Info( _In_ const char* fmt, ... ) noexcept;

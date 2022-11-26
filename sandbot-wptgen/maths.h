@@ -18,6 +18,8 @@
 class Maths final
 {
 public:
+	Maths() = delete;
+
 	static float Dot_Product( const _In_ float first[3], const _In_ float second[3] ) noexcept;
 	static void Vector_Add( const _In_ float first[3], const _In_ float second[3], _Out_ float out[3] ) noexcept;
 	static void Vector_Copy( const _In_ float source[3], _Out_ float destination[3] ) noexcept;

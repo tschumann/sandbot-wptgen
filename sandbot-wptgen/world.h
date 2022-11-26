@@ -39,6 +39,8 @@ public:
 	constexpr static int MAP_SIZE = (4095 - -4095) + 1;
 
 	World() noexcept;
+	World( const World& ) = delete;
+	World& operator=( World other ) = delete;
 	~World() noexcept;
 
 	bool LoadBSP( _In_ const char * pszFilename );
