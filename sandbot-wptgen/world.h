@@ -43,8 +43,10 @@ public:
 	World& operator=( World other ) = delete;
 	~World() noexcept;
 
-	bool LoadBSP( _In_ const char * pszFilename );
+	const char* const GetMapName() const;
+	bool LoadBSP( _In_ const char* const pszFilename );
 
+private:
 	char szMapName[FILENAME_MAX] = "";
 };
 

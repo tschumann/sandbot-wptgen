@@ -37,9 +37,9 @@ public:
 	Config( const Config& ) = delete;
 	Config& operator=( Config other ) = delete;
 
-	static void Trace( _In_ const char* fmt, ... ) noexcept;
-	static void Info( _In_ const char* fmt, ... ) noexcept;
-	static void Warn( _In_ const char* fmt, ... ) noexcept;
+	static void Trace( _In_ const char* const szFormat, ... ) noexcept;
+	static void Info( _In_ const char* const szFormat, ... ) noexcept;
+	static void Warn( _In_ const char* const szFormat, ... ) noexcept;
 
 private:
 	const static int LOG_BUFFER_SIZE = 1024;

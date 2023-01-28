@@ -1161,7 +1161,7 @@ void WriteHPBWaypointFile()
 
 	header.number_of_waypoints = num_waypoints;
 
-	ExtractFileBase (world.szMapName, filename);
+	ExtractFileBase (const_cast<char*>(world.GetMapName()), filename);
 	StripExtension(filename);
 
 	memset(header.mapname, 0, sizeof(header.mapname));

@@ -145,7 +145,12 @@ World::~World() noexcept
    }
 }
 
-bool World::LoadBSP( _In_ const char *pszFilename )
+const char* const World::GetMapName() const
+{
+	return szMapName;
+}
+
+bool World::LoadBSP( _In_ const char* const pszFilename )
 {
 	if( strlen( pszFilename ) > 0 )
 	{

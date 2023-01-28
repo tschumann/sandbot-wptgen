@@ -28,7 +28,7 @@ Config::Config() noexcept :
 
 extern Config config;
 
-void Config::Trace( _In_ const char* szFormat, ... ) noexcept
+void Config::Trace( _In_ const char* const szFormat, ... ) noexcept
 {
 	if( config.logLevel >= LogLevel::LOG_TRACE )
 	{
@@ -43,7 +43,7 @@ void Config::Trace( _In_ const char* szFormat, ... ) noexcept
 	}
 }
 
-void Config::Info( _In_ const char* szFormat, ... ) noexcept
+void Config::Info( _In_ const char* const szFormat, ... ) noexcept
 {
 	if( config.logLevel >= LogLevel::LOG_INFO )
 	{
@@ -58,7 +58,7 @@ void Config::Info( _In_ const char* szFormat, ... ) noexcept
 	}
 }
 
-void Config::Warn( _In_ const char* szFormat, ... ) noexcept
+void Config::Warn( _In_ const char* const szFormat, ... ) noexcept
 {
 	if( config.logLevel >= LogLevel::LOG_WARN )
 	{
