@@ -45,7 +45,7 @@ public:
 
 	bool LoadBSP( _In_ const char * pszFilename );
 
-	char szMapName[FILENAME_MAX];
+	char szMapName[FILENAME_MAX] = "";
 };
 
 #endif // WORLD_H

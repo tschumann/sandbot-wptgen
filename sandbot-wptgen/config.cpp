@@ -16,15 +16,14 @@
 
 #include "config.h"
 
-Config::Config() noexcept
+Config::Config() noexcept :
+#if _DEBUG
+	logLevel(LogLevel::LOG_TRACE)
+#else
+	logLevel(LogLevel::LOG_INFO)
+#endif // _DEBUG
 {
 	strncpy( szSpawnpoint, "info_player_deathmatch", SPAWNPOINT_BUFFER_SIZE );
-
-#if _DEBUG
-	logLevel = LogLevel::LOG_TRACE;
-#else
-	logLevel = LogLevel::LOG_INFO;
-#endif
 }
 
 extern Config config;
