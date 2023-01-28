@@ -155,7 +155,7 @@ bool World::LoadBSP( _In_ const char* const pszFilename )
 	if( strlen( pszFilename ) > 0 )
 	{
 		// if the file exists
-		if( access( pszFilename, 0 ) != -1 )
+		if( _access( pszFilename, 0 ) != -1 )
 		{
 			char szPathName[FILENAME_MAX];
 

@@ -67,6 +67,11 @@ inline long __builtin_expect( long exp, long c )
 #define _Inout_
 #define _Out_
 
+inline int _access( const char* path, int amode )
+{
+	return access( path, amode );
+}
+
 #else
 
 #error Unsupported platform
