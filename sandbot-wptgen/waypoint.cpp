@@ -33,6 +33,7 @@
 #include "config.h"
 #include "bspfile.h"
 #include "trace.h"
+#include "util.h"
 #include "wpt.h"
 #include "waypoint.h"
 #include "world.h"
@@ -1150,7 +1151,7 @@ void WriteHPBWaypointFile()
 {
 	int index;
 	WAYPOINT_HDR header;
-	char filename[64];
+	string strFilename;
 	path_t *p, *p_next;
 
 	strcpy(header.filetype, WAYPOINT_HEADER);
@@ -1161,22 +1162,20 @@ void WriteHPBWaypointFile()
 
 	header.number_of_waypoints = num_waypoints;
 
-	ExtractFileBase (const_cast<char*>(world.GetMapName()), filename);
-	StripExtension(filename);
+	strFilename = Util::ExtractFileNameWithoutExtension( world.GetMapName() );
 
 	memset(header.mapname, 0, sizeof(header.mapname));
-	strncpy(header.mapname, filename, 31);
+	strncpy(header.mapname, strFilename.c_str(), 31);
 	header.mapname[31] = 0;
 
-	DefaultExtension(filename, ".wpt");
+	strFilename += ".wpt";
 
-	Config::Info( "Creating waypoint file %s...\n", filename );
+	Config::Info( "Creating waypoint file %s...\n", strFilename.c_str() );
 
-	FILE *bfp = fopen(filename, "wb");
+	FILE *bfp = fopen(strFilename.c_str(), "wb");
 
 	// write the waypoint header to the file...
 	fwrite(&header, sizeof(header), 1, bfp);
-
 
 	Config::Info( "Writing waypoints...\n" );
 	// write the waypoint information...

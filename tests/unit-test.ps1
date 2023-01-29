@@ -14,7 +14,7 @@ if ($platform -eq "x86")
 }
 elseif ($platform -eq "x64")
 {
-	& "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\TestWindow\vstest.console.exe" ..\$($platform)\$($configuration)\sandbot-wptgen_tests.dll
+	& "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\TestWindow\vstest.console.exe" ..\$($platform)\$($configuration)\sandbot-wptgen_tests.dll --logger:"console;verbosity=Normal"
 }
 
 Pop-Location

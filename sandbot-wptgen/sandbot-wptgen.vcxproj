@@ -250,6 +250,7 @@
     <ClCompile Include="maths.cpp" />
     <ClCompile Include="scriplib.cpp" />
     <ClCompile Include="trace.cpp" />
+    <ClCompile Include="util.cpp" />
     <ClCompile Include="waypoint.cpp" />
     <ClCompile Include="world.cpp" />
   </ItemGroup>
@@ -262,6 +263,7 @@
     <ClInclude Include="maths.h" />
     <ClInclude Include="scriplib.h" />
     <ClInclude Include="trace.h" />
+    <ClInclude Include="util.h" />
     <ClInclude Include="waypoint.h" />
     <ClInclude Include="world.h" />
     <ClInclude Include="wpt.h" />
