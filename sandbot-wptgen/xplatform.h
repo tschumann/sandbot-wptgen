@@ -49,9 +49,23 @@ inline int strcasecmp( const char *string1, const char *string2 )
 	return _stricmp( string1, string2 );
 }
 
-inline long __builtin_expect( long exp, long c )
+/**
+ * Implementation of gcc's __builtin_expect
+ * @see https://gcc.gnu.org/onlinedocs/gcc/Other-Builtins.html#index-_005f_005fbuiltin_005fexpect
+ * @param exp The expression
+ * @param c Value that exp is expected to equal
+ * @return exp
+ */
+constexpr inline long __builtin_expect( long exp, long c )
 {
-	return exp;
+	if( exp == c ) [[likely]]
+	{
+		return exp;
+	}
+	else [[unlikely]]
+	{
+		return exp;
+	}
 }
 
 #elif __GNUC__

@@ -152,7 +152,7 @@ const char* const World::GetMapName() const
 
 bool World::LoadBSP( _In_ const char* const pszFilename )
 {
-	if( strlen( pszFilename ) > 0 )
+	if( __builtin_expect( strlen( pszFilename ) > 0, 1 ) )
 	{
 		// if the file exists
 		if( _access( pszFilename, 0 ) != -1 )
@@ -164,7 +164,7 @@ bool World::LoadBSP( _In_ const char* const pszFilename )
 
 			size_t iPathLength = strlen(szPathName);  // remove trailing '/'
 
-			if( iPathLength > 0 )
+			if( __builtin_expect(iPathLength > 0, 1 ) )
 			{
 				szPathName[iPathLength - 1] = 0;
 			}
