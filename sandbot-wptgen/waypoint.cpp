@@ -346,39 +346,38 @@ void RecursiveFloodFill(const vec3_t &coord)
 }
 
 
-void WaypointAddEntities(const char *item_name, const int waypoint_flags)
+void WaypointAddEntities(const char *item_name, const int iWaypointFlags)
 {
-   char *value;
-   vec3_t origin, start, end, up_a_little;
-   trace_t tr;
+	char *value;
+	vec3_t origin, start, end;
+	const vec3_t vAboveEntity = { 0.0f, 0.0f, 10.0f };
+	trace_t tr;
 
-   up_a_little[0] = 0;  up_a_little[1] = 0;  up_a_little[2] = 10.0f;
+	const int iEntityNameLength = strlen(item_name);
+	int iEntityIndex = World::ENTITY_NOT_FOUND;
 
-   int len = strlen(item_name);
-   int ent_index = -1;
+	while ((iEntityIndex = FindEntityByWildcard(iEntityIndex, item_name, iEntityNameLength)) != World::ENTITY_NOT_FOUND)
+	{
+		value = ValueForKey(&entities[iEntityIndex], "origin");
+		if (value[0])
+		{
+			sscanf(value, "%f %f %f", &origin[0], &origin[1], &origin[2]);
 
-   while ((ent_index = FindEntityByWildcard(ent_index, item_name, len)) != -1)
-   {
-      value = ValueForKey(&entities[ent_index], "origin");
-      if (value[0])
-      {
-         sscanf(value, "%f %f %f", &origin[0], &origin[1], &origin[2]);
+			Maths::Vector_Add( origin, vAboveEntity, start );
 
-         VectorAdd(origin, up_a_little, start);
+			// trace downward to find the ground from here
+			Maths::Vector_Add( start, down_to_ground, end );
+			TraceLine(start, end, &tr);
 
-         // trace downward to find the ground from here...
-         VectorAdd(start, down_to_ground, end);
-         TraceLine(start, end, &tr);
+			if (tr.fraction < 1.0)  // did we hit ground?
+			{
+				// raise up off of floor (or ledge) to center of player model
+				Maths::Vector_Add( tr.endpos, up_off_floor, end );
 
-         if (tr.fraction < 1.0)  // did we hit ground?
-         {
-            // raise up off of floor (or ledge) to center of player model...
-            VectorAdd(tr.endpos, up_off_floor, end);
-
-            WaypointAdd(end, waypoint_flags, TRUE);
-         }
-      }
-   }
+				WaypointAdd(end, iWaypointFlags, TRUE);
+			}
+		}
+	}
 }
 
 
@@ -1083,11 +1082,19 @@ void WaypointLevel( const Config &config )
    VectorCopy(model->mins, level_min);
    VectorCopy(model->maxs, level_max);
 
+	// TODO: replace all this with one function to iterate over the entities once? should be faster than interating for each entity individually
+
    // go through "important" items first and add waypoints for them...
    WaypointAddEntities("weapon_", W_FL_WEAPON);
    WaypointAddEntities("ammo_", W_FL_AMMO);
    WaypointAddEntities("item_healthkit", W_FL_HEALTH);
    WaypointAddEntities("item_battery", W_FL_ARMOR);
+
+	// Day of Defeat
+	WaypointAddEntities( "dod_control_point", W_FL_DOD_CAP );
+	// Natural Selection
+	WaypointAddEntities( "team_hive", W_FL_NS_HIVE );
+	WaypointAddEntities( "team_command", W_FL_NS_COMMAND_CHAIR );
 
    // add wall mounted entities (func_healthcharger, func_recharge, func_button, etc.)
    WaypointAddWallMountedEntities("func_healthcharger", W_FL_HEALTH);

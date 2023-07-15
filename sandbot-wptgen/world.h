@@ -38,6 +38,8 @@ public:
 
 	constexpr static int MAP_SIZE = (4095 - -4095) + 1;
 
+	const static int ENTITY_NOT_FOUND = -1;
+
 	World() noexcept;
 	World( const World& ) = delete;
 	World& operator=( World other ) = delete;
