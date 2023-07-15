@@ -145,7 +145,7 @@ World::~World() noexcept
    }
 }
 
-const char* const World::GetMapName() const
+const char* World::GetMapName() const
 {
 	return szMapName;
 }

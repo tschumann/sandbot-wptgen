@@ -43,7 +43,7 @@ public:
 	World& operator=( World other ) = delete;
 	~World() noexcept;
 
-	const char* const GetMapName() const;
+	const char* GetMapName() const;
 	bool LoadBSP( _In_ const char* const pszFilename );
 
 private:

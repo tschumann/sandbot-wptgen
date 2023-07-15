@@ -65,6 +65,8 @@ int main( _In_ int argc, _In_ char **argv )
 		else
 		{
 			strncpy( szFilename, argv[n], FILENAME_MAX );
+			// make sure the string is NULL terminated
+			szFilename[FILENAME_MAX - 1] = '\0';
 		}
 	}
 
