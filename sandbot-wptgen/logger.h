@@ -6,16 +6,16 @@
 //
 // http://www.teamsandpit.com/
 //
-// Notes: config class
+// Notes: logger class
 //
 //=============================================================================
 
-#ifndef __CONFIG_H__
-#define __CONFIG_H__
+#ifndef __LOGGER_H__
+#define __LOGGER_H__
 
 #include "xplatform.h"
 
-class Config final
+class Logger final
 {
 public:
 	enum LogLevel
@@ -26,9 +26,11 @@ public:
 		LOG_TRACE
 	};
 
-	Config() noexcept;
-	Config( const Config& ) = delete;
-	Config& operator=( Config other ) = delete;
+	Logger() noexcept;
+	Logger( const Logger& ) = delete;
+	Logger( Logger&& ) = delete;
+	Logger& operator=( const Logger other ) = delete;
+	Logger& operator=( Logger&& other ) = delete;
 
 	static void Trace( _In_ const char* const szFormat, ... ) noexcept;
 	static void Info( _In_ const char* const szFormat, ... ) noexcept;
@@ -40,4 +42,6 @@ private:
 	LogLevel logLevel;
 };
 
-#endif // __CONFIG_H__
+extern Logger logger;
+
+#endif // __LOGGER_H__

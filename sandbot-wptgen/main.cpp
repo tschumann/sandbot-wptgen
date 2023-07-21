@@ -18,7 +18,6 @@
 #include "waypoint.h"
 #include "world.h"
 
-Config config;
 Map map;
 World world;
 
@@ -50,7 +49,7 @@ int main( _In_ int argc, _In_ char **argv )
 
 			if( map.iGridSize < 32 )
 			{
-				Config::Warn( "Grid size must be > 32\n" );
+				Logger::Warn( "Grid size must be > 32\n" );
 
 				return EX_CONFIG;
 			}
@@ -71,18 +70,18 @@ int main( _In_ int argc, _In_ char **argv )
 		}
 	}
 
-	Config::Info( "Processing %s with grid size %u and spawnpoint %s\n", szFilename, map.iGridSize, map.szSpawnpoint );
+	Logger::Info( "Processing %s with grid size %u and spawnpoint %s\n", szFilename, map.iGridSize, map.szSpawnpoint );
 
 	const bool bSuccess = world.LoadBSP( szFilename );
 
 	if( !bSuccess )
 	{
-		Config::Warn( "Unable to open %s\n", szFilename );
+		Logger::Warn( "Unable to open %s\n", szFilename );
 
 		return EX_NOINPUT;
 	}
 
-	WaypointLevel( config );
+	WaypointLevel( map );
 
 	return EX_OK;
 }

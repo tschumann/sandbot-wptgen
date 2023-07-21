@@ -30,11 +30,11 @@
 // hack - should probably work out how to properly typedef it
 #define Vector vec3_t
 
-#include "config.h"
 #include "bspfile.h"
 #include "trace.h"
 #include "util.h"
 #include "wpt.h"
+#include "logger.h"
 #include "map.h"
 #include "waypoint.h"
 #include "world.h"
@@ -59,7 +59,7 @@ path_t **paths;  // pointer to array of paths (one linked list per waypoint)
 
 vec3_t level_min, level_max;  // min and max coordinates of map
 
-extern Config config;
+extern Logger logger;
 extern Map map;
 extern World world;
 
@@ -179,7 +179,7 @@ bool CheckWaypoint(const vec3_t &coord, vec3_t new_coord)
          // raise up off of floor (or ledge) to center of player model...
          VectorAdd(tr.endpos, up_off_floor, end);
 
-		 Config::Trace( "Added a waypoint at (%f, %f, %f)\n", end[0], end[1], end[2] );
+		 Logger::Trace( "Added a waypoint at (%f, %f, %f)\n", end[0], end[1], end[2] );
          WaypointAdd(end, 0, FALSE);
       }
    }
@@ -202,7 +202,7 @@ void RecursiveFloodFill(const vec3_t &coord)
    S1.push(coord[1]);
    S2.push(coord[2]);
 
-   Config::Info( "Starting RecursiveFloodFill from (%f, %f, %f)\n", coord[0], coord[1], coord[2] );
+   Logger::Info( "Starting RecursiveFloodFill from (%f, %f, %f)\n", coord[0], coord[1], coord[2] );
 
    while (!S0.empty())  // while there is something on the stack...
    {
@@ -932,7 +932,7 @@ void CalculateWaypointPaths()
    vec3_t start, end;
    trace_t tr;
 
-   Config::Info( "Running CalculateWaypointPaths\n" );
+   Logger::Info( "Running CalculateWaypointPaths\n" );
 
    size = sizeof(path_t *) * num_waypoints;
 
@@ -1009,7 +1009,7 @@ void CalculateWaypointPaths()
             return;
          }
 
-		 Config::Trace( "Adding path between %d and %d\n", index, index2 );
+		 Logger::Trace( "Adding path between %d and %d\n", index, index2 );
 
 		 // TODO: sort out the multiple index entries
          p_new->index[0] = index2;
@@ -1027,9 +1027,9 @@ void CalculateWaypointPaths()
 }
 
 
-void WaypointLevel( const Config &config )
+void WaypointLevel( const Map& map )
 {
-	Config::Info( "Generating waypoints...\n" );
+	Logger::Info( "Generating waypoints...\n" );
 
    array_size = (Map::MAP_SIZE + (map.iGridSize -1)) / map.iGridSize;
 
@@ -1054,7 +1054,7 @@ void WaypointLevel( const Config &config )
    memset(visited, 0, table_size);
    memset(waypoint_loc, 0, table_size);
 
-   Config::Info( "Using waypoint grid size of %d units\n", map.iGridSize );
+   Logger::Info( "Using waypoint grid size of %d units\n", map.iGridSize );
 
    num_waypoints = 0;
 
@@ -1132,14 +1132,14 @@ void WaypointLevel( const Config &config )
    if (location_count > 999)
       printf("\n");
 
-   Config::Info( "%d locations were visited\n", location_count );
+   Logger::Info( "%d locations were visited\n", location_count );
 
    if (overflow)
-	   Config::Warn( "WARNING: Waypointing incomplete! Too many waypoints generated!\n" );
+	   Logger::Warn( "WARNING: Waypointing incomplete! Too many waypoints generated!\n" );
 
-   Config::Info( "%d waypoints were generated\n", num_waypoints );
+   Logger::Info( "%d waypoints were generated\n", num_waypoints );
 
-   Config::Info( "Calculating waypoint paths...\n" );
+   Logger::Info( "Calculating waypoint paths...\n" );
 
    paths = nullptr;
 
@@ -1151,7 +1151,7 @@ void WaypointLevel( const Config &config )
    free(visited);
    free(waypoint_loc);
 
-   Config::Info( "Done!\n" );
+   Logger::Info( "Done!\n" );
 }
 
 
@@ -1178,14 +1178,14 @@ void WriteHPBWaypointFile()
 
 	strFilename += ".wpt";
 
-	Config::Info( "Creating waypoint file %s...\n", strFilename.c_str() );
+	Logger::Info( "Creating waypoint file %s...\n", strFilename.c_str() );
 
 	FILE *bfp = fopen(strFilename.c_str(), "wb");
 
 	// write the waypoint header to the file...
 	fwrite(&header, sizeof(header), 1, bfp);
 
-	Config::Info( "Writing waypoints...\n" );
+	Logger::Info( "Writing waypoints...\n" );
 	// write the waypoint information...
 	for (index = 0; index < num_waypoints; index++)
 	{
@@ -1194,9 +1194,9 @@ void WriteHPBWaypointFile()
 
 	if (paths)
 	{
-		Config::Info( "Writing paths...\n" );
+		Logger::Info( "Writing paths...\n" );
 
-		Config::Info( "Writing paths for waypoints...\n" );
+		Logger::Info( "Writing paths for waypoints...\n" );
 		// save the waypoint paths...
 		int i;
 		short int num;
@@ -1242,10 +1242,10 @@ void WriteHPBWaypointFile()
 				// go to next node in linked list
 				p = p->next;
 			}
-			Config::Trace( "Wrote paths for waypoint %d\n", index );
+			Logger::Trace( "Wrote paths for waypoint %d\n", index );
 		}
 
-		Config::Info( "Freeing paths for waypoints...\n" );
+		Logger::Info( "Freeing paths for waypoints...\n" );
 		for (index = 0; index < num_waypoints; index++)
 		{
 			p = paths[index];

@@ -13,11 +13,10 @@
 #ifndef __MAIN_H__
 #define __MAIN_H__
 
-#include "config.h"
+#include "logger.h"
 #include "map.h"
 #include "xplatform.h"
 
-extern Config config;
 extern Map map;
 
 int main( _In_ int argc, _In_ char** argv );

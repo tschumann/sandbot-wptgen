@@ -253,7 +253,7 @@
     <ClCompile Include="bspfile.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="cmdlib.cpp" />
-    <ClCompile Include="config.cpp" />
+    <ClCompile Include="logger.cpp" />
     <ClCompile Include="map.cpp" />
     <ClCompile Include="mathlib.cpp" />
     <ClCompile Include="maths.cpp" />
@@ -266,7 +266,7 @@
   <ItemGroup>
     <ClInclude Include="bspfile.h" />
     <ClInclude Include="cmdlib.h" />
-    <ClInclude Include="config.h" />
+    <ClInclude Include="logger.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="map.h" />
     <ClInclude Include="mathlib.h" />

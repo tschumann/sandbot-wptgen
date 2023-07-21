@@ -6,36 +6,36 @@
 //
 // http://www.teamsandpit.com/
 //
-// Notes: config class tests
+// Notes: logger class tests
 //
 //=============================================================================
 
 #include "pch.h"
 #include "CppUnitTest.h"
 
-#include "../sandbot-wptgen/config.h"
+#include "../sandbot-wptgen/logger.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-namespace configtest
+namespace loggertest
 {
-	TEST_CLASS(configtest)
+	TEST_CLASS(loggertest)
 	{
 	public:
 
 		TEST_METHOD(TestTrace)
 		{
-			Config::Trace("blah");
+			::Logger::Trace("blah");
 		}
 
 		TEST_METHOD(TestInfo)
 		{
-			Config::Info("blah");
+			::Logger::Info("blah");
 		}
 
 		TEST_METHOD(TestWarn)
 		{
-			Config::Warn("blah");
+			::Logger::Warn("blah");
 		}
 	};
 }

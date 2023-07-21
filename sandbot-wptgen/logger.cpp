@@ -6,16 +6,18 @@
 //
 // http://www.teamsandpit.com/
 //
-// Notes: config class
+// Notes: logger class
 //
 //=============================================================================
 
 #include <cstdarg>
 #include <cstdio>
 
-#include "config.h"
+#include "logger.h"
 
-Config::Config() noexcept :
+Logger logger;
+
+Logger::Logger() noexcept :
 #if _DEBUG
 	logLevel(LogLevel::LOG_TRACE)
 #else
@@ -24,11 +26,9 @@ Config::Config() noexcept :
 {
 }
 
-extern Config config;
-
-void Config::Trace( _In_ const char* const szFormat, ... ) noexcept
+void Logger::Trace( _In_ const char* const szFormat, ... ) noexcept
 {
-	if( config.logLevel >= LogLevel::LOG_TRACE )
+	if( logger.logLevel >= LogLevel::LOG_TRACE )
 	{
 		va_list argptr;
 		static char szString[LOG_BUFFER_SIZE];
@@ -41,9 +41,9 @@ void Config::Trace( _In_ const char* const szFormat, ... ) noexcept
 	}
 }
 
-void Config::Info( _In_ const char* const szFormat, ... ) noexcept
+void Logger::Info( _In_ const char* const szFormat, ... ) noexcept
 {
-	if( config.logLevel >= LogLevel::LOG_INFO )
+	if( logger.logLevel >= LogLevel::LOG_INFO )
 	{
 		va_list argptr;
 		static char szString[LOG_BUFFER_SIZE];
@@ -56,9 +56,9 @@ void Config::Info( _In_ const char* const szFormat, ... ) noexcept
 	}
 }
 
-void Config::Warn( _In_ const char* const szFormat, ... ) noexcept
+void Logger::Warn( _In_ const char* const szFormat, ... ) noexcept
 {
-	if( config.logLevel >= LogLevel::LOG_WARN )
+	if( logger.logLevel >= LogLevel::LOG_WARN )
 	{
 		va_list argptr;
 		static char szString[LOG_BUFFER_SIZE];
