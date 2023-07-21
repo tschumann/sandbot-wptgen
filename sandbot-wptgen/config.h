@@ -26,13 +26,6 @@ public:
 		LOG_TRACE
 	};
 
-	const static unsigned int DEFAULT_GRID_SIZE = 100;
-	const static unsigned int SPAWNPOINT_BUFFER_SIZE = 64;
-
-	// signed so that it can be negated in waypoint.cpp
-	signed int iGridSize = DEFAULT_GRID_SIZE;
-	char szSpawnpoint[SPAWNPOINT_BUFFER_SIZE] = "";
-
 	Config() noexcept;
 	Config( const Config& ) = delete;
 	Config& operator=( Config other ) = delete;

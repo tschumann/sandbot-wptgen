@@ -254,6 +254,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="cmdlib.cpp" />
     <ClCompile Include="config.cpp" />
+    <ClCompile Include="map.cpp" />
     <ClCompile Include="mathlib.cpp" />
     <ClCompile Include="maths.cpp" />
     <ClCompile Include="scriplib.cpp" />
@@ -267,6 +268,7 @@
     <ClInclude Include="cmdlib.h" />
     <ClInclude Include="config.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="map.h" />
     <ClInclude Include="mathlib.h" />
     <ClInclude Include="maths.h" />
     <ClInclude Include="scriplib.h" />

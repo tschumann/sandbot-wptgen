@@ -32,14 +32,6 @@
 class World final
 {
 public:
-	// 4096/-4096 is the real boundary but subtract 1 so that > checks can be used
-	constexpr static float MAX_ORIGIN = 4095.0f;
-	constexpr static float MIN_ORIGIN = -4095.0f;
-
-	constexpr static int MAP_SIZE = (4095 - -4095) + 1;
-
-	const static int ENTITY_NOT_FOUND = -1;
-
 	World() noexcept;
 	World( const World& ) = delete;
 	World& operator=( World other ) = delete;

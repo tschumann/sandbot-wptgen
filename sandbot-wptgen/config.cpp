@@ -12,7 +12,6 @@
 
 #include <cstdarg>
 #include <cstdio>
-#include <cstring>
 
 #include "config.h"
 
@@ -23,7 +22,6 @@ Config::Config() noexcept :
 	logLevel(LogLevel::LOG_INFO)
 #endif // _DEBUG
 {
-	strncpy( szSpawnpoint, "info_player_deathmatch", SPAWNPOINT_BUFFER_SIZE );
 }
 
 extern Config config;

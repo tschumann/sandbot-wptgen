@@ -3,7 +3,7 @@ CPPFLAGS = -O3 -g -std=c++14 -march=core2 -mfpmath=sse -Wall -Wextra
 
 ALL:	sandbot-wptgen
 
-WPTGEN_OBJ = main.o bspfile.o cmdlib.o config.o \
+WPTGEN_OBJ = main.o bspfile.o cmdlib.o config.o map.o \
 	mathlib.o maths.o scriplib.o trace.o util.o waypoint.o world.o
 
 sandbot-wptgen: ${WPTGEN_OBJ}

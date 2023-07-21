@@ -48,7 +48,7 @@ namespace maintest
 		{
 			vector<char*> argv = { "sandbot.exe", "-w32", "-sinfo_player_null" };
 			Assert::AreEqual( EX_NOINPUT, main( (int)argv.size(), argv.data() ) );
-			Assert::IsTrue( !strcmp("info_player_null", config.szSpawnpoint) );
+			Assert::IsTrue( !strcmp("info_player_null", map.szSpawnpoint) );
 		}
 	};
 }

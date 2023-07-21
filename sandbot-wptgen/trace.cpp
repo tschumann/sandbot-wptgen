@@ -26,6 +26,7 @@
 
 #include "bspfile.h"
 #include "maths.h"
+#include "map.h"
 #include "trace.h"
 #include "world.h"
 
@@ -77,60 +78,60 @@ void TraceLine(const vec3_t& start, vec3_t& end, trace_t *tr)
 
    memset(tr, 0, sizeof(trace_t));
 
-   if ((start[0] < World::MIN_ORIGIN) || (start[0] > World::MAX_ORIGIN) ||
-       (start[1] < World::MIN_ORIGIN) || (start[1] > World::MAX_ORIGIN) ||
-       (start[2] < World::MIN_ORIGIN) || (start[2] > World::MAX_ORIGIN))
+   if ((start[0] < Map::MIN_ORIGIN) || (start[0] > Map::MAX_ORIGIN) ||
+       (start[1] < Map::MIN_ORIGIN) || (start[1] > Map::MAX_ORIGIN) ||
+       (start[2] < Map::MIN_ORIGIN) || (start[2] > Map::MAX_ORIGIN))
    {
       // start beyond edge of world is INVALID!!!
       Error("TraceLine: start point beyond edge of world!\n");
    }
 
-   if (end[0] > World::MAX_ORIGIN)
+   if (end[0] > Map::MAX_ORIGIN)
    {
-      float percent = World::MAX_ORIGIN / end[0];
+      float percent = Map::MAX_ORIGIN / end[0];
       end[1] = end[1] * percent;
       end[2] = end[2] * percent;
-      end[0] = World::MAX_ORIGIN;
+      end[0] = Map::MAX_ORIGIN;
    }
 
-   if (end[1] > World::MAX_ORIGIN)
+   if (end[1] > Map::MAX_ORIGIN)
    {
-      float percent = World::MAX_ORIGIN / end[1];
+      float percent = Map::MAX_ORIGIN / end[1];
       end[0] = end[0] * percent;
       end[2] = end[2] * percent;
-      end[1] = World::MAX_ORIGIN;
+      end[1] = Map::MAX_ORIGIN;
    }
 
-   if (end[2] > World::MAX_ORIGIN)
+   if (end[2] > Map::MAX_ORIGIN)
    {
-      float percent = World::MAX_ORIGIN / end[2];
+      float percent = Map::MAX_ORIGIN / end[2];
       end[0] = end[0] * percent;
       end[1] = end[1] * percent;
-      end[2] = World::MAX_ORIGIN;
+      end[2] = Map::MAX_ORIGIN;
    }
 
-   if (end[0] < World::MIN_ORIGIN)
+   if (end[0] < Map::MIN_ORIGIN)
    {
-      float percent = World::MAX_ORIGIN / end[0];
+      float percent = Map::MAX_ORIGIN / end[0];
       end[1] = end[1] * percent;
       end[2] = end[2] * percent;
-      end[0] = World::MIN_ORIGIN;
+      end[0] = Map::MIN_ORIGIN;
    }
 
-   if (end[1] < World::MIN_ORIGIN)
+   if (end[1] < Map::MIN_ORIGIN)
    {
-      float percent = World::MAX_ORIGIN / end[1];
+      float percent = Map::MAX_ORIGIN / end[1];
       end[0] = end[0] * percent;
       end[2] = end[2] * percent;
-      end[1] = World::MIN_ORIGIN;
+      end[1] = Map::MIN_ORIGIN;
    }
 
-   if (end[2] < World::MIN_ORIGIN)
+   if (end[2] < Map::MIN_ORIGIN)
    {
-      float percent = World::MAX_ORIGIN / end[2];
+      float percent = Map::MAX_ORIGIN / end[2];
       end[0] = end[0] * percent;
       end[1] = end[1] * percent;
-      end[2] = World::MIN_ORIGIN;
+      end[2] = Map::MIN_ORIGIN;
    }
 
    // find the starting and ending leafs...

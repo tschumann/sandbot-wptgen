@@ -6,20 +6,18 @@
 //
 // http://www.teamsandpit.com/
 //
-// Notes: application entrypoint
+// Notes: map class
 //
 //=============================================================================
 
-#ifndef __MAIN_H__
-#define __MAIN_H__
+#include <cstdarg>
+#include <cstdio>
+#include <cstring>
 
-#include "config.h"
 #include "map.h"
-#include "xplatform.h"
 
-extern Config config;
-extern Map map;
+Map::Map() noexcept
+{
+	strncpy( szSpawnpoint, "info_player_deathmatch", SPAWNPOINT_BUFFER_SIZE );
+}
 
-int main( _In_ int argc, _In_ char** argv );
-
-#endif // __MAIN_H__

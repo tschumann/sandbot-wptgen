@@ -35,6 +35,7 @@
 #include "trace.h"
 #include "util.h"
 #include "wpt.h"
+#include "map.h"
 #include "waypoint.h"
 #include "world.h"
 
@@ -58,10 +59,10 @@ path_t **paths;  // pointer to array of paths (one linked list per waypoint)
 
 vec3_t level_min, level_max;  // min and max coordinates of map
 
-
+extern Config config;
+extern Map map;
 extern World world;
 
-extern Config config;
 vec3_t spawn_point;
 
 
@@ -77,9 +78,9 @@ void WaypointAdd(const vec3_t &origin, int flags, bool ignore_loc)
    int x_index, y_index, z_index, offset;
 
    // convert origin to integer array indexes...
-   x_index = (int)(origin[0] + World::MAX_ORIGIN) / config.iGridSize;
-   y_index = (int)(origin[1] + World::MAX_ORIGIN) / config.iGridSize;
-   z_index = (int)(origin[2] + World::MAX_ORIGIN) / config.iGridSize;
+   x_index = (int)(origin[0] + Map::MAX_ORIGIN) / map.iGridSize;
+   y_index = (int)(origin[1] + Map::MAX_ORIGIN) / map.iGridSize;
+   z_index = (int)(origin[2] + Map::MAX_ORIGIN) / map.iGridSize;
 
    offset = x_index * array_size * array_size + y_index * array_size + z_index;
    offset = offset >> 3;
@@ -211,18 +212,18 @@ void RecursiveFloodFill(const vec3_t &coord)
       origin[2] = S2.top();
 
       // check if this origin is outside the world boundries...
-      if ((origin[0] < World::MIN_ORIGIN) || (origin[0] > World::MAX_ORIGIN) ||
-          (origin[1] < World::MIN_ORIGIN) || (origin[1] > World::MAX_ORIGIN) ||
-          (origin[2] < World::MIN_ORIGIN) || (origin[2] > World::MAX_ORIGIN))
+      if ((origin[0] < Map::MIN_ORIGIN) || (origin[0] > Map::MAX_ORIGIN) ||
+          (origin[1] < Map::MIN_ORIGIN) || (origin[1] > Map::MAX_ORIGIN) ||
+          (origin[2] < Map::MIN_ORIGIN) || (origin[2] > Map::MAX_ORIGIN))
       {
          printf("RecursiveFloodFill went outside the world at %7.2f %7.2f %7.2f\n", origin[0], origin[1], origin[2]);
          exit(1);
       }
 
       // convert origin to integer array indexes...
-      x_index = (int)(origin[0] + World::MAX_ORIGIN) / config.iGridSize;
-      y_index = (int)(origin[1] + World::MAX_ORIGIN) / config.iGridSize;
-      z_index = (int)(origin[2] + World::MAX_ORIGIN) / config.iGridSize;
+      x_index = (int)(origin[0] + Map::MAX_ORIGIN) / map.iGridSize;
+      y_index = (int)(origin[1] + Map::MAX_ORIGIN) / map.iGridSize;
+      z_index = (int)(origin[2] + Map::MAX_ORIGIN) / map.iGridSize;
 
       offset = x_index * array_size * array_size + y_index * array_size + z_index;
       offset = offset >> 3;
@@ -354,9 +355,9 @@ void WaypointAddEntities(const char *item_name, const int iWaypointFlags)
 	trace_t tr;
 
 	const int iEntityNameLength = strlen(item_name);
-	int iEntityIndex = World::ENTITY_NOT_FOUND;
+	int iEntityIndex = Map::ENTITY_NOT_FOUND;
 
-	while ((iEntityIndex = FindEntityByWildcard(iEntityIndex, item_name, iEntityNameLength)) != World::ENTITY_NOT_FOUND)
+	while ((iEntityIndex = FindEntityByWildcard(iEntityIndex, item_name, iEntityNameLength)) != Map::ENTITY_NOT_FOUND)
 	{
 		value = ValueForKey(&entities[iEntityIndex], "origin");
 		if (value[0])
@@ -948,7 +949,7 @@ void CalculateWaypointPaths()
    prev_percent = -1;
 
    // the max range is 1.5 times the hypotenuse of the grid size plus a little bit...
-   max_range = 1.5f * sqrt(config.iGridSize * config.iGridSize * 2) + 10.0f;
+   max_range = 1.5f * sqrt(map.iGridSize * map.iGridSize * 2) + 10.0f;
 
    // calculate the waypoint paths for all waypoints...
    for (index = 0; index < num_waypoints; index++)
@@ -1030,7 +1031,7 @@ void WaypointLevel( const Config &config )
 {
 	Config::Info( "Generating waypoints...\n" );
 
-   array_size = (World::MAP_SIZE + (config.iGridSize -1)) / config.iGridSize;
+   array_size = (Map::MAP_SIZE + (map.iGridSize -1)) / map.iGridSize;
 
    array_size = ((array_size + 7) / 8) * 8;  // make even multiple of 8
 
@@ -1053,21 +1054,21 @@ void WaypointLevel( const Config &config )
    memset(visited, 0, table_size);
    memset(waypoint_loc, 0, table_size);
 
-   Config::Info( "Using waypoint grid size of %d units\n", config.iGridSize );
+   Config::Info( "Using waypoint grid size of %d units\n", map.iGridSize );
 
    num_waypoints = 0;
 
    overflow = FALSE;
 
-   forward[0] =  config.iGridSize;  forward[1] = 0;           forward[2] = 0;
-   back[0]    = -config.iGridSize;  back[1]    = 0;           back[2]    = 0;
-   left[0]    = 0;           left[1]    = config.iGridSize;  left[2]    = 0;
-   right[0]   = 0;           right[1]   = -config.iGridSize;  right[2]   = 0;
-   up[0]      = 0;           up[1]      = 0;           up[2]      = config.iGridSize;
-   down[0]    = 0;           down[1]    = 0;           down[2]    = -config.iGridSize;
+   forward[0] =  map.iGridSize;  forward[1] = 0;           forward[2] = 0;
+   back[0]    = -map.iGridSize;  back[1]    = 0;           back[2]    = 0;
+   left[0]    = 0;           left[1]    = map.iGridSize;  left[2]    = 0;
+   right[0]   = 0;           right[1]   = -map.iGridSize;  right[2]   = 0;
+   up[0]      = 0;           up[1]      = 0;           up[2]      = map.iGridSize;
+   down[0]    = 0;           down[1]    = 0;           down[2]    = -map.iGridSize;
 
    // intialize vectors used to detect waypoints in mid-air...
-   down_to_ground[0] = 0.0;  down_to_ground[1] = 0.0;  down_to_ground[2] = -(config.iGridSize + 10.0);
+   down_to_ground[0] = 0.0;  down_to_ground[1] = 0.0;  down_to_ground[2] = -(map.iGridSize + 10.0);
 
    // player is 72 units, origin is half that
    up_off_floor[0] = 0;  up_off_floor[1] = 0;  up_off_floor[2] = 36.0f;
@@ -1110,7 +1111,7 @@ void WaypointLevel( const Config &config )
 	int ent_index = -1;
 	char *value;
 
-	if ((ent_index = FindEntityByClassname(ent_index, config.szSpawnpoint)) != -1)
+	if ((ent_index = FindEntityByClassname(ent_index, map.szSpawnpoint)) != -1)
 	{
 		value = ValueForKey(&entities[ent_index], "origin");
 		if (value[0])
@@ -1120,7 +1121,7 @@ void WaypointLevel( const Config &config )
 	}
 	else
 	{
-		printf("Error! Can't find a spawn point: %s\n", config.szSpawnpoint);
+		printf("Error! Can't find a spawn point: %s\n", map.szSpawnpoint);
 		return;
 	}
 
