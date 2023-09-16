@@ -41,7 +41,7 @@ elif [[ $(uname) == "Linux" ]]; then
 fi
 
 echo "Generating waypoint for bsp/bounce.bsp"
-$bin_path -w128 bsp/bounce.bsp > /dev/null
+LSAN_OPTIONS=detect_leaks=0 $bin_path -w128 bsp/bounce.bsp > /dev/null
 checksum=$(md5sum bounce.wpt | awk '{ print $1 }')
 
 if [ $checksum != "925ab0267d50dbc2aa7e04c2819999f6" ]; then
@@ -50,7 +50,7 @@ if [ $checksum != "925ab0267d50dbc2aa7e04c2819999f6" ]; then
 fi
 
 echo "Generating waypoint for bsp/frenzy.bsp"
-$bin_path -w128 bsp/frenzy.bsp > /dev/null
+LSAN_OPTIONS=detect_leaks=0 $bin_path -w128 bsp/frenzy.bsp > /dev/null
 checksum=$(md5sum frenzy.wpt | awk '{ print $1 }')
 
 if [ $checksum != "624ef56371c50b5740e567882d865c37" ]; then
@@ -59,7 +59,7 @@ if [ $checksum != "624ef56371c50b5740e567882d865c37" ]; then
 fi
 
 echo "Generating waypoint for bsp/op4_bootcamp.bsp"
-$bin_path -w128 bsp/op4_bootcamp.bsp > /dev/null
+LSAN_OPTIONS=detect_leaks=0 $bin_path -w128 bsp/op4_bootcamp.bsp > /dev/null
 checksum=$(md5sum op4_bootcamp.wpt | awk '{ print $1 }')
 
 if [ $checksum != "856e39c4819fc52db43feb8ee8f435ae" ]; then

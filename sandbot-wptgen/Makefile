@@ -7,7 +7,7 @@ WPTGEN_OBJ = main.o bspfile.o cmdlib.o logger.o map.o \
 	mathlib.o maths.o scriplib.o trace.o util.o waypoint.o world.o
 
 sandbot-wptgen: ${WPTGEN_OBJ}
-	${CPP} -g -o $@ ${WPTGEN_OBJ} -lstdc++ -lm
+	${CPP} -g -o $@ ${WPTGEN_OBJ} -lstdc++ -lm -fsanitize=undefined -fsanitize=address
 
 clean:
 	-rm -f *.o
