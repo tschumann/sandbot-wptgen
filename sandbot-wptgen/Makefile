@@ -1,5 +1,5 @@
 CPP = g++
-CPPFLAGS = -O3 -g -std=c++14 -march=core2 -mfpmath=sse -Wall -Wextra
+CPPFLAGS = -O3 -g -std=c++14 -march=core2 -mfpmath=sse -Wall -Wextra -fno-math-errno
 
 ALL:	sandbot-wptgen
 
