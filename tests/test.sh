@@ -34,7 +34,7 @@ if [[ $(uname) == *"NT-"* ]]; then
 elif [[ $(uname) == "Linux" ]]; then
 	echo "Compiling on Linux"
 	make -C ../sandbot-wptgen clean
-	make -C ../sandbot-wptgen
+	make -C ../sandbot-wptgen test
 
 	echo "Running functional tests on Linux"
 	bin_path="../sandbot-wptgen/sandbot-wptgen"

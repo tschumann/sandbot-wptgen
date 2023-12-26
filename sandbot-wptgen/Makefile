@@ -1,13 +1,18 @@
 CPP = g++
 CPPFLAGS = -O3 -g -std=c++14 -march=core2 -mfpmath=sse -Wall -Wextra -fno-math-errno
 
-ALL:	sandbot-wptgen
+ALL: sandbot-wptgen
 
 WPTGEN_OBJ = main.o bspfile.o cmdlib.o logger.o map.o \
 	mathlib.o maths.o scriplib.o trace.o util.o waypoint.o world.o
 
+DO_BUILD = ${CPP} -g -o sandbot-wptgen ${WPTGEN_OBJ} -lstdc++ -lm
+
 sandbot-wptgen: ${WPTGEN_OBJ}
-	${CPP} -g -o $@ ${WPTGEN_OBJ} -lstdc++ -lm -fsanitize=undefined -fsanitize=address
+	${DO_BUILD}
+
+test: ${WPTGEN_OBJ}
+	${DO_BUILD} -fsanitize=undefined -fsanitize=address
 
 clean:
 	-rm -f *.o
@@ -18,3 +23,4 @@ clean:
 
 %.o:    %.c
 	${CPP} ${CPPFLAGS} -c $< -o $@
+
