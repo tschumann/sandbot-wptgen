@@ -1125,37 +1125,47 @@ void WaypointLevel( const Map& map )
 		return;
 	}
 
-   location_count = 0;
+	location_count = 0;
 
-   RecursiveFloodFill(spawn_point);
+	RecursiveFloodFill(spawn_point);
 
-   if (location_count > 999)
-      printf("\n");
+	if (location_count > 999)
+	{
+		printf("\n");
+	}
 
-   Logger::Info( "%d locations were visited\n", location_count );
+	Logger::Info( "%d locations were visited\n", location_count );
 
-   if (overflow)
-	   Logger::Warn( "WARNING: Waypointing incomplete! Too many waypoints generated!\n" );
+	if (overflow)
+	{
+		Logger::Warn("WARNING: Waypointing incomplete! Too many waypoints generated!\n");
+	}
 
-   Logger::Info( "%d waypoints were generated\n", num_waypoints );
+	Logger::Info( "%d waypoints were generated\n", num_waypoints );
 
-   Logger::Info( "Calculating waypoint paths...\n" );
+	Logger::Info( "Calculating waypoint paths...\n" );
 
-   paths = nullptr;
+	paths = nullptr;
 
-   CalculateWaypointPaths();
+	CalculateWaypointPaths();
 
-   // write the waypoints and paths to the waypoint file...
-   WriteHPBWaypointFile();
+	// write the waypoints and paths to the waypoint file
+	if( map.cFormat == Map::FORMAT_SANDBOT )
+	{
+		WriteSandbotWaypointFile();
+	}
+	else if( map.cFormat == Map::FORMAT_HPB_BOT )
+	{
+		WriteHPB_BotWaypointFile();
+	}
 
-   free(visited);
-   free(waypoint_loc);
+	free(visited);
+	free(waypoint_loc);
 
-   Logger::Info( "Done!\n" );
+	Logger::Info( "Done!\n" );
 }
 
-
-void WriteHPBWaypointFile()
+void WriteSandbotWaypointFile()
 {
 	int index;
 	WAYPOINT_HDR header;
@@ -1272,3 +1282,7 @@ void WriteHPBWaypointFile()
 	fclose(bfp);
 }
 
+void WriteHPB_BotWaypointFile()
+{
+	Logger::Warn( "Not yet implemented\n" );
+}

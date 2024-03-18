@@ -38,6 +38,12 @@ namespace maintest
 			Assert::AreEqual( EX_CONFIG, main( (int)argv.size(), argv.data() ) );
 		}
 
+		TEST_METHOD(TestInvalidFormat)
+		{
+			vector<char*> argv = { "sandbot.exe", "-fR", "file.bsp" };
+			Assert::AreEqual( EX_CONFIG, main( (int)argv.size(), argv.data() ) );
+		}
+
 		TEST_METHOD(TestNoSuchMap)
 		{
 			vector<char*> argv = { "sandbot.exe", "-w32", "-sinfo_play_deathmath", "file.bsp" };

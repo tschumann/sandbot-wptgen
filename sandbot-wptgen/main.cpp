@@ -27,9 +27,10 @@ int main( _In_ int argc, _In_ char **argv )
 
 	if( __builtin_expect( argc < 2, 0 ) )
 	{
-		printf( "Usage: sandbot-wptgen.exe -wN -sS file.bsp\n" );
-		printf( "N is the grid size (integer greater than 32)\n" );
-		printf( "S is the spawnpoint (e.g. info_player_deathmatch)\n" );
+		printf( "Usage: sandbot-wptgen.exe -wN -sS -fS file.bsp\n" );
+		printf( "-w is the grid size (integer greater than 32)\n" );
+		printf( "-s is the spawnpoint (e.g. info_player_deathmatch)\n" );
+		printf( "-f is the format (e.g. S for sandbot or H for hpb_bot)\n" );
 
 		return EX_USAGE;
 	}
@@ -38,6 +39,7 @@ int main( _In_ int argc, _In_ char **argv )
 	{
 		const size_t iGridSizeParameterPrefixLength = strlen("-w");
 		const size_t iSpawnPointParameterPrefixLength = strlen("-s");
+		const char cFormatParameterPrefixLength = strlen("-f");
 
 		if( !strncmp(argv[n], "-w", iGridSizeParameterPrefixLength) )
 		{
@@ -60,6 +62,21 @@ int main( _In_ int argc, _In_ char **argv )
 			if( sscanf( &argv[n][iSpawnPointParameterPrefixLength], "%s", map.szSpawnpoint ) < 1 )
 			{
 				strncpy(map.szSpawnpoint, "info_player_deathmatch", Map::SPAWNPOINT_BUFFER_SIZE );
+			}
+		}
+		else if( !strncmp(argv[n], "-f", cFormatParameterPrefixLength) )
+		{
+			// if there isn't a format passed
+			if( sscanf( &argv[n][iSpawnPointParameterPrefixLength], "%c", &map.cFormat ) < 1 )
+			{
+				map.cFormat = Map::FORMAT_SANDBOT;
+			}
+
+			if( !map.IsFormatValid() )
+			{
+				Logger::Warn( "Format must be %c or %c\n", Map::FORMAT_SANDBOT, Map::FORMAT_HPB_BOT );
+
+				return EX_CONFIG;
 			}
 		}
 		else

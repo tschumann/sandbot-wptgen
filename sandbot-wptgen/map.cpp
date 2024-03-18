@@ -21,3 +21,8 @@ Map::Map() noexcept
 	strncpy( szSpawnpoint, "info_player_deathmatch", SPAWNPOINT_BUFFER_SIZE );
 }
 
+bool Map::IsFormatValid() const
+{
+	return cFormat == Map::FORMAT_SANDBOT || cFormat == Map::FORMAT_HPB_BOT;
+}
+

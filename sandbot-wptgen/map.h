@@ -29,15 +29,21 @@ public:
 	const static unsigned int DEFAULT_GRID_SIZE = 100;
 	const static unsigned int SPAWNPOINT_BUFFER_SIZE = 64;
 
+	const static char FORMAT_SANDBOT = 'S';
+	const static char FORMAT_HPB_BOT = 'H';
+
 	// signed so that it can be negated in waypoint.cpp
 	signed int iGridSize = DEFAULT_GRID_SIZE;
 	char szSpawnpoint[SPAWNPOINT_BUFFER_SIZE] = "";
+	char cFormat = FORMAT_SANDBOT;
 
 	Map() noexcept;
 	Map( const Map& ) = delete;
 	Map( Map&& ) = delete;
 	Map& operator=( const Map other ) = delete;
 	Map& operator=( Map&& other) = delete;
+
+	bool IsFormatValid() const;
 };
 
 #endif // __MAP_H__
