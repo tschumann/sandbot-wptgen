@@ -30,6 +30,20 @@
 
 #include "maths.h"
 
+// only for wpt.h
+typedef vec3_t Vector;
+
+namespace hpb_bot
+{
+
+}
+
+namespace sandbot
+{
+	// this file is copied directly from Sandbot - could use a git submodule but that would be overkill
+	#include "wpt.h"
+}
+
 #ifndef WAYPOINT_H
 #define WAYPOINT_H
 

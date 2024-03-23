@@ -43,6 +43,9 @@ public:
 	Map& operator=( const Map other ) = delete;
 	Map& operator=( Map&& other) = delete;
 
+	unsigned int GetMaxWaypoints() const;
+	unsigned int GetMaxPathIndexes() const;
+
 	bool IsFormatValid() const;
 };
 

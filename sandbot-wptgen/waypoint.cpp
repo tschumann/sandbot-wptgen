@@ -27,13 +27,9 @@
 #include <stdio.h>
 #include <stack>
 
-// hack - should probably work out how to properly typedef it
-#define Vector vec3_t
-
 #include "bspfile.h"
 #include "trace.h"
 #include "util.h"
-#include "wpt.h"
 #include "logger.h"
 #include "map.h"
 #include "waypoint.h"
@@ -50,12 +46,12 @@ unsigned char *waypoint_loc;
 
 int location_count;
 
-waypoint_t waypoints[MAX_WAYPOINTS];
-int num_waypoints;
+sandbot::waypoint_t waypoints[sandbot::MAX_WAYPOINTS];
+unsigned int num_waypoints;
 
 bool overflow;  // flag to indicate too many waypoints
 
-path_t **paths;  // pointer to array of paths (one linked list per waypoint)
+sandbot::path_t **paths;  // pointer to array of paths (one linked list per waypoint)
 
 vec3_t level_min, level_max;  // min and max coordinates of map
 
@@ -90,7 +86,7 @@ void WaypointAdd(const vec3_t &origin, int flags, bool ignore_loc)
    {
       waypoint_loc[offset] |= (1<<(z_index & 7));
 
-      if (num_waypoints < MAX_WAYPOINTS)
+      if (num_waypoints < map.GetMaxWaypoints())
       {
          waypoints[num_waypoints].flags = flags;
 
@@ -927,16 +923,16 @@ void CalculateWaypointPaths()
    int index, index2;
    float dist, max_range;
    vec3_t vec;
-   path_t *p, *p_new;
+   sandbot::path_t *p, *p_new;
    int percent_complete, prev_percent;
    vec3_t start, end;
    trace_t tr;
 
    Logger::Info( "Running CalculateWaypointPaths\n" );
 
-   size = sizeof(path_t *) * num_waypoints;
+   size = sizeof(sandbot::path_t *) * num_waypoints;
 
-   paths = (path_t **)malloc(size);
+   paths = (sandbot::path_t **)malloc(size);
 
    if (paths == NULL)
    {
@@ -989,7 +985,7 @@ void CalculateWaypointPaths()
             continue;
 
          // if this is NOT a ladder waypoint...
-         if ((waypoints[index].flags & W_FL_LADDER) == 0)
+         if ((waypoints[index].flags & sandbot::W_FL_LADDER) == 0)
          {
             // check if ground suddenly changes height between start and end
             if (CheckBeyondJumpHeight(start, end))
@@ -1001,7 +997,7 @@ void CalculateWaypointPaths()
             continue;
 
          // add waypoint index2 to paths from index...
-         p_new = (path_t *)malloc(sizeof(path_t));
+         p_new = (sandbot::path_t *)malloc(sizeof(sandbot::path_t));
 
          if (p_new == NULL)
          {
@@ -1086,26 +1082,26 @@ void WaypointLevel( const Map& map )
 	// TODO: replace all this with one function to iterate over the entities once? should be faster than interating for each entity individually
 
    // go through "important" items first and add waypoints for them...
-   WaypointAddEntities("weapon_", W_FL_WEAPON);
-   WaypointAddEntities("ammo_", W_FL_AMMO);
-   WaypointAddEntities("item_healthkit", W_FL_HEALTH);
-   WaypointAddEntities("item_battery", W_FL_ARMOR);
+   WaypointAddEntities("weapon_", sandbot::W_FL_WEAPON);
+   WaypointAddEntities("ammo_", sandbot::W_FL_AMMO);
+   WaypointAddEntities("item_healthkit", sandbot::W_FL_HEALTH);
+   WaypointAddEntities("item_battery", sandbot::W_FL_ARMOR);
 
 	// Day of Defeat
-	WaypointAddEntities( "dod_control_point", W_FL_DOD_CAP );
+	WaypointAddEntities( "dod_control_point", sandbot::W_FL_DOD_CAP );
 	// Natural Selection
-	WaypointAddEntities( "team_hive", W_FL_NS_HIVE );
-	WaypointAddEntities( "team_command", W_FL_NS_COMMAND_CHAIR );
+	WaypointAddEntities( "team_hive", sandbot::W_FL_NS_HIVE );
+	WaypointAddEntities( "team_command", sandbot::W_FL_NS_COMMAND_CHAIR );
 
    // add wall mounted entities (func_healthcharger, func_recharge, func_button, etc.)
-   WaypointAddWallMountedEntities("func_healthcharger", W_FL_HEALTH);
-   WaypointAddWallMountedEntities("func_recharge", W_FL_ARMOR);
+   WaypointAddWallMountedEntities("func_healthcharger", sandbot::W_FL_HEALTH);
+   WaypointAddWallMountedEntities("func_recharge", sandbot::W_FL_ARMOR);
 
    // add waypoints for ladders...
-   WaypointAddLadders(W_FL_LADDER);
+   WaypointAddLadders(sandbot::W_FL_LADDER);
 
    // add waypoints for doors and lifts (make a separate function for lifts???)
-   WaypointAddDoors("func_ladder", W_FL_DOOR);
+   WaypointAddDoors("func_ladder", sandbot::W_FL_DOOR);
 
 	// start at the "first" spawn point...
 	int ent_index = -1;
@@ -1168,13 +1164,13 @@ void WaypointLevel( const Map& map )
 void WriteSandbotWaypointFile()
 {
 	int index;
-	WAYPOINT_HDR header;
+	sandbot::WAYPOINT_HDR header;
 	string strFilename;
-	path_t *p, *p_next;
+	sandbot::path_t *p, *p_next;
 
-	strcpy(header.filetype, WAYPOINT_HEADER);
+	strcpy(header.filetype, sandbot::WAYPOINT_HEADER);
 
-	header.waypoint_file_version = WAYPOINT_VERSION;
+	header.waypoint_file_version = sandbot::WAYPOINT_VERSION;
 
 	header.waypoint_file_flags = 0; // not currently used
 
@@ -1199,7 +1195,7 @@ void WriteSandbotWaypointFile()
 	// write the waypoint information...
 	for (index = 0; index < num_waypoints; index++)
 	{
-		fwrite(&waypoints[index], sizeof(waypoint_t), 1, bfp);
+		fwrite(&waypoints[index], sizeof(sandbot::waypoint_t), 1, bfp);
 	}
 
 	if (paths)
@@ -1220,7 +1216,7 @@ void WriteSandbotWaypointFile()
 			{
 				i = 0;
 
-				while (i < MAX_PATH_INDEX)
+				while (i < map.GetMaxPathIndexes())
 				{
 					if (p->index[i] != -1)
 						num++;  // count path node if it's used
@@ -1241,7 +1237,7 @@ void WriteSandbotWaypointFile()
 			{
 				i = 0;
 
-				while (i < MAX_PATH_INDEX)
+				while (i < map.GetMaxPathIndexes())
 				{
 					if (p->index[i] != -1)  // save path node if it's used
 						fwrite(&p->index[i], sizeof(p->index[0]), 1, bfp);
