@@ -39,8 +39,8 @@ tests/test.sh
 ```
 You can specify whether to use the x86 or x64 build too:
 ```
-tests/test.sh x86
-tests/test.sh x64
+tests/test.sh -p x86
+tests/test.sh -p x64
 ```
 
 ### Linux
@@ -48,6 +48,11 @@ tests/test.sh x64
 End to end tests:
 ```
 tests/test.sh
+```
+Performance and undefined behaviour tests:
+```
+tests/test.sh -t gprof
+tests/test.sh -t ubsan
 ```
 
 

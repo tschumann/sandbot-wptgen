@@ -6,3 +6,5 @@ Release/
 
 *.o
 sandbot-wptgen/sandbot-wptgen
+tests/gmon.out
+tests/*.txt
