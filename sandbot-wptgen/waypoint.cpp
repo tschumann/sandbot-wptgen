@@ -46,7 +46,8 @@ unsigned char *waypoint_loc;
 
 int location_count;
 
-sandbot::waypoint_t waypoints[sandbot::MAX_WAYPOINTS];
+sandbot::waypoint_t sandbotWaypoints[sandbot::MAX_WAYPOINTS];
+hpb_bot::WAYPOINT hpbbotWaypoints[hpb_bot::MAX_WAYPOINTS];
 unsigned int num_waypoints;
 
 bool overflow;  // flag to indicate too many waypoints
@@ -88,11 +89,11 @@ void WaypointAdd(const vec3_t &origin, int flags, bool ignore_loc)
 
       if (num_waypoints < map.GetMaxWaypoints())
       {
-         waypoints[num_waypoints].flags = flags;
+		  sandbotWaypoints[num_waypoints].flags = flags;
 
-         waypoints[num_waypoints].origin[0] = origin[0];
-         waypoints[num_waypoints].origin[1] = origin[1];
-         waypoints[num_waypoints].origin[2] = origin[2];
+		  sandbotWaypoints[num_waypoints].origin[0] = origin[0];
+		  sandbotWaypoints[num_waypoints].origin[1] = origin[1];
+		  sandbotWaypoints[num_waypoints].origin[2] = origin[2];
 
          num_waypoints++;
       }
@@ -961,7 +962,7 @@ void CalculateWaypointPaths()
 
       p = paths[index];
 
-      VectorCopy(waypoints[index].origin, start);
+      VectorCopy(sandbotWaypoints[index].origin, start);
 
       // find which waypoints are "reachable" from this waypoint...
       for (index2 = 0; index2 < num_waypoints; index2++)
@@ -969,15 +970,15 @@ void CalculateWaypointPaths()
          if (index2 == index)  // if source and dest are the same, skip it
             continue;
 
-         // see if the destination waypoint is within range...
-         VectorSubtract(waypoints[index2].origin, waypoints[index].origin, vec);
+         // see if the destination waypoint is within rangesandbotWaypoints
+         VectorSubtract(sandbotWaypoints[index2].origin, sandbotWaypoints[index].origin, vec);
          dist = VectorLength(vec);
 
          if (dist > max_range)  // beyond maximum path range?
             continue;
 
          // check if the destination waypoint is "reachable"...
-         VectorCopy(waypoints[index2].origin, end);
+         VectorCopy(sandbotWaypoints[index2].origin, end);
 
          TraceLine(start, end, &tr);
 
@@ -985,7 +986,7 @@ void CalculateWaypointPaths()
             continue;
 
          // if this is NOT a ladder waypoint...
-         if ((waypoints[index].flags & sandbot::W_FL_LADDER) == 0)
+         if ((sandbotWaypoints[index].flags & sandbot::W_FL_LADDER) == 0)
          {
             // check if ground suddenly changes height between start and end
             if (CheckBeyondJumpHeight(start, end))
@@ -1169,11 +1170,8 @@ void WriteSandbotWaypointFile()
 	sandbot::path_t *p, *p_next;
 
 	strcpy(header.filetype, sandbot::WAYPOINT_HEADER);
-
 	header.waypoint_file_version = sandbot::WAYPOINT_VERSION;
-
 	header.waypoint_file_flags = 0; // not currently used
-
 	header.number_of_waypoints = num_waypoints;
 
 	strFilename = Util::ExtractFileNameWithoutExtension( world.GetMapName() );
@@ -1195,7 +1193,7 @@ void WriteSandbotWaypointFile()
 	// write the waypoint information...
 	for (index = 0; index < num_waypoints; index++)
 	{
-		fwrite(&waypoints[index], sizeof(sandbot::waypoint_t), 1, bfp);
+		fwrite(&sandbotWaypoints[index], sizeof(sandbot::waypoint_t), 1, bfp);
 	}
 
 	if (paths)
@@ -1280,5 +1278,35 @@ void WriteSandbotWaypointFile()
 
 void WriteHPB_BotWaypointFile()
 {
-	Logger::Warn( "Not yet implemented\n" );
+	int index;
+	hpb_bot::WAYPOINT_HDR header;
+	string strFilename;
+	hpb_bot::PATH* p, * p_next;
+
+	strcpy(header.filetype, "HPB_bot");
+	header.waypoint_file_version = hpb_bot::WAYPOINT_VERSION;
+	header.waypoint_file_flags = 0; // not currently used
+	header.number_of_waypoints = num_waypoints;
+
+	strFilename = Util::ExtractFileNameWithoutExtension(world.GetMapName());
+
+	memset(header.mapname, 0, sizeof(header.mapname));
+	strncpy(header.mapname, strFilename.c_str(), 31);
+	header.mapname[31] = 0;
+
+	strFilename += ".wpt";
+
+	Logger::Info("Creating waypoint file %s...\n", strFilename.c_str());
+
+	FILE* bfp = fopen(strFilename.c_str(), "wb");
+
+	// write the waypoint header to the file...
+	fwrite(&header, sizeof(header), 1, bfp);
+
+	Logger::Info("Writing waypoints...\n");
+	// write the waypoint information...
+	for (index = 0; index < num_waypoints; index++)
+	{
+		fwrite(&hpbbotWaypoints[index], sizeof(hpb_bot::WAYPOINT), 1, bfp);
+	}
 }

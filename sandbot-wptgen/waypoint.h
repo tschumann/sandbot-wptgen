@@ -35,7 +35,59 @@ typedef vec3_t Vector;
 
 namespace hpb_bot
 {
+	// adapted from HPB Bot's waypoint.h
+	constexpr int MAX_WAYPOINTS = 1024;
 
+	// defines for waypoint flags field (32 bits are available)
+	constexpr int  W_FL_TEAM = ((1 << 0) + (1 << 1));  /* allow for 4 teams (0-3) */
+	constexpr int  W_FL_TEAM_SPECIFIC = (1 << 2);  /* waypoint only for specified team */
+	constexpr int  W_FL_CROUCH = (1 << 3);  /* must crouch to reach this waypoint */
+	constexpr int  W_FL_LADDER = (1 << 4);  /* waypoint on a ladder */
+	constexpr int  W_FL_LIFT = (1 << 5);  /* wait for lift to be down before approaching this waypoint */
+	constexpr int  W_FL_DOOR = (1 << 6);  /* wait for door to open */
+	constexpr int  W_FL_HEALTH = (1 << 7);  /* health kit (or wall mounted) location */
+	constexpr int  W_FL_ARMOR = (1 << 8);  /* armor (or HEV) location */
+	constexpr int  W_FL_AMMO = (1 << 9);  /* ammo location */
+	constexpr int  W_FL_SNIPER = (1 << 10); /* sniper waypoint (a good sniper spot) */
+
+	constexpr int  W_FL_TFC_FLAG = (1 << 11); /* flag position (or hostage or president) */
+	constexpr int  W_FL_FLF_CAP = (1 << 11); /* Front Line Force capture point */
+
+	constexpr int  W_FL_TFC_FLAG_GOAL = (1 << 12); /* flag return position (or rescue zone) */
+	constexpr int  W_FL_FLF_DEFEND = (1 << 12); /* Front Line Force defend point */
+
+	constexpr int  W_FL_PRONE = (1 << 13); /* go prone (laying down) */
+	constexpr int  W_FL_AIMING = (1 << 14); /* aiming waypoint */
+
+	constexpr int  W_FL_DELETED = (1 << 31); /* used by waypoint allocation code */
+
+	constexpr int WAYPOINT_VERSION = 4;
+
+	// define the waypoint file header structure...
+	typedef struct {
+		char filetype[8];  // should be "HPB_bot\0"
+		int  waypoint_file_version;
+		int  waypoint_file_flags;  // not currently used
+		int  number_of_waypoints;
+		char mapname[32];  // name of map for these waypoints
+	} WAYPOINT_HDR;
+
+	typedef struct {
+		int    flags;    // button, lift, flag, health, ammo, etc.
+		Vector origin;   // location
+	} WAYPOINT;
+
+	constexpr int MAX_PATH_INDEX = 4;
+
+	// define the structure for waypoint paths (paths are connections between
+	// two waypoint nodes that indicates the bot can get from point A to point B.
+	// note that paths DON'T have to be two-way.  sometimes they are just one-way
+	// connections between two points.  There is an array called "paths" that
+	// contains head pointers to these structures for each waypoint index.
+	typedef struct path {
+		short int index[MAX_PATH_INDEX];  // indexes of waypoints (index -1 means not used)
+		struct path* next;   // link to next structure
+	} PATH;
 }
 
 namespace sandbot

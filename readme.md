@@ -22,7 +22,7 @@ Usage
 -----
 
 ```
-sandbot-wptgen -wN -sinfo_spawn_entity mapname.bsp
+sandbot-wptgen -wN -fS -sinfo_spawn_entity mapname.bsp
 ```
 
 A larger value of N will result in faster waypoint generation as the expense of fewer waypoints.
