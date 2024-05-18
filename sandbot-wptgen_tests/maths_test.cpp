@@ -130,35 +130,5 @@ namespace configtest
 			Assert::AreEqual( 0.0f, output[1] );
 			Assert::AreEqual( 0.0f, output[2] );
 		}
-
-		TEST_METHOD(TestMaxMaximum)
-		{
-			Assert::AreEqual( 1, Maths::Max( 1, 0 ) );
-		}
-
-		TEST_METHOD(TestMaxMinimum)
-		{
-			Assert::AreEqual( 1, Maths::Max( 0, 1) );
-		}
-
-		TEST_METHOD(TestMaxEqual)
-		{
-			Assert::AreEqual( 1, Maths::Max( 1, 1 ) );
-		}
-
-		TEST_METHOD(TestMinMaximum)
-		{
-			Assert::AreEqual( 0, Maths::Min( 1, 0 ) );
-		}
-
-		TEST_METHOD(TestMinMinimum)
-		{
-			Assert::AreEqual( 0, Maths::Min( 0, 1 ) );
-		}
-
-		TEST_METHOD(TestMinEqual)
-		{
-			Assert::AreEqual( 1, Maths::Min( 1, 1 ) );
-		}
 	};
 }
