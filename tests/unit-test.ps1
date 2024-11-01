@@ -10,11 +10,11 @@ $platform = $args[1]
 
 if ($platform -eq "x86")
 {
-	& "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\TestWindow\vstest.console.exe" ..\$($configuration)\sandbot-wptgen_tests.dll
+	& "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\TestWindow\vstest.console.exe" ..\$($configuration)\sandbot-wptgen_tests.dll
 }
 elseif ($platform -eq "x64")
 {
-	& "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\TestWindow\vstest.console.exe" ..\$($platform)\$($configuration)\sandbot-wptgen_tests.dll --logger:"console;verbosity=Normal"
+	& "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\TestWindow\vstest.console.exe" ..\$($platform)\$($configuration)\sandbot-wptgen_tests.dll --logger:"console;verbosity=Normal"
 }
 
 Pop-Location

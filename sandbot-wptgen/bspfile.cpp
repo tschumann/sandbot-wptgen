@@ -761,7 +761,7 @@ int FindEntityByWildcard(int index, const char *classname, int length)
    return -1;  // entity not found
 }
 
-char *ValueForKey (entity_t *ent, const char *key)
+const char *ValueForKey (entity_t *ent, const char *key)
 {
    epair_t  *ep;
 
@@ -773,7 +773,7 @@ char *ValueForKey (entity_t *ent, const char *key)
 
 vec_t FloatForKey (entity_t *ent, char *key)
 {
-   char  *k;
+   const char  *k;
 
    k = ValueForKey (ent, key);
    return (float)atof(k);
@@ -781,7 +781,7 @@ vec_t FloatForKey (entity_t *ent, char *key)
 
 void GetVectorForKey (entity_t *ent, char *key, vec3_t vec)
 {
-   char  *k;
+   const char  *k;
    double   v1, v2, v3;
 
    k = ValueForKey (ent, key);

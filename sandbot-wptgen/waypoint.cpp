@@ -346,12 +346,12 @@ void RecursiveFloodFill(const vec3_t &coord)
 
 void WaypointAddEntities(const char *item_name, const int iWaypointFlags)
 {
-	char *value;
+	const char *value;
 	vec3_t origin, start, end;
 	const vec3_t vAboveEntity = { 0.0f, 0.0f, 10.0f };
 	trace_t tr;
 
-	const int iEntityNameLength = strlen(item_name);
+	const unsigned int iEntityNameLength = strlen(item_name);
 	int iEntityIndex = Map::ENTITY_NOT_FOUND;
 
 	while ((iEntityIndex = FindEntityByWildcard(iEntityIndex, item_name, iEntityNameLength)) != Map::ENTITY_NOT_FOUND)
@@ -381,7 +381,7 @@ void WaypointAddEntities(const char *item_name, const int iWaypointFlags)
 
 void WaypointAddWallMountedEntities(const char *item_name, const int waypoint_flags)
 {
-   char *value;
+   const char *value;
    int model_index;
    vec3_t origin;
    dmodel_t *model;
@@ -400,7 +400,7 @@ void WaypointAddWallMountedEntities(const char *item_name, const int waypoint_fl
    static vec3_t wall_out_left = { 0, 32, 0};
    static vec3_t wall_out_right = { 0, -32, 0};
 
-   int len = strlen(item_name);
+   unsigned int len = strlen(item_name);
    int ent_index = -1;
 
    while ((ent_index = FindEntityByWildcard(ent_index, item_name, len)) != -1)
@@ -470,7 +470,7 @@ void WaypointAddWallMountedEntities(const char *item_name, const int waypoint_fl
 void WaypointAddLadders(const int waypoint_flags)
 {
    int model_index;
-   char *value;
+   const char *value;
    vec3_t ladder_origin;
    dmodel_t *model;
    dface_t *face;
@@ -834,7 +834,7 @@ bool CheckModelIntersection(const vec3_t start, const vec3_t end)
    vec3_t v;
    int edge_index;
    int ent_index;
-   char *value;
+   const char *value;
 
    // Check if there are any specific brush models (ladders, railings, fences,
    // etc.) that will block the player moving from start to end.  Do this by
@@ -1106,7 +1106,7 @@ void WaypointLevel( const Map& map )
 
 	// start at the "first" spawn point...
 	int ent_index = -1;
-	char *value;
+	const char *value;
 
 	if ((ent_index = FindEntityByClassname(ent_index, map.szSpawnpoint)) != -1)
 	{
@@ -1281,7 +1281,6 @@ void WriteHPB_BotWaypointFile()
 	int index;
 	hpb_bot::WAYPOINT_HDR header;
 	string strFilename;
-	hpb_bot::PATH* p, * p_next;
 
 	strcpy(header.filetype, "HPB_bot");
 	header.waypoint_file_version = hpb_bot::WAYPOINT_VERSION;
