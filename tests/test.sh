@@ -70,7 +70,7 @@ if [ $checksum != "925ab0267d50dbc2aa7e04c2819999f6" ]; then
 	failed=1
 fi
 
-if [[ $os == "linux" ]]; then
+if [[ $os == "linux" ]] && [[ $type == "gprof" ]]; then
 	gprof $bin_path ./gmon.out > bounce_perf.txt
 fi
 
@@ -94,7 +94,7 @@ if [ $checksum != "624ef56371c50b5740e567882d865c37" ]; then
 	failed=1
 fi
 
-if [[ $os == "linux" ]]; then
+if [[ $os == "linux" ]] && [[ $type == "gprof" ]]; then
 	gprof $bin_path ./gmon.out > frenzy_perf.txt
 fi
 
@@ -118,7 +118,7 @@ if [ $checksum != "856e39c4819fc52db43feb8ee8f435ae" ]; then
 	failed=1
 fi
 
-if [[ $os == "linux" ]]; then
+if [[ $os == "linux" ]] && [[ $type == "gprof" ]]; then
 	gprof $bin_path ./gmon.out > op4_bootcamp_perf.txt
 fi
 

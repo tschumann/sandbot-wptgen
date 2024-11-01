@@ -1,5 +1,5 @@
 CPP = g++
-CPPFLAGS = -std=c++14 -march=core2 -mfpmath=sse -Wall -Wextra -fno-math-errno
+CPPFLAGS = -std=c++20 -march=core2 -mfpmath=sse -Wall -Wextra -fno-math-errno
 
 ALL: sandbot-wptgen
 
@@ -15,7 +15,7 @@ sandbot-wptgen: ${WPTGEN_OBJ}
 
 test-gprof: CPPFLAGS += -g3 -O0
 test-gprof: ${WPTGEN_OBJ}
-	${DO_BUILD}
+	${DO_BUILD} -pg
 
 test-ubsan: CPPFLAGS += -g -O3
 test-ubsan: ${WPTGEN_OBJ}
