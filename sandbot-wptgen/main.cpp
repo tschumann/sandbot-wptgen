@@ -23,7 +23,7 @@ World world;
 
 int main( _In_ int argc, _In_ char **argv )
 {
-	char szFilename[FILENAME_MAX];
+	char szFilename[FILENAME_MAX] = "\0";
 
 	if( __builtin_expect( argc < 2, 0 ) )
 	{
