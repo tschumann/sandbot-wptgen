@@ -77,9 +77,6 @@
     <ClInclude Include="wpt.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="xplatform.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="main.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -93,6 +90,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="logger.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\xplatform\xplatform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
