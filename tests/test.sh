@@ -33,7 +33,7 @@ if [[ $(uname) == *"NT-"* ]]; then
 	powershell ./build.ps1 $configuration $platform
 
 	echo "Running unit tests on Windows"
-	powershell ./unit-test.ps1 $configuration $platform
+	powershell ./unit-test.ps1
 
 	echo "Running functional tests on Windows"
 

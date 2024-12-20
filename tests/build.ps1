@@ -5,11 +5,17 @@ $wd = Split-Path $scriptpath
 # set the working directory as this file's directory
 Push-Location $wd
 
-$configuration = $args[0]
-$platform = $args[1]
+& "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\devenv.com" "..\sandbot-wptgen.sln" /Clean "Debug|x86" | Out-Host
+& "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\devenv.com" "..\sandbot-wptgen.sln" /Build "Debug|x86" | Out-Host
 
-& "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\devenv.com" "..\sandbot-wptgen.sln" /Clean "$($configuration)|$($platform)" | Out-Host
-# build the solution (use devenv.com so that we get output)
-& "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\devenv.com" "..\sandbot-wptgen.sln" /Build "$($configuration)|$($platform)" | Out-Host
+& "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\devenv.com" "..\sandbot-wptgen.sln" /Clean "Debug|x64" | Out-Host
+& "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\devenv.com" "..\sandbot-wptgen.sln" /Build "Debug|x64" | Out-Host
+
+
+& "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\devenv.com" "..\sandbot-wptgen.sln" /Clean "Release|x86" | Out-Host
+& "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\devenv.com" "..\sandbot-wptgen.sln" /Build "Release|x86" | Out-Host
+
+& "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\devenv.com" "..\sandbot-wptgen.sln" /Clean "Release|x64" | Out-Host
+& "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\devenv.com" "..\sandbot-wptgen.sln" /Build "Release|x64" | Out-Host
 
 Pop-Location
