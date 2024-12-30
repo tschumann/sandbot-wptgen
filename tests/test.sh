@@ -32,9 +32,6 @@ if [[ $(uname) == *"NT-"* ]]; then
 	# hack - call out to Powershell because devenv.exe doesn't parse arguments correctly when called from git bash
 	powershell ./build.ps1 $configuration $platform
 
-	echo "Running unit tests on Windows"
-	powershell ./unit-test.ps1
-
 	echo "Running functional tests on Windows"
 
 	if [[ $platform == "x86" ]]; then

@@ -5,13 +5,14 @@ Sandbot waypoint generator.
 
 Based off [BSP_tool](http://hpb-bot.bots-united.com/bsp_tool.html) by Jeffrey 'botman' Broome.
 
+
 Cloning
 -------
 
 Checkout the submodules:
 ```
 git submodule init
-git submodule update
+git submodule update --recursive
 ```
 
 
@@ -46,7 +47,7 @@ Tests
 
 ### Windows
 
-End to end and unit tests:
+End to end tests:
 ```
 tests/test.sh
 ```
@@ -57,9 +58,14 @@ tests/test.sh -p x86
 tests/test.sh -p x64
 ```
 
+Unit tests:
+```
+tests/test_unit.ps1
+```
+
 Code scan:
 ```
-powershell tests/scan.ps1
+tests/scan.ps1
 ```
 
 ### Linux
