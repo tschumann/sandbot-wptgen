@@ -64,27 +64,11 @@ void CrossProduct (vec3_t v1, vec3_t v2, vec3_t cross);
 vec_t VectorNormalize (vec3_t v);
 void VectorInverse (vec3_t v);
 
-void ClearBounds (vec3_t mins, vec3_t maxs);
-void AddPointToBounds (vec3_t v, vec3_t mins, vec3_t maxs);
-
-void AngleIMatrix (const vec3_t angles, float matrix[3][4] );
-void R_ConcatTransforms (const float in1[3][4], const float in2[3][4], float out[3][4]);
-
-void VectorIRotate (const vec3_t in1, const float in2[3][4], vec3_t out);
-void VectorRotate (const vec3_t in1, const float in2[3][4], vec3_t out);
-
-void VectorTransform (const vec3_t in1, const float in2[3][4], vec3_t out);
-
 float DistanceToIntersection(const vec3_t origin, const vec3_t vector,
                              const vec3_t plane_origin, const vec3_t plane_normal);
 bool VectorIntersectPlane(const vec3_t origin, const vec3_t vector,
                           const vec3_t plane_origin, const vec3_t plane_normal,
                           vec3_t intersect_point);
-
-void AngleQuaternion( const vec3_t angles, vec4_t quaternion );
-void QuaternionMatrix( const vec4_t quaternion, float (*matrix)[4] );
-void QuaternionSlerp( const vec4_t p, vec4_t q, float t, vec4_t qt );
-
 
 #ifdef __cplusplus
 }
