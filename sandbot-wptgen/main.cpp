@@ -39,7 +39,7 @@ int main( _In_ int argc, _In_ char **argv )
 	{
 		const size_t iGridSizeParameterPrefixLength = strlen("-w");
 		const size_t iSpawnPointParameterPrefixLength = strlen("-s");
-		const char cFormatParameterPrefixLength = strlen("-f");
+		const size_t iFormatParameterPrefixLength = strlen("-f");
 
 		if( !strncmp(argv[n], "-w", iGridSizeParameterPrefixLength) )
 		{
@@ -64,7 +64,7 @@ int main( _In_ int argc, _In_ char **argv )
 				strncpy(map.szSpawnpoint, "info_player_deathmatch", Map::SPAWNPOINT_BUFFER_SIZE );
 			}
 		}
-		else if( !strncmp(argv[n], "-f", cFormatParameterPrefixLength) )
+		else if( !strncmp(argv[n], "-f", iFormatParameterPrefixLength) )
 		{
 			// if there isn't a format passed
 			if( sscanf( &argv[n][iSpawnPointParameterPrefixLength], "%c", &map.cFormat ) < 1 )
