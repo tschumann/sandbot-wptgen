@@ -58,15 +58,15 @@ int main( _In_ int argc, _In_ char **argv )
 		}
 		else if( !strncmp(argv[n], "-s", iSpawnPointParameterPrefixLength) )
 		{
-			// if there isn't a spawnpoint passed
+			// if an empty spawnpoint is passed
 			if( sscanf( &argv[n][iSpawnPointParameterPrefixLength], "%s", map.szSpawnpoint ) < 1 )
 			{
-				strncpy(map.szSpawnpoint, "info_player_deathmatch", Map::SPAWNPOINT_BUFFER_SIZE );
+				strncpy( map.szSpawnpoint, Map::DEFAULT_SPAWNPOINT_ENTITY, Map::SPAWNPOINT_BUFFER_SIZE );
 			}
 		}
 		else if( !strncmp(argv[n], "-f", iFormatParameterPrefixLength) )
 		{
-			// if there isn't a format passed
+			// if an empty format is passed
 			if( sscanf( &argv[n][iSpawnPointParameterPrefixLength], "%c", &map.cFormat ) < 1 )
 			{
 				map.cFormat = Map::FORMAT_SANDBOT;
