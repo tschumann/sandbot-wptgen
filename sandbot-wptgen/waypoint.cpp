@@ -1165,29 +1165,16 @@ void WaypointLevel( const Map& map )
 void WriteSandbotWaypointFile()
 {
 	int index;
-	sandbot::WAYPOINT_HDR header;
-	string strFilename;
 	sandbot::path_t *p, *p_next;
 
-	strcpy(header.filetype, sandbot::WAYPOINT_HEADER);
-	header.waypoint_file_version = sandbot::WAYPOINT_VERSION;
-	header.waypoint_file_flags = 0; // not currently used
-	header.number_of_waypoints = num_waypoints;
-
-	strFilename = Util::ExtractFileNameWithoutExtension( world.GetMapName() );
-
-	memset(header.mapname, 0, sizeof(header.mapname));
-	strncpy(header.mapname, strFilename.c_str(), 31);
-	header.mapname[31] = 0;
-
-	strFilename += ".wpt";
+    string mapName = Util::ExtractFileNameWithoutExtension(world.GetMapName());
+    string strFilename = mapName + ".wpt";
 
 	Logger::Info( "Creating waypoint file %s...\n", strFilename.c_str() );
 
 	FILE *bfp = fopen(strFilename.c_str(), "wb");
 
-	// write the waypoint header to the file...
-	fwrite(&header, sizeof(header), 1, bfp);
+    map.WriteWaypointHeader(bfp, mapName);
 
 	Logger::Info( "Writing waypoints...\n" );
 	// write the waypoint information...
@@ -1278,33 +1265,18 @@ void WriteSandbotWaypointFile()
 
 void WriteHPB_BotWaypointFile()
 {
-	int index;
-	hpb_bot::WAYPOINT_HDR header;
-	string strFilename;
-
-	strcpy(header.filetype, "HPB_bot");
-	header.waypoint_file_version = hpb_bot::WAYPOINT_VERSION;
-	header.waypoint_file_flags = 0; // not currently used
-	header.number_of_waypoints = num_waypoints;
-
-	strFilename = Util::ExtractFileNameWithoutExtension(world.GetMapName());
-
-	memset(header.mapname, 0, sizeof(header.mapname));
-	strncpy(header.mapname, strFilename.c_str(), 31);
-	header.mapname[31] = 0;
-
-	strFilename += ".wpt";
+	string mapName = Util::ExtractFileNameWithoutExtension(world.GetMapName());
+    string strFilename = mapName + ".wpt";
 
 	Logger::Info("Creating waypoint file %s...\n", strFilename.c_str());
 
 	FILE* bfp = fopen(strFilename.c_str(), "wb");
 
-	// write the waypoint header to the file...
-	fwrite(&header, sizeof(header), 1, bfp);
+    map.WriteWaypointHeader(bfp, mapName);
 
 	Logger::Info("Writing waypoints...\n");
 	// write the waypoint information...
-	for (index = 0; index < num_waypoints; index++)
+	for (int index = 0; index < num_waypoints; index++)
 	{
 		fwrite(&hpbbotWaypoints[index], sizeof(hpb_bot::WAYPOINT), 1, bfp);
 	}

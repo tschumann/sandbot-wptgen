@@ -33,9 +33,18 @@
 // only for wpt.h
 typedef vec3_t Vector;
 
+namespace sandbot
+{
+	// this file is copied directly from Sandbot - could use a git submodule but that would be overkill
+	#include "wpt.h"
+}
+
 namespace hpb_bot
 {
 	// adapted from HPB Bot's waypoint.h
+	const char WAYPOINT_HEADER[8] = "HPB_Bot";
+	constexpr int WAYPOINT_VERSION = 4;
+
 	constexpr int MAX_WAYPOINTS = 1024;
 
 	// defines for waypoint flags field (32 bits are available)
@@ -60,8 +69,6 @@ namespace hpb_bot
 	constexpr int  W_FL_AIMING = (1 << 14); /* aiming waypoint */
 
 	constexpr int  W_FL_DELETED = (1 << 31); /* used by waypoint allocation code */
-
-	constexpr int WAYPOINT_VERSION = 4;
 
 	// define the waypoint file header structure...
 	typedef struct {
@@ -90,10 +97,10 @@ namespace hpb_bot
 	} PATH;
 }
 
-namespace sandbot
+namespace sturmbot
 {
-	// this file is copied directly from Sandbot - could use a git submodule but that would be overkill
-	#include "wpt.h"
+	// https://sturmbot.org/index.php/sturmbot-tutorials/strumbot-waypoint-tutorials/89-auto-generating-sturmbot-waypoints-rich-weeds-nagel
+	const char WAYPOINT_HEADER[8] = "WPTFILE";
 }
 
 #ifndef WAYPOINT_H

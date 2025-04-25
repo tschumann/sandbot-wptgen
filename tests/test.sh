@@ -75,7 +75,7 @@ echo "Generating HPB_bot waypoint for bsp/bounce.bsp"
 LSAN_OPTIONS=detect_leaks=0 $bin_path -w128 -fH bsp/bounce.bsp > /dev/null
 checksum=$(md5sum bounce.wpt | awk '{ print $1 }')
 
-if [ $checksum != "cfdf2528f88564b7404acc3ee606784a" ]; then
+if [ $checksum != "9e4639540d45a0f45c0b4ec45f9c4779" ]; then
 	echo "Got checksum $checksum for bounce.wpt"
 	failed=1
 fi
@@ -99,7 +99,7 @@ echo "Generating HPB_bot waypoint for bsp/frenzy.bsp"
 LSAN_OPTIONS=detect_leaks=0 $bin_path -w128 -fH bsp/frenzy.bsp > /dev/null
 checksum=$(md5sum frenzy.wpt | awk '{ print $1 }')
 
-if [ $checksum != "2ae3d040d5e2ed5cde488b91fc768d84" ]; then
+if [ $checksum != "031b7e300fbc11ba4e79484a38c4b13e" ]; then
 	echo "Got checksum $checksum for frenzy.wpt"
 	failed=1
 fi
@@ -123,7 +123,7 @@ echo "Generating HPB_bot waypoint for bsp/op4_bootcamp.bsp"
 LSAN_OPTIONS=detect_leaks=0 $bin_path -w128 -fH bsp/op4_bootcamp.bsp > /dev/null
 checksum=$(md5sum op4_bootcamp.wpt | awk '{ print $1 }')
 
-if [ $checksum != "c1998fe0bacfec83ff2c404e714c0dbf" ]; then
+if [ $checksum != "52644b372ba679ef4f8e2c90bcd1fabd" ]; then
 	echo "Got checksum $checksum for op4_bootcamp.wpt"
 	failed=1
 fi

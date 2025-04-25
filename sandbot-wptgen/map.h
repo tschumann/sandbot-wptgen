@@ -13,6 +13,7 @@
 #ifndef __MAP_H__
 #define __MAP_H__
 
+#include "util.h"
 #include "xplatform.h"
 
 class Map final
@@ -31,6 +32,7 @@ public:
 
 	const static char FORMAT_SANDBOT = 'S';
 	const static char FORMAT_HPB_BOT = 'H';
+	const static char FORMAT_STURMBOT = 'U';
 
 	// signed so that it can be negated in waypoint.cpp
 	signed int iGridSize = DEFAULT_GRID_SIZE;
@@ -43,10 +45,13 @@ public:
 	Map& operator=( const Map other ) = delete;
 	Map& operator=( Map&& other) = delete;
 
+	const char* GetWaypointFileHeaderString() const;
 	unsigned int GetMaxWaypoints() const;
 	unsigned int GetMaxPathIndexes() const;
 
 	bool IsFormatValid() const;
+
+	void WriteWaypointHeader(FILE* pFile, string fileName) const;
 };
 
 #endif // __MAP_H__

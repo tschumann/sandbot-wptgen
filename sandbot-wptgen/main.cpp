@@ -30,7 +30,7 @@ int main( _In_ int argc, _In_ char **argv )
 		printf( "Usage: sandbot-wptgen.exe -wN -sS -fS file.bsp\n" );
 		printf( "-w is the grid size (integer greater than 32)\n" );
 		printf( "-s is the spawnpoint (e.g. info_player_deathmatch)\n" );
-		printf( "-f is the format (e.g. S for sandbot or H for hpb_bot)\n" );
+		printf( "-f is the format (e.g. S for Sandbot, H for HPB_Bot or U for Sturmbot)\n" );
 
 		return EX_USAGE;
 	}
@@ -74,7 +74,7 @@ int main( _In_ int argc, _In_ char **argv )
 
 			if( !map.IsFormatValid() )
 			{
-				Logger::Warn( "Format must be %c or %c\n", Map::FORMAT_SANDBOT, Map::FORMAT_HPB_BOT );
+				Logger::Warn( "Format must be %c, %c or %c\n", Map::FORMAT_SANDBOT, Map::FORMAT_HPB_BOT, Map::FORMAT_STURMBOT );
 
 				return EX_CONFIG;
 			}
