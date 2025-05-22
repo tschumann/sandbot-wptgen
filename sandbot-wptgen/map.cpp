@@ -75,6 +75,26 @@ unsigned int Map::GetMaxPathIndexes() const
 	}
 }
 
+int Map::GetDayOfDefeatControlPointWaypointFlag() const
+{
+	if (cFormat == Map::FORMAT_SANDBOT)
+	{
+		return sandbot::W_FL_DOD_CAP;
+	}
+	else if (cFormat == Map::FORMAT_HPB_BOT)
+	{
+		// NOTE: HPB_Bot doesn't support Day of Defeat
+		return WAYPOINT_FLAG_NOTHING;
+	}
+	else if (cFormat == Map::FORMAT_STURMBOT)
+	{
+		// TODO: what is the actual flag?
+		return WAYPOINT_FLAG_NOTHING;
+	}
+
+	return WAYPOINT_FLAG_NOTHING;
+}
+
 bool Map::IsFormatValid() const
 {
 	return cFormat == Map::FORMAT_SANDBOT || cFormat == Map::FORMAT_HPB_BOT || cFormat == Map::FORMAT_STURMBOT;

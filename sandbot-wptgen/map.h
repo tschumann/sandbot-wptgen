@@ -36,6 +36,8 @@ public:
 	const static char FORMAT_HPB_BOT = 'H';
 	const static char FORMAT_STURMBOT = 'U';
 
+	const static int WAYPOINT_FLAG_NOTHING = 0;
+
 	// signed so that it can be negated in waypoint.cpp
 	signed int iGridSize = DEFAULT_GRID_SIZE;
 	// some games/mods have different spawn point entities for different teams, but the spawn point is just used as a start location
@@ -51,6 +53,8 @@ public:
 	const char* GetWaypointFileHeaderString() const;
 	unsigned int GetMaxWaypoints() const;
 	unsigned int GetMaxPathIndexes() const;
+
+	int GetDayOfDefeatControlPointWaypointFlag() const;
 
 	bool IsFormatValid() const;
 
