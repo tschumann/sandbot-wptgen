@@ -32,6 +32,15 @@ namespace utiltest
 			Assert::AreEqual( string("path"), Util::ExtractFileNameWithoutExtension( "file/path" ) );
 		}
 
+		TEST_METHOD(TestExtractFileExtension)
+		{
+			Assert::AreEqual( string("txt"), Util::ExtractFileExtension("long\\file\\path.txt") );
+			Assert::AreEqual( string("txt"), Util::ExtractFileExtension("long/file/path.txt") );
+			Assert::AreEqual( string("txt"), Util::ExtractFileExtension("file/path.txt") );
+			Assert::AreEqual( string(""), Util::ExtractFileExtension("file/path.") );
+			Assert::AreEqual( string(""), Util::ExtractFileExtension("file/path") );
+		}
+
 		TEST_METHOD(TestIsPathSeparator)
 		{
 			Assert::IsTrue( Util::IsPathSeparator( '\\' ) );

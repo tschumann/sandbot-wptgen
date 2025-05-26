@@ -87,18 +87,30 @@ int main( _In_ int argc, _In_ char **argv )
 		}
 	}
 
-	Logger::Info( "Processing %s with grid size %u and spawnpoint %s\n", szFilename, map.iGridSize, map.szSpawnpoint );
+	string inputFileExtension = Util::ExtractFileExtension( szFilename );
 
-	const bool bSuccess = world.LoadBSP( szFilename );
-
-	if( !bSuccess )
+	if( inputFileExtension == "bsp" )
 	{
-		Logger::Warn( "Unable to open %s\n", szFilename );
+		Logger::Info( "Processing %s with grid size %u and spawnpoint %s\n", szFilename, map.iGridSize, map.szSpawnpoint );
 
-		return EX_NOINPUT;
+		const bool bSuccess = world.LoadBSP( szFilename );
+
+		if( !bSuccess )
+		{
+			Logger::Warn( "Unable to open %s\n", szFilename );
+
+			return EX_NOINPUT;
+		}
+
+		WaypointLevel( map );
 	}
-
-	WaypointLevel( map );
+	else if( inputFileExtension == "wpt" )
+	{
+	}
+	else
+	{
+		return EX_DATAERR;
+	}
 
 	return EX_OK;
 }

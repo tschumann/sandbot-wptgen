@@ -24,6 +24,7 @@ public:
 	Util() = delete;
 
 	static string ExtractFileNameWithoutExtension( const string &strPath );
+	static string ExtractFileExtension( const string& strPath );
 
 	static bool IsPathSeparator( const char cCharacter ) noexcept;
 };

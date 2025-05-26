@@ -39,6 +39,18 @@ string Util::ExtractFileNameWithoutExtension( const string &strPath )
 	return strPath.substr( iLastSeparatorIndex + 1, ( iExtensionIndex - 1 - iLastSeparatorIndex ) );
 }
 
+string Util::ExtractFileExtension( const string& strPath )
+{
+	size_t positionOfLastDotInPath = strPath.find_last_of(".");
+
+	if( positionOfLastDotInPath == string::npos )
+	{
+		return "";
+	}
+
+	return strPath.substr( positionOfLastDotInPath + 1 );
+}
+
 bool Util::IsPathSeparator( const char cCharacter ) noexcept
 {
 	return cCharacter == '\\' || cCharacter == '/';
