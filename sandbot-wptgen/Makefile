@@ -1,6 +1,8 @@
 CPP = g++
 CPPFLAGS = -std=c++20 -march=core2 -mfpmath=sse -Wall -Wextra -fno-math-errno
 
+INC = -I../xplatform
+
 ALL: sandbot-wptgen
 
 WPTGEN_OBJ = main.o bspfile.o cmdlib.o logger.o map.o \
@@ -9,7 +11,7 @@ WPTGEN_OBJ = main.o bspfile.o cmdlib.o logger.o map.o \
 # links the objects
 DO_BUILD = ${CPP} -g -o sandbot-wptgen ${WPTGEN_OBJ} -lstdc++ -lm
 
-sandbot-wptgen:CPPFLAGS += -g -O3
+sandbot-wptgen: CPPFLAGS += -g -O3
 sandbot-wptgen: ${WPTGEN_OBJ}
 	${DO_BUILD}
 
@@ -26,8 +28,8 @@ clean:
 	-rm -f sandbot-wptgen
 
 %.o:    %.cpp
-	${CPP} ${CPPFLAGS} -c $< -o $@
+	${CPP} ${CPPFLAGS} ${INC} -c $< -o $@
 
 %.o:    %.c
-	${CPP} ${CPPFLAGS} -c $< -o $@
+	${CPP} ${CPPFLAGS} ${INC} -c $< -o $@
 
