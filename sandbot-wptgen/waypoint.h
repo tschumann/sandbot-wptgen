@@ -106,6 +106,12 @@ namespace sturmbot
 #ifndef WAYPOINT_H
 #define WAYPOINT_H
 
+class Waypoint
+{
+public:
+	int LoadWPT( _In_ const char* const pszFilename );
+};
+
 bool CheckWaypoint(const vec3_t &coord, vec3_t new_coord);
 void RecursiveFloodFill(const vec3_t &coord);
 void WaypointAddEntities(const char *item_name, const int waypoint_flags);

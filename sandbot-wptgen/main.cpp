@@ -106,6 +106,11 @@ int main( _In_ int argc, _In_ char **argv )
 	}
 	else if( inputFileExtension == "wpt" )
 	{
+		Logger::Info( "Loading %s\n", szFilename );
+
+		Waypoint waypoint;
+
+		return waypoint.LoadWPT( szFilename );
 	}
 	else
 	{

@@ -69,6 +69,10 @@ vec3_t down_to_ground, up_off_floor;
 // stacks for the floodfill recursion...
 std::stack <float> S0, S1, S2;
 
+int Waypoint::LoadWPT( _In_ const char* const pszFilename )
+{
+    return EX_OK;
+}
 
 void WaypointAdd(const vec3_t &origin, int flags, bool ignore_loc)
 {
