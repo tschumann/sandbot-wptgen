@@ -71,14 +71,14 @@ std::stack <float> S0, S1, S2;
 
 int Waypoint::LoadWPT( _In_ const char* const pszFilename )
 {
-    FILE* pFile = fopen( pszFilename, "wb" );
-
-    if( pFile == nullptr )
+    if( !_access(pszFilename, 0) )
     {
         Logger::Warn( "Unable to open %s\n", pszFilename );
 
         return EX_NOINPUT;
     }
+
+    FILE* pFile = fopen(pszFilename, "rb");
 
     return EX_OK;
 }

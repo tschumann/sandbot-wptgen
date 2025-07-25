@@ -53,8 +53,14 @@ namespace maintest
 		TEST_METHOD(TestSetSpawnpointEntity)
 		{
 			vector<const char*> argv = { "sandbot.exe", "-w32", "-sinfo_player_null" };
-			Assert::AreEqual( EX_NOINPUT, main( (int)argv.size(), const_cast<char **>(argv.data()) ) );
+			Assert::AreEqual( EX_DATAERR, main( (int)argv.size(), const_cast<char **>(argv.data()) ) );
 			Assert::IsTrue( !strcmp("info_player_null", map.szSpawnpoint) );
+		}
+
+		TEST_METHOD(TestNoSuchWaypointFile)
+		{
+			vector<const char*> argv = { "sandbot.exe", "file.wpt" };
+			Assert::AreEqual( EX_NOINPUT, main( (int)argv.size(), const_cast<char**>(argv.data()) ) );
 		}
 	};
 }
