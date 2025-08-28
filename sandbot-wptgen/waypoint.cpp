@@ -69,18 +69,75 @@ vec3_t down_to_ground, up_off_floor;
 // stacks for the floodfill recursion...
 std::stack <float> S0, S1, S2;
 
+Waypoint::Waypoint() : pFile(nullptr)
+{
+}
+
+Waypoint::~Waypoint()
+{
+    if (pFile)
+    {
+        fclose(pFile);
+    }
+}
+
 int Waypoint::LoadWPT( _In_ const char* const pszFilename )
 {
-    if( !_access(pszFilename, 0) )
+    if( _access(pszFilename, 0) == -1 )
     {
         Logger::Warn( "Unable to open %s\n", pszFilename );
 
         return EX_NOINPUT;
     }
 
-    FILE* pFile = fopen(pszFilename, "rb");
+    pFile = fopen(pszFilename, "rb");
+
+    char szIdentifier[10] = "";
+
+    size_t iRead = fread(&szIdentifier, 1, 10, pFile);
+
+    // NOTE: 10 bytes isn't very scientific but if it's any less than that, it's almost certainly not enough to be a complete waypoint file
+    if (iRead <= 10)
+    {
+        Logger::Warn("Only read %d bytes; not enough for a valid waypoint file\n", iRead);
+
+        return EX_DATAERR;
+    }
+
+    fseek(pFile, 0, SEEK_SET);
+
+    if (!strcmp(szIdentifier, sandbot::WAYPOINT_HEADER))
+    {
+        LoadSandbotWPT();
+    }
+    else if (!strcmp(szIdentifier, hpb_bot::WAYPOINT_HEADER))
+    {
+        LoadHPB_BotWPT();
+    }
+    else if (!strcmp(szIdentifier, sturmbot::WAYPOINT_HEADER))
+    {
+        LoadSturmbotWPT();
+    }
+    else
+    {
+        Logger::Warn("Unrecognised .wpt format with identifier %s\n", szIdentifier);
+
+        return EX_DATAERR;
+    }
 
     return EX_OK;
+}
+
+void Waypoint::LoadSandbotWPT()
+{
+}
+
+void Waypoint::LoadHPB_BotWPT()
+{
+}
+
+void Waypoint::LoadSturmbotWPT()
+{
 }
 
 void WaypointAdd(const vec3_t &origin, int flags, bool ignore_loc)

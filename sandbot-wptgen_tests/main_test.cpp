@@ -62,5 +62,35 @@ namespace maintest
 			vector<const char*> argv = { "sandbot.exe", "file.wpt" };
 			Assert::AreEqual( EX_NOINPUT, main( (int)argv.size(), const_cast<char**>(argv.data()) ) );
 		}
+
+		TEST_METHOD(TestEmptyWaypointFile)
+		{
+#ifdef _WIN64
+			vector<const char*> argv = { "sandbot.exe", "..\\..\\tests\\wpt\\empty.wpt" };
+#else
+			vector<const char*> argv = { "sandbot.exe", "..\\tests\\wpt\\empty.wpt" };
+#endif // _WIN64
+			Assert::AreEqual(EX_NOINPUT, main((int)argv.size(), const_cast<char**>(argv.data())));
+		}
+
+		TEST_METHOD(TestTooShortWaypointFile)
+		{
+#ifdef _WIN64
+			vector<const char*> argv = { "sandbot.exe", "..\\..\\tests\\wpt\\short.wpt" };
+#else
+			vector<const char*> argv = { "sandbot.exe", "..\\tests\\wpt\\short.wpt" };
+#endif // _WIN64
+			Assert::AreEqual(EX_DATAERR, main((int)argv.size(), const_cast<char**>(argv.data())));
+		}
+
+		TEST_METHOD(TestInvalidWaypointFile)
+		{
+#ifdef _WIN64
+			vector<const char*> argv = { "sandbot.exe", "..\\..\\tests\\wpt\\invalid.wpt" };
+#else
+			vector<const char*> argv = { "sandbot.exe", "..\\tests\\wpt\\invalid.wpt" };
+#endif // _WIN64
+			Assert::AreEqual(EX_DATAERR, main((int)argv.size(), const_cast<char**>(argv.data())));
+		}
 	};
 }

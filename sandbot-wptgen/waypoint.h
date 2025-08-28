@@ -109,7 +109,16 @@ namespace sturmbot
 class Waypoint
 {
 public:
+	Waypoint();
+	~Waypoint();
+
 	int LoadWPT( _In_ const char* const pszFilename );
+	void LoadSandbotWPT();
+	void LoadHPB_BotWPT();
+	void LoadSturmbotWPT();
+
+private:
+	FILE* pFile;
 };
 
 bool CheckWaypoint(const vec3_t &coord, vec3_t new_coord);
